@@ -16,20 +16,17 @@ const DollarBackground: React.FC<Props> = (props) => {
 
   const rotateAnimationProps = useSpring({
     from: {
-      transform: 'rotate(0deg)',
+      rotate: 0,
     },
     to: {
-      transform: 'rotate(360deg)',
+      rotate: 360,
     },
     loop: isLoading,
+    cancel: !isLoading,
   });
 
   const scaleAnimationProps = useSpring({
     to: {
-      position: isLoading ? 'relative' : 'absolute',
-      top: 0,
-      left: isLoading ? 0 : '-50%',
-
       width: isLoading ? 50 : windowWidth * 1.2,
       height: isLoading ? 50 : '100%',
       opacity: isLoading ? '100%' : '2%',
@@ -39,8 +36,16 @@ const DollarBackground: React.FC<Props> = (props) => {
   return (
     <Container {...props}>
       <ChildrenContainer>{children}</ChildrenContainer>
-      <RotateContainer {...rotateAnimationProps}>
+      <RotateContainer
+        style={{
+          // https://github.com/pmndrs/react-spring/issues/875
+          transform: rotateAnimationProps.rotate.interpolate(
+            (r) => `rotate(${r}deg)`
+          ),
+          position: isLoading ? 'relative' : 'absolute',
+        }}>
         <BackgroundShape
+          isLoading
           strokeWidth={1.1}
           color={theme.primitiveColors.white}
           {...scaleAnimationProps}
@@ -73,7 +78,11 @@ const RotateContainer = styled(animated.div)`
   justify-content: center;
 `;
 
-const BackgroundShape = styled(animated(Icon.DollarSign))`
+const BackgroundShape = styled(animated(Icon.DollarSign))<{
+  isLoading: boolean;
+}>`
+  position: ${({ isLoading }) => (isLoading ? 'relative' : 'absolute')};
+
   z-index: 0;
 
   transform: rotate(-90deg);

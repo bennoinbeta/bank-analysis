@@ -1,6 +1,8 @@
 import { ui, csv } from '../../../core';
 
-export const onDrop = (acceptedFiles: File[]) => {
+export const onDrop = async (acceptedFiles: File[]) => {
+  ui.setIsLoading(true);
+
   acceptedFiles.forEach((file) => {
     if (!csv.isCSVFile(file.name)) {
       ui.toast('Invalid CSV file provided!');
@@ -28,4 +30,8 @@ export const onDrop = (acceptedFiles: File[]) => {
     // Staart reading specified file
     reader.readAsText(file);
   });
+
+  await ui.sleep(3000);
+
+  ui.setIsLoading(false);
 };

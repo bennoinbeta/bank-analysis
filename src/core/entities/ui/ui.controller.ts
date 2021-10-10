@@ -17,3 +17,4 @@ export const THEME_TYPE = createState<ThemePaths>('dark').persist('theme');
 export const THEME = createComputed<ThemeInterface>(() => {
     return themes[THEME_TYPE.value];
 });
+export const IS_LOADING = createState(false);
