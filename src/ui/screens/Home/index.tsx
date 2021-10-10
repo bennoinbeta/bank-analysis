@@ -6,8 +6,8 @@ import { onDrop } from './controller';
 
 const Home: React.FC = () => {
   return (
-    <Container>
-      <DropZone onDrop={onDrop} />
+    <Container isLoading={true}>
+      {/* <DropZone onDrop={onDrop} /> */}
     </Container>
   );
 };

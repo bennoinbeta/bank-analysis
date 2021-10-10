@@ -9,7 +9,7 @@ type Props = {
 };
 
 const AlertCircle: React.FC<Props> = (props) => {
-  const { width, height, color, strokeWidth, className } = props;
+  const { width, height, color, strokeWidth } = props;
 
   return (
     <svg
@@ -18,7 +18,7 @@ const AlertCircle: React.FC<Props> = (props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      className={className}>
+      {...props}>
       <path
         d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zM12 8v4M12 16h.01"
         stroke={color}

@@ -9,7 +9,7 @@ type Props = {
 };
 
 const Plus: React.FC<Props> = (props) => {
-  const { width, height, color, strokeWidth, className } = props;
+  const { width, height, color, strokeWidth } = props;
 
   return (
     <svg
@@ -18,7 +18,7 @@ const Plus: React.FC<Props> = (props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      className={className}>
+      {...props}>
       <path
         d="M12 5v14M5 12h14"
         stroke={color}

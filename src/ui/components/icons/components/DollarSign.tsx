@@ -9,7 +9,7 @@ type Props = {
 };
 
 const DollarSign: React.FC<Props> = (props) => {
-  const { width, height, color, strokeWidth, className } = props;
+  const { width, height, color, strokeWidth } = props;
 
   return (
     <svg
@@ -17,8 +17,8 @@ const DollarSign: React.FC<Props> = (props) => {
       height={height}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 12 24"
-      className={className}>
+      viewBox="0 0 24 24"
+      {...props}>
       <path
         d="M12 1v22M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"
         stroke={color}
