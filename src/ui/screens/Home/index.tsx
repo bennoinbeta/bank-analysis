@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components';
-import { onDrop } from '../../core';
+import { onDrop } from './controller';
 
 const Home: React.FC = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
