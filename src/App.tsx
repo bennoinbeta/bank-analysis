@@ -1,15 +1,20 @@
 import React from 'react';
 import { useEvent } from '@agile-ts/event';
 import { toast, ToastContainer } from 'react-toastify';
+import { useAgile } from '@agile-ts/react';
 import Home from './ui/screens/Home';
-import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import ThemeContext from './context/ThemeContext';
 import { ui } from './core';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 const App: React.FC = () => {
-  const theme = ui.THEME.value;
+  // Adding dark theme fallback,
+  // because currently the Computed initial value is 'null'
+  // before the first computition.
+  // Will be fixed in the next AgileTs release ^^
+  const theme = useAgile(ui.THEME) || ui.themes.dark;
 
   useEvent(ui.TOAST_EVENT, (payload) => {
     toast[payload.type](payload.message);
@@ -18,7 +23,6 @@ const App: React.FC = () => {
   return (
     <ThemeContext.Provider value={theme}>
       <ThemeProvider theme={theme}>
-        <GlobalStyles/>
         <Container>
           <ToastContainer
             position="top-left"
@@ -45,14 +49,5 @@ const Container = styled.div`
   flex: 1;
   width: 100%;
   height: 100vh;
-  background-color: ${({theme}) => theme.colors.background};
-`;
-
-const GlobalStyles = createGlobalStyle`
-html,
-body {
-  margin: 0px;
-  padding: 0px;
-  height: 100%;
-}
+  background-color: ${({ theme }) => theme.colors.background};
 `;

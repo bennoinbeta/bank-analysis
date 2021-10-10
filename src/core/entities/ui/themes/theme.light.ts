@@ -28,9 +28,9 @@ const themeColors: ThemeColorsType = {
   on_primary: primitiveColors.black,
 
   // Background
-  background: primitiveColors.black_lighter,
-  on_background: primitiveColors.white,
-  on_background_2: primitiveColors.white_dark,
+  background: primitiveColors.white,
+  on_background: primitiveColors.black,
+  on_background_2: primitiveColors.black_light,
 
   // Surface
   surface: primitiveColors.black_light,
