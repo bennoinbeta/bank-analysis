@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components';
+import PlusIcon from './components/PlusIcon';
 
 type Props = {
   onDrop: (acceptedFiles: File[]) => void;
@@ -13,6 +14,7 @@ const DropZone: React.FC<Props> = (props) => {
   return (
     <Container {...getRootProps()} isDragActive={isDragActive}>
       <DropField {...getInputProps()} />
+      <PlusIcon/>
     </Container>
   );
 };
