@@ -14,6 +14,7 @@ const primitiveColors: PrimitiveColorsType = {
   purple: '#D476D4',
   purple_light: '#D476D4',
   purple_dark: '#926692',
+  purple_darker: '#B375B5',
 
   red: '#FF0000',
   red_light: '#FF9E9E',
@@ -36,6 +37,7 @@ const themeColors: ThemeColorsType = {
   surface: primitiveColors.black_light,
   surface_2: primitiveColors.gray,
   surface_border: primitiveColors.white_dark,
+  surface_border_2: primitiveColors.purple_dark,
   on_surface: primitiveColors.white,
   on_surface_2: primitiveColors.white_dark,
   on_surface_3: primitiveColors.white_darker,

@@ -25,6 +25,7 @@ export type PrimitiveColorsType = {
   purple: string;
   purple_light: string;
   purple_dark: string;
+  purple_darker: string;
 
   red: string;
   red_light: string;
@@ -47,6 +48,7 @@ export type ThemeColorsType = {
   surface: string;
   surface_2: string;
   surface_border: string;
+  surface_border_2: string;
   on_surface: string;
   on_surface_2: string;
   on_surface_3: string;

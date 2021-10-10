@@ -16,6 +16,11 @@ const PlusIcon: React.FC = () => {
 export default PlusIcon;
 
 const Container = styled.div`
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
   width: 50px;
   height: 50px;
 
