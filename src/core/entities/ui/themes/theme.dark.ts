@@ -34,6 +34,8 @@ const themeColors: ThemeColorsType = {
 
   // Surface
   surface: primitiveColors.black_light,
+  surface_2: primitiveColors.gray,
+  surface_border: primitiveColors.white_dark,
   on_surface: primitiveColors.white,
   on_surface_2: primitiveColors.white_dark,
   on_surface_3: primitiveColors.white_darker,

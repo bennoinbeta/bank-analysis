@@ -1,21 +1,17 @@
 import React from 'react';
-import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components';
+import ThemeContext from '../../../context/ThemeContext';
+import Icon from '../../components/icons';
+import DropZone from './components/DropZone';
 import { onDrop } from './controller';
 
 const Home: React.FC = () => {
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const theme = React.useContext(ThemeContext);
 
   return (
     <Container>
-      <DropContainer {...getRootProps()}>
-        <DropField {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drop the files here ...</p>
-        ) : (
-          <p>Drag 'n' drop some files here, or click to select files</p>
-        )}
-      </DropContainer>
+      <DropZone onDrop={onDrop} />
+      <BackgroundShape width={1000} height={1000} strokeWidth={2} color={theme.primitiveColors.white} />
     </Container>
   );
 };
@@ -29,19 +25,9 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const DropContainer = styled.div`
-  height: 100px;
-  width: 400px;
+const BackgroundShape = styled(Icon.DollarSign)`
+  position: absolute;
 
-  align-items: center;
-  justify-content: center;
-
-  border: 6px dashed #1c6ea4;
-
-  cursor: pointer;
-`;
-
-const DropField = styled.input`
-  display: flex;
-  flex: 1;
+  opacity: 0.02%;
+  transform: rotate(-90deg);
 `;

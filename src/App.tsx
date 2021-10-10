@@ -34,6 +34,7 @@ const App: React.FC = () => {
             pauseOnFocusLoss
             draggable
             pauseOnHover
+            theme={theme.type as any}
           />
           <Home />
         </Container>
