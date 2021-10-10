@@ -2,13 +2,14 @@ import React from 'react';
 
 type Props = {
   color?: string;
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
   strokeWidth?: number;
+  className?: string; // Required to apply styling via Styled-Components
 };
 
 const Plus: React.FC<Props> = (props) => {
-  const { width, height, color, strokeWidth } = props;
+  const { width, height, color, strokeWidth, className } = props;
 
   return (
     <svg
@@ -16,7 +17,8 @@ const Plus: React.FC<Props> = (props) => {
       height={height}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24">
+      viewBox="0 0 24 24"
+      className={className}>
       <path
         d="M12 5v14M5 12h14"
         stroke={color}

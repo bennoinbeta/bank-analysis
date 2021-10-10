@@ -11,7 +11,14 @@ const Home: React.FC = () => {
   return (
     <Container>
       <DropZone onDrop={onDrop} />
-      <BackgroundShape width={1000} height={1000} strokeWidth={2} color={theme.primitiveColors.white} />
+      <BackgroundShapeContainer>
+        <BackgroundShape
+          width={'100%'}
+          height={'100%'}
+          strokeWidth={2}
+          color={theme.primitiveColors.white}
+        />
+      </BackgroundShapeContainer>
     </Container>
   );
 };
@@ -27,7 +34,13 @@ const Container = styled.div`
 
 const BackgroundShape = styled(Icon.DollarSign)`
   position: absolute;
+  top: 0;
+  left: 0;
 
-  opacity: 0.02%;
+  opacity: 5%;
   transform: rotate(-90deg);
+`;
+
+const BackgroundShapeContainer = styled.div`
+  overflow: hidden;
 `;

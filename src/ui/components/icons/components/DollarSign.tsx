@@ -2,13 +2,14 @@ import React from 'react';
 
 type Props = {
   color?: string;
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
   strokeWidth?: number;
+  className?: string; // Required to apply styling via Styled-Components
 };
 
 const DollarSign: React.FC<Props> = (props) => {
-  const { width, height, color, strokeWidth } = props;
+  const { width, height, color, strokeWidth, className } = props;
 
   return (
     <svg
@@ -16,7 +17,8 @@ const DollarSign: React.FC<Props> = (props) => {
       height={height}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24">
+      viewBox="0 0 24 24"
+      className={className}>
       <path
         d="M12 1v22M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"
         stroke={color}

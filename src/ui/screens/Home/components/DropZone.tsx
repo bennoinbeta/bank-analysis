@@ -29,6 +29,8 @@ const Container = styled.div<{ isDragActive: boolean }>`
     ${({ theme, isDragActive }) =>
       isDragActive ? theme.colors.primary : theme.colors.surface_border};
   border-radius: 5px;
+
+  cursor: pointer;
 `;
 
 const DropField = styled.input`

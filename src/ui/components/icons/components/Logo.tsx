@@ -2,12 +2,13 @@ import React from 'react';
 
 type Props = {
   color?: string;
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
+  className?: string; // Required to apply styling via Styled-Components
 };
 
 const Logo: React.FC<Props> = (props) => {
-  const { width, height, color } = props;
+  const { width, height, color, className } = props;
 
   return (
     <svg
@@ -15,7 +16,8 @@ const Logo: React.FC<Props> = (props) => {
       height={height}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24">
+      viewBox="0 0 24 24"
+      className={className}>
       <g
         clipPath="url(#prefix__clip0)"
         stroke={color}
