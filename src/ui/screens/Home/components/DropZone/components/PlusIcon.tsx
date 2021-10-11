@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import ThemeContext from '../../../../../../context/ThemeContext';
 import Icon from '../../../../../components/icons';
+import { useTheme } from '../../../../../hooks/useTheme';
 
 const PlusIcon: React.FC = () => {
-  const theme = React.useContext(ThemeContext);
+  const theme = useTheme();
 
   return (
     <Container>

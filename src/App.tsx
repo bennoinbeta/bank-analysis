@@ -23,10 +23,9 @@ const App: React.FC = () => {
   return (
     <ThemeContext.Provider value={theme}>
       <ThemeProvider theme={theme}>
-        <Container>
           <ToastContainer
             position="top-left"
-            autoClose={5000}
+            autoClose={3000}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick
@@ -37,18 +36,9 @@ const App: React.FC = () => {
             theme={theme.type as any}
           />
           <Home />
-        </Container>
       </ThemeProvider>
     </ThemeContext.Provider>
   );
 };
 
 export default App;
-
-const Container = styled.div`
-  display: flex;
-  flex: 1;
-  width: 100%;
-  height: 100vh;
-  background-color: ${({ theme }) => theme.colors.background};
-`;

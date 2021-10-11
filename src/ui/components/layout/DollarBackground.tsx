@@ -23,6 +23,7 @@ const DollarBackground: React.FC<Props> = (props) => {
     },
     loop: isLoading,
     cancel: !isLoading,
+    reset: !isLoading,
   });
 
   const scaleAnimationProps = useSpring({
@@ -42,10 +43,9 @@ const DollarBackground: React.FC<Props> = (props) => {
           transform: rotateAnimationProps.rotate.interpolate(
             (r) => `rotate(${r}deg)`
           ),
-          position: isLoading ? 'relative' : 'absolute',
+          position: 'absolute',
         }}>
         <BackgroundShape
-          isLoading
           strokeWidth={1.1}
           color={theme.primitiveColors.white}
           {...scaleAnimationProps}
@@ -65,10 +65,19 @@ const Container = styled.div`
   position: relative;
   display: flex;
   flex: 1;
+
+  align-items: center;
+  justify-content: center;
+
   overflow: hidden;
 `;
 
 const ChildrenContainer = styled.div`
+  display: flex;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+
   z-index: 1;
 `;
 
@@ -78,10 +87,8 @@ const RotateContainer = styled(animated.div)`
   justify-content: center;
 `;
 
-const BackgroundShape = styled(animated(Icon.DollarSign))<{
-  isLoading: boolean;
-}>`
-  position: ${({ isLoading }) => (isLoading ? 'relative' : 'absolute')};
+const BackgroundShape = styled(animated(Icon.DollarSign))`
+  position: 'relative';
 
   z-index: 0;
 
