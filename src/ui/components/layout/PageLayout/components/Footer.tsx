@@ -1,6 +1,6 @@
-import { type } from 'os';
 import React from 'react';
 import styled from 'styled-components';
+import { MAX_WIDTH } from '..';
 
 type Props = {
   absolute?: boolean;
@@ -10,7 +10,7 @@ const Footer: React.FC<Props> = (props) => {
   const { absolute } = props;
 
   return (
-    <Container absolute={absolute as any}>
+    <Container absolute={absolute as any} maxWidth={MAX_WIDTH}>
       <RightsReservedText>
         ©2021 BENNODEV ALL RIGHTS RESERVED.
       </RightsReservedText>
@@ -24,17 +24,20 @@ Footer.defaultProps = {
 
 export default Footer;
 
-const Container = styled.div<{ absolute: boolean }>`
+const Container = styled.div<{ absolute: boolean, maxWidth: number }>`
   position: ${({ absolute }) => (absolute ? 'absolute' : 'relative')};
   bottom: 0;
-  left: 0;
 
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
 
+  max-width: ${({maxWidth}) => maxWidth}px;
   width: 100%;
+
   padding: 10px 0;
+  margin-left: auto;
+  margin-right: auto;
 
   background-color: ${({ theme, absolute }) =>
     !absolute ? theme.colors.background : 'transparent'};

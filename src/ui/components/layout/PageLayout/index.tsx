@@ -12,6 +12,8 @@ type Props = {
   isLoading?: boolean;
 };
 
+export const MAX_WIDTH = 1100;
+
 const PageLayout: React.FC<Props> = (props) => {
   const {
     shouldRenderNavbar,
@@ -23,7 +25,7 @@ const PageLayout: React.FC<Props> = (props) => {
 
   return (
     <Container isLoading={isLoading}>
-      <InnerContainer>
+      <InnerContainer maxWidth={MAX_WIDTH}>
         {shouldRenderHeader && <Header />}
 
         {shouldRenderNavbar && <Navbar />}
@@ -55,11 +57,11 @@ const Container = styled(DollarBackground)`
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
-const InnerContainer = styled.div`
+const InnerContainer = styled.div<{maxWidth: number}>`
   display: flex;
   flex: 1;
 
-  max-width: 1100px;
+  max-width: ${({maxWidth}) => maxWidth}px;
 
   margin-left: auto;
   margin-right: auto;
