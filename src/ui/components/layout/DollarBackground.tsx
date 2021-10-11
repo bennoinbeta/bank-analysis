@@ -28,8 +28,8 @@ const DollarBackground: React.FC<Props> = (props) => {
 
   const scaleAnimationProps = useSpring({
     to: {
-      width: isLoading ? 50 : windowWidth * 1.2,
-      height: isLoading ? 50 : '100%',
+      width: isLoading ? 50 : (windowWidth || 0) * 1.2,
+      height: '100%',
       opacity: isLoading ? '100%' : '2%',
     },
   });
@@ -40,9 +40,9 @@ const DollarBackground: React.FC<Props> = (props) => {
       <RotateContainer
         style={{
           // https://github.com/pmndrs/react-spring/issues/875
-          transform: rotateAnimationProps.rotate.interpolate(
+          transform: isLoading ? rotateAnimationProps.rotate.interpolate(
             (r) => `rotate(${r}deg)`
-          ),
+          ) : undefined,
           position: 'absolute',
         }}>
         <BackgroundShape
@@ -51,6 +51,7 @@ const DollarBackground: React.FC<Props> = (props) => {
           {...scaleAnimationProps}
         />
       </RotateContainer>
+      {isLoading && <LoadingText>Loading..</LoadingText>}
     </Container>
   );
 };
@@ -68,6 +69,7 @@ const Container = styled.div`
 
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 
   overflow: hidden;
 `;
@@ -93,4 +95,13 @@ const BackgroundShape = styled(animated(Icon.DollarSign))`
   z-index: 0;
 
   transform: rotate(-90deg);
+`;
+
+const LoadingText = styled.p`
+  position: absolute;
+  margin-top: 90px; // TODO find better way to place text below absolute view
+
+  font-size: 12px;
+
+  color: ${({ theme }) => theme.colors.on_background_2};
 `;

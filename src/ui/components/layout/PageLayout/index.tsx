@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import DollarBackground from '../DollarBackground';
 import Footer from './components/Footer';
-import Header from './components/Header';
+import Head from './components/Head';
 import Navbar from './components/Navbar';
 
 type Props = {
@@ -26,7 +26,7 @@ const PageLayout: React.FC<Props> = (props) => {
   return (
     <Container isLoading={isLoading}>
       <InnerContainer maxWidth={MAX_WIDTH}>
-        {shouldRenderHeader && <Header />}
+        {shouldRenderHeader && <Head />}
 
         {shouldRenderNavbar && <Navbar />}
 
