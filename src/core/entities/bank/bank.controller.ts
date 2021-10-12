@@ -2,13 +2,14 @@ import { createState } from '@agile-ts/core';
 
 export const BANK_DATA = createState<BankFileDataType[]>([]);
 
-type BankFileDataType = {
+export type BankFileDataType = {
   data: BankDataType[];
   name: string;
   parseTimestamp: number;
+  valid: boolean;
 };
 
-type BankDataType = {
+export type BankDataType = {
   date: Date;
   'receiver/sender': string;
   currency: 'EUR';
