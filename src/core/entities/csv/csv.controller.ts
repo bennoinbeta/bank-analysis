@@ -1,3 +1,10 @@
 import { createState } from "@agile-ts/core";
 
-export const CSV_ARRAY = createState<{ [key: string]: any }[]>([]);
+export const PARSED_CSV_FILES = createState<ParsedCSVDataType>([]);
+
+type ParsedCSVDataType =  {
+    name: string,
+    parseTimestamp: number
+    data: { [key: string]: any }[],
+}[]
+

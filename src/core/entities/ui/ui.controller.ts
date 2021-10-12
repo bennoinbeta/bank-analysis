@@ -11,10 +11,14 @@ export type ToastEventPayload = {
 
 export const TOAST_EVENT = createEvent<ToastEventPayload>();
 TOAST_EVENT.on((payload) => {
-   console.log('Event: ', payload);
+  console.log('Event: ', payload);
 });
 export const THEME_TYPE = createState<ThemePaths>('dark').persist('theme');
 export const THEME = createComputed<ThemeInterface>(() => {
-    return themes[THEME_TYPE.value];
+  return themes[THEME_TYPE.value];
 });
 export const IS_LOADING = createState(false);
+export const SHOW_GRAP = createComputed(() => {
+  // TODO
+  return false;
+});

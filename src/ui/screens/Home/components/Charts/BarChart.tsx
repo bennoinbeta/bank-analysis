@@ -1,5 +1,6 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
+import styled from 'styled-components';
 
 type Props = {
   data: any;
@@ -7,11 +8,22 @@ type Props = {
 
 const BarChart: React.FC<Props> = (props) => {
   const { data } = props;
+
   return (
-    <div>
-      <Bar height={400} width={600} data={data} />
-    </div>
+    <Container>
+      <Bar
+        data={data}
+      />
+    </Container>
   );
 };
 
 export default BarChart;
+
+const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex: 1;
+
+  margin: 50px 10px;
+`;

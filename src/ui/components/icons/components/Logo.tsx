@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Logo: React.FC<Props> = (props) => {
-  const { width, height, color, className } = props;
+  const { width, height, color } = props;
 
   return (
     <svg
@@ -17,7 +17,7 @@ const Logo: React.FC<Props> = (props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      className={className}>
+      {...props}>
       <g
         clipPath="url(#prefix__clip0)"
         stroke={color}
