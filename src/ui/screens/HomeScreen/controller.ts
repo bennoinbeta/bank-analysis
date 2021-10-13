@@ -8,8 +8,8 @@ export const onDrop = async (acceptedFiles: File[]) => {
 
   await ui.sleep(3000); // TODO REMOVE
 
-  let proceededFile = false;
-  acceptedFiles.forEach(async (file) => {
+  let successfullyProcessedFile = false;
+  for (const file of acceptedFiles) {
     // Parse CSV File to Javascript object array
     const csvData = await csv.parseCSVFile(file);
 
@@ -17,13 +17,13 @@ export const onDrop = async (acceptedFiles: File[]) => {
       // Parse Javascript object array to valid bank data
       if (bank.parseCSVData(csvData) != null) {
         ui.toast(`Proceeded '${ui.truncate(file.name)}'!`, 'success');
-        proceededFile = true;
+        successfullyProcessedFile = true;
       }
     }
-  });
+  }
 
   // Go to chart screen
-  if (proceededFile) routingHistory.push('/chart');
+  if (successfullyProcessedFile) routingHistory.push('/chart');
 
   ui.setIsLoading(false);
 };

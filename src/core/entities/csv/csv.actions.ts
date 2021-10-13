@@ -17,7 +17,7 @@ export const parseCSVFile = (file: File): Promise<ParsedCSVDataType | null> => {
 
     if (!isCSVFile(file.name)) {
       ui.toast('Invalid CSV file provided!');
-      return;
+      resolve(null);
     }
 
     // Setup FileReader callbacks

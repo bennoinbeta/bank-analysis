@@ -1,6 +1,6 @@
 import { MonthDatasetType } from '../../../../core/entities/bank/bank.types';
 
-export const useMonthGrapData = (
+export const useMonthGraphData = (
   monthDataset: MonthDatasetType | null,
   year = new Date().getFullYear()
 ): any => {

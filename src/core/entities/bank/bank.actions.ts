@@ -147,7 +147,7 @@ export const parseCSVData = (
     return parsedData;
   }
 
-  ui.toast('Failed to parse CSV File to valid Bank data!');
+  ui.toast('Failed to parse CSV File to proceedable Bank data!');
   return null;
 };
 

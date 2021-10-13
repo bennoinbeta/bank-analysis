@@ -7,7 +7,7 @@ import DropZone from './components/DropZone';
 import { onDrop } from './controller';
 
 const HomeScreen: React.FC = () => {
-  const [isLoading] = useAgile([ui.IS_LOADING]);
+  const isLoading = useAgile(ui.IS_LOADING);
 
   return (
     <PageLayout isLoading={isLoading}>
