@@ -12,6 +12,8 @@ export const parseCSVData = (
     valid: true,
   };
 
+  let invalidRows = 0;
+
   // Process raw CSV data
   for (let i = 0; i < csvData.data.length && parsedData.valid; i++) {
     const data = csvData.data[i];
@@ -30,17 +32,22 @@ export const parseCSVData = (
         if (parseMethodResponse.valid) {
           newData[property] = parseMethodResponse.parsedValue;
         } else {
-          ui.toast(`Failed to parse property '${property}' at row ${i}!`);
+          if (invalidRows < 1)
+            ui.toast(`Failed to parse property '${property}' at row ${i + 1}!`);
           valid = false;
         }
       } else {
-        ui.toast(
-          `Property '${property}' doesn't exist in dataset at row ${i}!`
-        );
+        if (invalidRows < 1)
+          ui.toast(
+            `Property '${property}' doesn't exist in dataset at row ${i + 1}!`
+          );
         valid = false;
       }
 
-      // parsedData.valid = valid;
+      // Make whole dataset invalid if more than 10 rows are invalid
+      if (invalidRows > 10) parsedData.valid = valid;
+      if (!valid) invalidRows++;
+
       return valid;
     };
 
