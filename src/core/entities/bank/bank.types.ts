@@ -15,10 +15,7 @@ export type BankDataType = {
 
 export type MonthDatasetType = {
   name: string;
-  labels: string[];
-  data: number[];
-  backgroundColors: string[];
-  borderColors: string[];
+  dataset: { [key: string]: { labels: string[]; data: number[] } }; // e.g. {2021: {labels: [..], data: [..]}}
 };
 
 export type BankDataPaths<T> = {

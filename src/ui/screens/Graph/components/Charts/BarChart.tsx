@@ -11,9 +11,7 @@ const BarChart: React.FC<Props> = (props) => {
 
   return (
     <Container>
-      <Bar
-        data={data}
-      />
+      <Bar data={data} />
     </Container>
   );
 };

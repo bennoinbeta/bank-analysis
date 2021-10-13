@@ -2,10 +2,14 @@ import React from 'react';
 import { useEvent } from '@agile-ts/event';
 import { toast, ToastContainer } from 'react-toastify';
 import { useAgile } from '@agile-ts/react';
-import Home from './ui/screens/Home';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import ThemeContext from './context/ThemeContext';
 import { ui } from './core';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import Legal from './ui/screens/Legal';
+import Graph from './ui/screens/Graph';
+import Home from './ui/screens/Home';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -35,7 +39,22 @@ const App: React.FC = () => {
           pauseOnHover
           theme={theme.type as any}
         />
-        <Home />
+
+        <Router>
+          <Switch>
+            <Route path="/">
+              <Home />
+            </Route>
+
+            <Route path="/chart">
+              <Graph />
+            </Route>
+
+            <Route path="/legal">
+              <Legal />
+            </Route>
+          </Switch>
+        </Router>
       </ThemeProvider>
     </ThemeContext.Provider>
   );

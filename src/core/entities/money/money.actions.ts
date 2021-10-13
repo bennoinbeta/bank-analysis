@@ -36,6 +36,7 @@ export const formatMoney = (value: number) => {
 export const getDecimal = (currency: string): string | undefined => {
   const currencyToDecimalKeymap: { [key: string]: string } = {
     EUR: ',',
+    USD: '.',
   };
 
   return currencyToDecimalKeymap[currency] || undefined;
