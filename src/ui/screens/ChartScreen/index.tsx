@@ -1,5 +1,6 @@
 import { useAgile } from '@agile-ts/react';
 import React from 'react';
+import { Redirect } from 'react-router';
 import styled from 'styled-components';
 import { bank } from '../../../core';
 import { BANK_DATA } from '../../../core/entities/bank/bank.controller';
@@ -10,7 +11,11 @@ import { useMonthGrapData } from './hooks/useMonthGraphData';
 
 const ChartScreen: React.FC = () => {
   const [isLoading, bankData] = useAgile([IS_LOADING, BANK_DATA]);
-  const chartData = useMonthGrapData(bank.getMonthDataset(bankData[0]));
+  const chartData = useMonthGrapData(
+    bankData.length > 0 ? bank.getMonthDataset(bankData[0]) : null
+  );
+
+  if (bankData.length === 0) return <Redirect to="/" />;
 
   return (
     <PageLayout isLoading={isLoading}>

@@ -5,14 +5,9 @@ import { useAgile } from '@agile-ts/react';
 import { ThemeProvider } from 'styled-components';
 import ThemeContext from './context/ThemeContext';
 import { ui } from './core';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-
-import LegalScreen from './ui/screens/LegalScreen';
-import ChartScreen from './ui/screens/ChartScreen';
-import HomeScreen from './ui/screens/HomeScreen';
-import FallbackScreen from './ui/screens/404';
 
 import 'react-toastify/dist/ReactToastify.css';
+import AppRouter from './routing/AppRouter';
 
 const App: React.FC = () => {
   // Adding dark theme fallback,
@@ -27,42 +22,23 @@ const App: React.FC = () => {
   });
 
   return (
-    <Router>
-      <ThemeContext.Provider value={theme}>
-        <ThemeProvider theme={theme}>
-          <ToastContainer
-            position="top-left"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme={theme.type as any}
-          />
-
-          <Switch>
-            <Route exact path="/">
-              <HomeScreen />
-            </Route>
-
-            <Route path="/chart">
-              <ChartScreen />
-            </Route>
-
-            <Route path="/legal">
-              <LegalScreen />
-            </Route>
-
-            <Route path="*">
-              <FallbackScreen />
-            </Route>
-          </Switch>
-        </ThemeProvider>
-      </ThemeContext.Provider>
-    </Router>
+    <ThemeContext.Provider value={theme}>
+      <ThemeProvider theme={theme}>
+        <ToastContainer
+          position="top-left"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme={theme.type as any}
+        />
+        <AppRouter />
+      </ThemeProvider>
+    </ThemeContext.Provider>
   );
 };
 

@@ -1,6 +1,7 @@
 import { ui, csv } from '../../../core';
 import bank from '../../../core/entities/bank';
 import { BankFileDataType } from '../../../core/entities/bank/bank.types';
+import history from '../../../routing/history';
 
 export const onDrop = async (acceptedFiles: File[]) => {
   ui.setIsLoading(true);
@@ -18,6 +19,9 @@ export const onDrop = async (acceptedFiles: File[]) => {
       }
     }
   });
+
+  // Go to chart screen
+  history.push('/chart');
 
   ui.setIsLoading(false);
 };
