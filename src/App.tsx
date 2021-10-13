@@ -5,11 +5,12 @@ import { useAgile } from '@agile-ts/react';
 import { ThemeProvider } from 'styled-components';
 import ThemeContext from './context/ThemeContext';
 import { ui } from './core';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import LegalScreen from './ui/screens/LegalScreen';
 import ChartScreen from './ui/screens/ChartScreen';
 import HomeScreen from './ui/screens/HomeScreen';
+import FallbackScreen from './ui/screens/404';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,6 +21,7 @@ const App: React.FC = () => {
   // Will be fixed in the next AgileTs release ^^
   const theme = useAgile(ui.THEME) || ui.themes.dark;
 
+  // Handle UI-Events
   useEvent(ui.TOAST_EVENT, (payload) => {
     toast[payload.type](payload.message);
   });
@@ -42,7 +44,7 @@ const App: React.FC = () => {
           />
 
           <Switch>
-            <Route path="/">
+            <Route exact path="/">
               <HomeScreen />
             </Route>
 
@@ -52,6 +54,10 @@ const App: React.FC = () => {
 
             <Route path="/legal">
               <LegalScreen />
+            </Route>
+
+            <Route path="*">
+              <FallbackScreen />
             </Route>
           </Switch>
         </ThemeProvider>
