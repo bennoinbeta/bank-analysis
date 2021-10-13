@@ -58,7 +58,8 @@ const processCSVFileContent = (fileContentAsText: string, separator = ';') => {
   // Extract first line of CSV file
   const headers = fileContentAsText
     .slice(0, fileContentAsText.indexOf('\n'))
-    .split(separator);
+    .split(separator)
+    .map((v) => v.replace('\r', ''));
 
   // Extract CSV rows
   const rows = fileContentAsText

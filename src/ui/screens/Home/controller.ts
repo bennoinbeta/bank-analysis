@@ -11,10 +11,9 @@ export const onDrop = async (acceptedFiles: File[]) => {
     const csvData = await csv.parseCSVFile(file);
 
     if (csvData != null) {
-      ui.toast(`Proceeded '${ui.truncate(file.name)}'!`, 'success');
-
       // Parse Javascript object array to valid bank data
-      bank.parseCSVData(csvData);
+      if (bank.parseCSVData(csvData) != null)
+        ui.toast(`Proceeded '${ui.truncate(file.name)}'!`, 'success');
     }
   });
 
