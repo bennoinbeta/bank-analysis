@@ -1,14 +1,16 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
+import routingHistory from './history';
 
 import LegalScreen from '../ui/screens/LegalScreen';
 import ChartScreen from '../ui/screens/ChartScreen';
 import HomeScreen from '../ui/screens/HomeScreen';
 import FallbackScreen from '../ui/screens/404';
 
+
 const AppRouter: React.FC = () => {
   return (
-    <Router history={history}>
+    <Router history={routingHistory}>
       <Switch>
         <Route exact path="/">
           <HomeScreen />

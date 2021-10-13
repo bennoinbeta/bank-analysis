@@ -1,13 +1,14 @@
 import { ui, csv } from '../../../core';
 import bank from '../../../core/entities/bank';
 import { BankFileDataType } from '../../../core/entities/bank/bank.types';
-import history from '../../../routing/history';
+import routingHistory from '../../../routing/history';
 
 export const onDrop = async (acceptedFiles: File[]) => {
   ui.setIsLoading(true);
 
   await ui.sleep(3000); // TODO REMOVE
 
+  let proceededFile = false;
   acceptedFiles.forEach(async (file) => {
     // Parse CSV File to Javascript object array
     const csvData = await csv.parseCSVFile(file);
@@ -16,12 +17,13 @@ export const onDrop = async (acceptedFiles: File[]) => {
       // Parse Javascript object array to valid bank data
       if (bank.parseCSVData(csvData) != null) {
         ui.toast(`Proceeded '${ui.truncate(file.name)}'!`, 'success');
+        proceededFile = true;
       }
     }
   });
 
   // Go to chart screen
-  history.push('/chart');
+  if (proceededFile) routingHistory.push('/chart');
 
   ui.setIsLoading(false);
 };
