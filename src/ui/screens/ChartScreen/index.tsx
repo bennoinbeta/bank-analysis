@@ -8,7 +8,7 @@ import PageLayout from '../../components/layout/PageLayout';
 import BarChart from './components/Charts/BarChart';
 import { useMonthGrapData } from './hooks/useMonthGraphData';
 
-const Graph: React.FC = () => {
+const ChartScreen: React.FC = () => {
   const [isLoading, bankData] = useAgile([IS_LOADING, BANK_DATA]);
   const chartData = useMonthGrapData(bank.getMonthDataset(bankData[0]));
 
@@ -19,7 +19,7 @@ const Graph: React.FC = () => {
   );
 };
 
-export default Graph;
+export default ChartScreen;
 
 const Container = styled.div`
   display: flex;

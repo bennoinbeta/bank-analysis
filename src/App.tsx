@@ -7,9 +7,9 @@ import ThemeContext from './context/ThemeContext';
 import { ui } from './core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Legal from './ui/screens/Legal';
-import Graph from './ui/screens/Graph';
-import Home from './ui/screens/Home';
+import LegalScreen from './ui/screens/LegalScreen';
+import ChartScreen from './ui/screens/ChartScreen';
+import HomeScreen from './ui/screens/HomeScreen';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -25,38 +25,38 @@ const App: React.FC = () => {
   });
 
   return (
-    <ThemeContext.Provider value={theme}>
-      <ThemeProvider theme={theme}>
-        <ToastContainer
-          position="top-left"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme={theme.type as any}
-        />
+    <Router>
+      <ThemeContext.Provider value={theme}>
+        <ThemeProvider theme={theme}>
+          <ToastContainer
+            position="top-left"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme={theme.type as any}
+          />
 
-        <Router>
           <Switch>
             <Route path="/">
-              <Home />
+              <HomeScreen />
             </Route>
 
             <Route path="/chart">
-              <Graph />
+              <ChartScreen />
             </Route>
 
             <Route path="/legal">
-              <Legal />
+              <LegalScreen />
             </Route>
           </Switch>
-        </Router>
-      </ThemeProvider>
-    </ThemeContext.Provider>
+        </ThemeProvider>
+      </ThemeContext.Provider>
+    </Router>
   );
 };
 

@@ -6,7 +6,7 @@ import PageLayout from '../../components/layout/PageLayout';
 import DropZone from './components/DropZone';
 import { onDrop } from './controller';
 
-const Home: React.FC = () => {
+const HomeScreen: React.FC = () => {
   const [isLoading] = useAgile([ui.IS_LOADING]);
 
   return (
@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default HomeScreen;
 
 const Container = styled.div`
   display: flex;
