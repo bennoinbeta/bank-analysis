@@ -1,11 +1,10 @@
-import { ThemePaths } from './themes';
 import {
   IS_LOADING,
   SHOW_GRAP,
   THEME_TYPE,
-  ToastEventType,
   TOAST_EVENT,
 } from './ui.controller';
+import { ThemePaths, ToastEventType } from './ui.types';
 
 export const toast = (message: string, type: ToastEventType = 'error') => {
   TOAST_EVENT.trigger({ message, type });
@@ -13,10 +12,6 @@ export const toast = (message: string, type: ToastEventType = 'error') => {
 
 export const setIsLoading = (loading: boolean) => {
   IS_LOADING.set(loading);
-};
-
-export const setShowGraph = (showGraph: boolean) => {
-  SHOW_GRAP.set(showGraph);
 };
 
 export const setTheme = (type: ThemePaths) => {

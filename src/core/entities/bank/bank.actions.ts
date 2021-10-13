@@ -1,7 +1,13 @@
-import currency from 'currency.js';
-import { ParsedCSVDataType } from '../csv/csv.controller';
+import { ParsedCSVDataType } from '../csv/csv.types';
+import { getDecimal, unformatMoney } from '../money/money.actions';
 import ui from '../ui';
-import { BankDataType, BankFileDataType, BANK_DATA } from './bank.controller';
+import { BANK_DATA } from './bank.controller';
+import {
+  BankDataPaths,
+  BankDataType,
+  BankFileDataType,
+  MonthDatasetType,
+} from './bank.types';
 
 export const parseCSVData = (
   csvData: ParsedCSVDataType
@@ -96,7 +102,7 @@ export const parseCSVData = (
     if (
       !parse('amount', (value) => {
         return {
-          parsedValue: value,
+          parsedValue: unformatMoney(value, getDecimal(newData['currency'])),
           valid: true,
         };
       })
@@ -107,9 +113,12 @@ export const parseCSVData = (
     if (
       !parse('debit/credit', (value) => {
         const response = { parsedValue: null as any, valid: false };
+        const parsedValue = value
+          .replace('H', 'C') // Replace 'Haben' with 'Credit'
+          .replace('S', 'D'); // Replace 'Soll' with 'Debit'
 
-        if (['H', 'S'].includes(value)) {
-          response.parsedValue = value;
+        if (['D', 'C'].includes(parsedValue)) {
+          response.parsedValue = parsedValue;
           response.valid = true;
         }
 
@@ -134,7 +143,48 @@ export const parseCSVData = (
   return null;
 };
 
-type BankDataPaths<T> = {
-  [K in keyof T]: T[K] extends any ? K : never;
-}[keyof T] &
-  string;
+export const getMonthDataset = (
+  bankData: BankFileDataType
+): MonthDatasetType | null => {
+  if (!bankData.valid) return null;
+  const data = bankData.data;
+  const labels: string[] = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'September',
+    'October',
+    'November',
+    'Dezember',
+  ];
+  const amounts: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  for (const item of data) {
+    const monthIndex = item.date.getMonth();
+    if (monthIndex) {
+      console.log('Debug: ', {
+        item,
+        monthIndex,
+      });
+
+      if (item['debit/credit'] === 'C') amounts[monthIndex] += item.amount;
+      else if (item['debit/credit'] === 'D') amounts[monthIndex] -= item.amount;
+    }
+  }
+
+  return {
+    name: bankData.name,
+    labels,
+    data: amounts,
+    backgroundColors: amounts.map((val) =>
+      val > 0 ? 'rgba(54, 162, 235, 0.2)' : 'rgba(255, 99, 132, 0.2)'
+    ),
+    borderColors: amounts.map((val) =>
+      val > 0 ? 'rgba(54, 162, 235, 1)' : 'rgba(255, 99, 132, 1)'
+    ),
+  };
+};

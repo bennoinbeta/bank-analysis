@@ -1,6 +1,6 @@
-import { resolve } from 'dns';
 import ui from '../ui';
-import { ParsedCSVDataType, PARSED_CSV_FILES } from './csv.controller';
+import { PARSED_CSV_FILES } from './csv.controller';
+import { ParsedCSVDataType } from './csv.types';
 
 const getFileExtension = (filename: string): string | null => {
   const parts = filename.split('.');
@@ -80,5 +80,3 @@ const processCSVFileContent = (fileContentAsText: string, separator = ';') => {
 
   return csvArray;
 };
-
-export const getDateChartData = () => {};

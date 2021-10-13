@@ -1,13 +1,8 @@
-import themes, { ThemeInterface, ThemePaths } from './themes';
+import { BANK_DATA } from './../bank/bank.controller';
+import themes from './themes';
 import { createComputed, createState } from '@agile-ts/core';
 import { createEvent } from '@agile-ts/event';
-
-export type ToastEventType = 'error' | 'success' | 'warn';
-
-export type ToastEventPayload = {
-  type: ToastEventType;
-  message: string;
-};
+import { ThemeInterface, ThemePaths, ToastEventPayload } from './ui.types';
 
 export const TOAST_EVENT = createEvent<ToastEventPayload>();
 TOAST_EVENT.on((payload) => {
@@ -19,6 +14,5 @@ export const THEME = createComputed<ThemeInterface>(() => {
 });
 export const IS_LOADING = createState(false);
 export const SHOW_GRAP = createComputed(() => {
-  // TODO
-  return false;
+  return BANK_DATA.value.length > 0;
 });

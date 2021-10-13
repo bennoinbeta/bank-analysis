@@ -1,4 +1,4 @@
-import { PrimitiveColorsType, ThemeColorsType } from '.';
+import { PrimitiveColorsType, ThemeColorsType } from '../ui.types';
 
 const primitiveColors: PrimitiveColorsType = {
   black: '#1A181B',

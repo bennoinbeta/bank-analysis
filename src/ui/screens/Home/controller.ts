@@ -1,6 +1,6 @@
 import { ui, csv } from '../../../core';
 import bank from '../../../core/entities/bank';
-import { BankFileDataType } from '../../../core/entities/bank/bank.controller';
+import { BankFileDataType } from '../../../core/entities/bank/bank.types';
 
 export const onDrop = async (acceptedFiles: File[]) => {
   ui.setIsLoading(true);
@@ -15,7 +15,6 @@ export const onDrop = async (acceptedFiles: File[]) => {
       // Parse Javascript object array to valid bank data
       if (bank.parseCSVData(csvData) != null) {
         ui.toast(`Proceeded '${ui.truncate(file.name)}'!`, 'success');
-        ui.setShowGraph(true);
       }
     }
   });
@@ -23,6 +22,6 @@ export const onDrop = async (acceptedFiles: File[]) => {
   ui.setIsLoading(false);
 };
 
-export const formatBankData = (bankData: BankFileDataType) => {
+export const formatBankDataByMonth = (bankData: BankFileDataType) => {
   // TODO
 };
