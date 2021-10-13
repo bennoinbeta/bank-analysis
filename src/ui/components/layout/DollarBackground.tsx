@@ -40,9 +40,9 @@ const DollarBackground: React.FC<Props> = (props) => {
       <RotateContainer
         style={{
           // https://github.com/pmndrs/react-spring/issues/875
-          transform: isLoading ? rotateAnimationProps.rotate.interpolate(
-            (r) => `rotate(${r}deg)`
-          ) : undefined,
+          transform: isLoading
+            ? rotateAnimationProps.rotate.to((r) => `rotate(${r}deg)`)
+            : undefined,
           position: 'absolute',
         }}>
         <BackgroundShape

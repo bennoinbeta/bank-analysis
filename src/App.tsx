@@ -23,19 +23,19 @@ const App: React.FC = () => {
   return (
     <ThemeContext.Provider value={theme}>
       <ThemeProvider theme={theme}>
-          <ToastContainer
-            position="top-left"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme={theme.type as any}
-          />
-          <Home />
+        <ToastContainer
+          position="top-left"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme={theme.type as any}
+        />
+        <Home />
       </ThemeProvider>
     </ThemeContext.Provider>
   );

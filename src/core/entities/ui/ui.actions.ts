@@ -1,6 +1,7 @@
 import { ThemePaths } from './themes';
 import {
-    IS_LOADING,
+  IS_LOADING,
+  SHOW_GRAP,
   THEME_TYPE,
   ToastEventType,
   TOAST_EVENT,
@@ -11,7 +12,11 @@ export const toast = (message: string, type: ToastEventType = 'error') => {
 };
 
 export const setIsLoading = (loading: boolean) => {
-    IS_LOADING.set(loading);
+  IS_LOADING.set(loading);
+};
+
+export const setShowGraph = (showGraph: boolean) => {
+  SHOW_GRAP.set(showGraph);
 };
 
 export const setTheme = (type: ThemePaths) => {

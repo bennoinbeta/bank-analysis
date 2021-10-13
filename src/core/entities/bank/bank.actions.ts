@@ -1,3 +1,4 @@
+import currency from 'currency.js';
 import { ParsedCSVDataType } from '../csv/csv.controller';
 import ui from '../ui';
 import { BankDataType, BankFileDataType, BANK_DATA } from './bank.controller';
@@ -20,6 +21,7 @@ export const parseCSVData = (
     const dataKeys = Object.keys(data);
     const newData: BankDataType = {} as any;
 
+    // Helper method to parse properties
     const parse = <PropertyType extends BankDataPaths<BankDataType>>(
       property: PropertyType,
       parseMethod: (value: any) => { parsedValue: any; valid: boolean }
@@ -93,8 +95,10 @@ export const parseCSVData = (
     // Parse Amount
     if (
       !parse('amount', (value) => {
-        // TODO
-        return { parsedValue: value, valid: true };
+        return {
+          parsedValue: value,
+          valid: true,
+        };
       })
     )
       continue;

@@ -38,7 +38,7 @@ const Container = styled.div<{ absolute: boolean; maxWidth: number }>`
   max-width: ${({ maxWidth }) => maxWidth}px;
   width: 100%;
 
-  padding: 20px 0;
+  padding: 20px;
   margin-left: auto;
   margin-right: auto;
 

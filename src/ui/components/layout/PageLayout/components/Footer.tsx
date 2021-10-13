@@ -35,7 +35,7 @@ const Container = styled.div<{ absolute: boolean, maxWidth: number }>`
   max-width: ${({maxWidth}) => maxWidth}px;
   width: 100%;
 
-  padding: 20px 0;
+  padding: 20px;
   margin-left: auto;
   margin-right: auto;
 
@@ -44,7 +44,7 @@ const Container = styled.div<{ absolute: boolean, maxWidth: number }>`
 `;
 
 const RightsReservedText = styled.p`
-  margin: 0;
+  margin: 0 10px 0 0;
   color: ${({ theme }) => theme.colors.on_background_2};
   font-size: 12px;
 `;
