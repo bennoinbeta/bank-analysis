@@ -10,6 +10,7 @@ import {
   BankFileDataType,
   DatasetType,
 } from './bank.types';
+import { copy } from '@agile-ts/utils';
 
 export const parseCSVData = (
   csvData: ParsedCSVDataType,
@@ -167,11 +168,17 @@ export const getDataset = (
   if (bankData != null) {
     const dataFormatter = new ChartDataFormatter(bankData);
 
-    console.log('Debug: ', { bankData, dayBased: dataFormatter.getDayBased() });
+    // TODO
+    console.log('Debug: ', {
+      bankData,
+      dayBased: dataFormatter.getDayBased(),
+      monthBased: dataFormatter.getMonthBased(),
+      yearBased: dataFormatter.getYearBased(),
+    });
 
     return {
       name: bankData.name,
-      dataset: dataFormatter.getDayBased(),
+      dataset: dataFormatter.getYearBased(),
     };
   }
 
@@ -202,22 +209,39 @@ class ChartDataFormatter {
     11: 'Dezember',
   };
 
-  public data: BankDataType[];
+  public data: readonly BankDataType[];
 
   public name: string;
   public parseTimestamp: number;
   public valid: boolean;
 
   constructor(bankData: BankFileDataType) {
-    this.data = bankData.data.sort(
+    const sortedBankData = bankData.data.sort(
       (a, b) => a.date.getTime() - b.date.getTime()
     );
+    this.data = sortedBankData; // Object.freeze(sortedBankData); Freezing doesn't work properly because of sorting idk
     this.name = bankData.name;
     this.parseTimestamp = bankData.parseTimestamp;
     this.valid = bankData.valid;
   }
 
   public getDayBased(): DatasetType {
+    return this.formatDataTimeBased('day');
+  }
+
+  public getMonthBased(): DatasetType {
+    return this.formatDataTimeBased('month');
+  }
+
+  public getYearBased(): DatasetType {
+    return this.formatDataTimeBased('year');
+  }
+
+  private formatDataTimeBased(type: 'day' | 'month' | 'year'): DatasetType {
+    let dateFormat = 'DD/MM/YYYY';
+    if (type === 'month') dateFormat = 'MM/YYYY';
+    if (type === 'year') dateFormat = 'YYYY';
+
     const dataset: DatasetType = {
       labels: [],
       endAmounts: [],
@@ -227,8 +251,8 @@ class ChartDataFormatter {
 
     // Map data to labels
     for (let i = 0; i < this.data.length; i++) {
-      const data = this.data[i];
-      const label = dateToString(data.date);
+      const data = copy(this.data[i]);
+      const label = dateToString(data.date, dateFormat);
       const labelIndex = dataset.labels.indexOf(label);
       const exists = labelIndex !== -1;
 
@@ -265,33 +289,27 @@ class ChartDataFormatter {
 
       // Fill gap between this and the next data date
       if (!exists && i + 1 < this.data.length) {
-        getDatesBetween(data.date, this.data[i + 1].date).forEach((date) => {
-          // Add placeholder label
-          dataset.labels.push(dateToString(date));
+        getDatesBetween(data.date, this.data[i + 1].date, type).forEach(
+          (date) => {
+            // Add placeholder label
+            dataset.labels.push(dateToString(date, dateFormat));
 
-          // Add placeholder end amount
-          dataset.endAmounts.push(0);
+            // Add placeholder end amount
+            dataset.endAmounts.push(0);
 
-          // Add placeholder cred/debit amount
-          dataset.creditDebitAmounts.push({
-            credit: 0,
-            debit: 0,
-          });
+            // Add placeholder cred/debit amount
+            dataset.creditDebitAmounts.push({
+              credit: 0,
+              debit: 0,
+            });
 
-          // Add placeholder tag amount
-          dataset.tagAmounts.push({});
-        });
+            // Add placeholder tag amount
+            dataset.tagAmounts.push({});
+          }
+        );
       }
     }
 
     return dataset;
-  }
-
-  public getMonthBased(): DatasetType {
-    return null as any;
-  }
-
-  public getYearBased(): DatasetType {
-    return null as any;
   }
 }
