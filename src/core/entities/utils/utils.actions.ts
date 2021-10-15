@@ -9,8 +9,8 @@ export const parseGermanDate = (germanDate: string): Date | null => {
 
 export const dateToString = (
   date: Date,
-  dateFormat: 'DD:MM:YYYY' | 'MM:DD:YYYY' = 'DD:MM:YYYY'
-): `${string}:${string}:${string}` => {
+  dateFormat: 'DD/MM/YYYY' | 'MM/DD/YYYY' = 'DD/MM/YYYY'
+): `${string}/${string}/${string}` => {
   const month = date.getMonth() + 1; // getMonth() is zero-based
   const day = date.getDate();
   const year = date.getFullYear();
@@ -22,7 +22,7 @@ export const dateToString = (
 
 export const getDatesBetween = (startDate: Date, endDate: Date): Date[] => {
   const dateArray: Date[] = [];
-  const currentDate = startDate;
+  const currentDate = new Date(startDate);
   while (currentDate <= endDate) {
     dateArray.push(new Date(currentDate));
     currentDate.setDate(currentDate.getDate() + 1);

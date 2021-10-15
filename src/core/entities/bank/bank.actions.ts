@@ -167,6 +167,8 @@ export const getDataset = (
   if (bankData != null) {
     const dataFormatter = new ChartDataFormatter(bankData);
 
+    console.log('Debug: ', { bankData, dayBased: dataFormatter.getDayBased() });
+
     return {
       name: bankData.name,
       dataset: dataFormatter.getDayBased(),
