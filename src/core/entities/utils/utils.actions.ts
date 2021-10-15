@@ -26,24 +26,29 @@ export const getDatesBetween = (
   steps: 'day' | 'month' | 'year' = 'day'
 ): Date[] => {
   const dateArray: Date[] = [];
-  const currentDate = new Date(startDate);
-  while (currentDate <= endDate) {
-    dateArray.push(new Date(currentDate));
-    switch (steps) {
-      case 'day':
-        currentDate.setDate(currentDate.getDate() + 1);
-        break;
+  let currentDate = new Date(startDate);
 
-      case 'month':
-        currentDate.setMonth(currentDate.getMonth() + 1);
-        break;
-
-      case 'year':
-        currentDate.setFullYear(currentDate.getFullYear() + 1);
-        break;
-
-      default:
-    }
+  // Update date scope to limit it to the specified step
+  if (steps === 'month') {
+    currentDate = new Date(
+      `${currentDate.getMonth()}/01/${currentDate.getFullYear()}`
+    );
+    endDate = new Date(`${endDate.getMonth()}/01/${endDate.getFullYear()}`);
   }
+  if (steps === 'year') {
+    currentDate = new Date(`01/01/${currentDate.getFullYear()}`);
+    endDate = new Date(`01/01/${endDate.getFullYear()}`);
+  }
+
+  // Go stepwise into the future with the currentDate
+  // until the currentDate is greater than the endDate
+  while (currentDate < endDate) {
+    dateArray.push(new Date(currentDate));
+    if (steps === 'day') currentDate.setDate(currentDate.getDate() + 1);
+    if (steps === 'month') currentDate.setMonth(currentDate.getMonth() + 1);
+    if (steps === 'year')
+      currentDate.setFullYear(currentDate.getFullYear() + 1);
+  }
+
   return dateArray;
 };

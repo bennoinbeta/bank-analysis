@@ -11,7 +11,11 @@ const HomeScreen: React.FC = () => {
 
   return (
     <PageLayout isLoading={isLoading}>
-      <Container>{!isLoading && <DropZone onDrop={onDrop} />}</Container>
+      {!isLoading && (
+        <Container>
+          <DropZone onDrop={onDrop} />
+        </Container>
+      )}
     </PageLayout>
   );
 };

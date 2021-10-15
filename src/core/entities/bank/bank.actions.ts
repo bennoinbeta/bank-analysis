@@ -167,18 +167,9 @@ export const getDataset = (
 ): { name: string; dataset: DatasetType } | null => {
   if (bankData != null) {
     const dataFormatter = new ChartDataFormatter(bankData);
-
-    // TODO
-    console.log('Debug: ', {
-      bankData,
-      dayBased: dataFormatter.getDayBased(),
-      monthBased: dataFormatter.getMonthBased(),
-      yearBased: dataFormatter.getYearBased(),
-    });
-
     return {
       name: bankData.name,
-      dataset: dataFormatter.getYearBased(),
+      dataset: dataFormatter.formatDataTimeBased(format),
     };
   }
 
@@ -194,50 +185,16 @@ export const getDataset = (
 };
 
 class ChartDataFormatter {
-  private monthLabelKeymap = {
-    0: 'January',
-    1: 'February',
-    2: 'March',
-    3: 'April',
-    4: 'May',
-    5: 'June',
-    6: 'July',
-    7: 'August',
-    8: 'September',
-    9: 'October',
-    10: 'November',
-    11: 'Dezember',
-  };
-
   public data: readonly BankDataType[];
-
-  public name: string;
-  public parseTimestamp: number;
-  public valid: boolean;
 
   constructor(bankData: BankFileDataType) {
     const sortedBankData = bankData.data.sort(
       (a, b) => a.date.getTime() - b.date.getTime()
     );
     this.data = sortedBankData; // Object.freeze(sortedBankData); Freezing doesn't work properly because of sorting idk
-    this.name = bankData.name;
-    this.parseTimestamp = bankData.parseTimestamp;
-    this.valid = bankData.valid;
   }
 
-  public getDayBased(): DatasetType {
-    return this.formatDataTimeBased('day');
-  }
-
-  public getMonthBased(): DatasetType {
-    return this.formatDataTimeBased('month');
-  }
-
-  public getYearBased(): DatasetType {
-    return this.formatDataTimeBased('year');
-  }
-
-  private formatDataTimeBased(type: 'day' | 'month' | 'year'): DatasetType {
+  public formatDataTimeBased(type: 'day' | 'month' | 'year'): DatasetType {
     let dateFormat = 'DD/MM/YYYY';
     if (type === 'month') dateFormat = 'MM/YYYY';
     if (type === 'year') dateFormat = 'YYYY';
