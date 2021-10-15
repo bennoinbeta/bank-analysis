@@ -1,23 +1,21 @@
-export const useMonthGraphData = (
-  monthDataset: any,
-  year = new Date().getFullYear()
-): any => {
-  if (monthDataset != null) {
-    const data = monthDataset?.dataset[year].data;
-    const labels = monthDataset.dataset[year].labels;
-    const backgroundColors = data.map((val: any) =>
+import { NullType } from '../../../../core/entities/utils/utils.types';
+import { DatasetType } from './../../../../core/entities/bank/bank.types';
+
+export const useChartData = (dataset: DatasetType | NullType): any => {
+  if (dataset != null) {
+    const backgroundColors = dataset.endAmounts.map((val: any) =>
       val > 0 ? 'rgba(54, 162, 235, 0.2)' : 'rgba(255, 99, 132, 0.2)'
     );
-    const borderColors = data.map((val: any) =>
+    const borderColors = dataset.endAmounts.map((val: any) =>
       val > 0 ? 'rgba(54, 162, 235, 1)' : 'rgba(255, 99, 132, 1)'
     );
 
     return {
-      labels,
+      labels: dataset.labels,
       datasets: [
         {
           label: 'Money',
-          data,
+          data: dataset.endAmounts,
           backgroundColor: backgroundColors,
           borderColor: borderColors,
           borderWidth: 1,
@@ -33,5 +31,5 @@ export const useMonthGraphData = (
     };
   }
 
-  return {};
+  return null;
 };

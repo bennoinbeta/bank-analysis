@@ -1,11 +1,8 @@
-import { dataDir } from '@tauri-apps/api/path';
+import { dateToString, getDatesBetween } from './../utils/utils.actions';
 import { ParsedCSVDataType } from '../csv/csv.types';
 import { getDecimal, unformatMoney } from '../money/money.actions';
 import ui from '../ui';
-import {
-  dateToGermanDateString,
-  parseGermanDate,
-} from '../utils/utils.actions';
+import { parseGermanDate } from '../utils/utils.actions';
 import { BANK_DATA } from './bank.controller';
 import {
   BankDataPaths,
@@ -163,77 +160,27 @@ const isDebit = (item: BankDataType) => {
   return item['debit/credit'] === 'D';
 };
 
-export const getMonthDataset = (bankData: BankFileDataType): any | null => {
-  // if (!bankData.valid) return null;
-  // const data = bankData.data;
-  // const labelsKeymap: { [key: string]: string } = {
-  //   0: 'January',
-  //   1: 'February',
-  //   2: 'March',
-  //   3: 'April',
-  //   4: 'May',
-  //   5: 'June',
-  //   6: 'July',
-  //   7: 'August',
-  //   8: 'September',
-  //   9: 'October',
-  //   10: 'November',
-  //   11: 'Dezember',
-  // };
-  // const dataset: any = {};
+export const getDataset = (
+  bankData: BankFileDataType,
+  format: 'month' | 'day' | 'year' = 'month'
+): { name: string; dataset: DatasetType } | null => {
+  if (bankData != null) {
+    const dataFormatter = new ChartDataFormatter(bankData);
 
-  // for (const item of data) {
-  //   const month = item.date.getMonth();
-  //   const year = item.date.getFullYear();
-  //   if (!isNaN(month) && !isNaN(year)) {
-  //     // Create new Year template to miss on month
-  //     if (!dataset.hasOwnProperty(year)) {
-  //       dataset[year] = {
-  //         0: 0,
-  //         1: 0,
-  //         2: 0,
-  //         3: 0,
-  //         4: 0,
-  //         5: 0,
-  //         6: 0,
-  //         7: 0,
-  //         8: 0,
-  //         9: 0,
-  //         10: 0,
-  //         11: 0,
-  //       };
-  //     }
-
-  //     // Calculate amount based on the debit and credit
-  //     if (isCredit(item)) dataset[year][month] += item.amount;
-  //     else if (isDebit(item)) dataset[year][month] -= item.amount;
-  //   }
-  // }
-
-  // const finalDataset: { [key: string]: { labels: string[]; data: number[] } } =
-  //   {};
-
-  // // Map data to displayable data based on years
-  // for (const key of Object.keys(dataset)) {
-  //   if (!finalDataset.hasOwnProperty(key)) {
-  //     finalDataset[key] = { labels: [], data: [] };
-  //   }
-
-  //   finalDataset[key]['labels'] = Object.keys(dataset[key]).map(
-  //     (m) => labelsKeymap[m]
-  //   );
-  //   finalDataset[key]['data'] = Object.keys(dataset[key]).map(
-  //     (m) => dataset[key][m]
-  //   );
-  // }
-
-  const dataFormatter = new ChartDataFormatter(bankData);
-
-  dataFormatter.getDayBased(); // TODO
+    return {
+      name: bankData.name,
+      dataset: dataFormatter.getDayBased(),
+    };
+  }
 
   return {
-    name: bankData.name,
-    dataset: {}, // finalDataset,
+    name: 'unknown',
+    dataset: {
+      labels: [],
+      endAmounts: [],
+      creditDebitAmounts: [],
+      tagAmounts: [],
+    },
   };
 };
 
@@ -254,12 +201,15 @@ class ChartDataFormatter {
   };
 
   public data: BankDataType[];
+
   public name: string;
   public parseTimestamp: number;
   public valid: boolean;
 
   constructor(bankData: BankFileDataType) {
-    this.data = bankData.data;
+    this.data = bankData.data.sort(
+      (a, b) => a.date.getTime() - b.date.getTime()
+    );
     this.name = bankData.name;
     this.parseTimestamp = bankData.parseTimestamp;
     this.valid = bankData.valid;
@@ -269,22 +219,70 @@ class ChartDataFormatter {
     const dataset: DatasetType = {
       labels: [],
       endAmounts: [],
-      creditDebitAmounts: {
-        credit: [],
-        debit: [],
-      },
-      tagAmounts: {},
+      creditDebitAmounts: [],
+      tagAmounts: [],
     };
-    const mappedDataToLabels: { [key: string]: BankDataType } = {};
 
     // Map data to labels
-    for (const data of this.data) {
-      mappedDataToLabels[dateToGermanDateString(data.date)] = data;
+    for (let i = 0; i < this.data.length; i++) {
+      const data = this.data[i];
+      const label = dateToString(data.date);
+      const labelIndex = dataset.labels.indexOf(label);
+      const exists = labelIndex !== -1;
+
+      // Add date label
+      if (!exists) dataset.labels.push(label);
+
+      // Add end amount
+      const dateAmount = data.amount * (isDebit(data) ? -1 : 1);
+      if (!exists) {
+        dataset.endAmounts.push(dateAmount);
+      } else {
+        dataset.endAmounts[labelIndex] =
+          dataset.endAmounts[labelIndex] + dateAmount;
+      }
+
+      // Add credit/debit amount
+      if (!exists) {
+        dataset.creditDebitAmounts.push({
+          credit: isCredit(data) ? data.amount : 0,
+          debit: isDebit(data) ? data.amount : 0,
+        });
+      } else {
+        const creditDebit = isDebit(data) ? 'debit' : 'credit';
+        dataset.creditDebitAmounts[labelIndex][creditDebit] += data.amount;
+      }
+
+      // Add tag amount
+      // TODO support tags
+      if (!exists) {
+        dataset.tagAmounts.push({});
+      } else {
+        // TODO
+      }
+
+      // Fill gap between this and the next data date
+      if (!exists && i + 1 < this.data.length) {
+        getDatesBetween(data.date, this.data[i + 1].date).forEach((date) => {
+          // Add placeholder label
+          dataset.labels.push(dateToString(date));
+
+          // Add placeholder end amount
+          dataset.endAmounts.push(0);
+
+          // Add placeholder cred/debit amount
+          dataset.creditDebitAmounts.push({
+            credit: 0,
+            debit: 0,
+          });
+
+          // Add placeholder tag amount
+          dataset.tagAmounts.push({});
+        });
+      }
     }
 
-    console.log('Debug: ', { mappedDataToLabels });
-
-    return null as any;
+    return dataset;
   }
 
   public getMonthBased(): DatasetType {

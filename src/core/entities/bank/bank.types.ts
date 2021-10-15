@@ -29,8 +29,8 @@ export type BankDataType = {
 export type DatasetType = {
   labels: string[];
   endAmounts: number[];
-  creditDebitAmounts: { credit: number[]; debit: number[] };
-  tagAmounts: { [key: string]: number[] };
+  creditDebitAmounts: { credit: number; debit: number }[];
+  tagAmounts: { [key: string]: number }[];
 };
 
 export type BankDataPaths<T> = {
