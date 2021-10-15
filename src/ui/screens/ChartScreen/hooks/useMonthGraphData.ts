@@ -1,16 +1,14 @@
-import { MonthDatasetType } from '../../../../core/entities/bank/bank.types';
-
 export const useMonthGraphData = (
-  monthDataset: MonthDatasetType | null,
+  monthDataset: any,
   year = new Date().getFullYear()
 ): any => {
   if (monthDataset != null) {
     const data = monthDataset?.dataset[year].data;
     const labels = monthDataset.dataset[year].labels;
-    const backgroundColors = data.map((val) =>
+    const backgroundColors = data.map((val: any) =>
       val > 0 ? 'rgba(54, 162, 235, 0.2)' : 'rgba(255, 99, 132, 0.2)'
     );
-    const borderColors = data.map((val) =>
+    const borderColors = data.map((val: any) =>
       val > 0 ? 'rgba(54, 162, 235, 1)' : 'rgba(255, 99, 132, 1)'
     );
 

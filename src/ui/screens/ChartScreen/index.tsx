@@ -11,15 +11,17 @@ import { useMonthGraphData } from './hooks/useMonthGraphData';
 
 const ChartScreen: React.FC = () => {
   const [isLoading, bankData] = useAgile([IS_LOADING, BANK_DATA]);
-  const chartData = useMonthGraphData(
-    bankData.length > 0 ? bank.getMonthDataset(bankData[0]) : null
-  );
+  // const chartData = useMonthGraphData(
+  //   bankData.length > 0 ? bank.getMonthDataset(bankData[0]) : null
+  // );
+
+  console.log('ChartScreen: ', bank.getMonthDataset(bankData[0])); // TODO REMOVE
 
   if (bankData.length === 0) return <Redirect to="/" />;
 
   return (
     <PageLayout isLoading={isLoading}>
-      <Container>{!isLoading && <BarChart data={chartData} />}</Container>
+      <Container>{!isLoading && <BarChart data={{}} />}</Container>
     </PageLayout>
   );
 };

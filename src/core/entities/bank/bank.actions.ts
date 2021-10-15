@@ -1,13 +1,17 @@
+import { dataDir } from '@tauri-apps/api/path';
 import { ParsedCSVDataType } from '../csv/csv.types';
 import { getDecimal, unformatMoney } from '../money/money.actions';
 import ui from '../ui';
-import { parseGermanDate } from '../utils/utils.actions';
+import {
+  dateToGermanDateString,
+  parseGermanDate,
+} from '../utils/utils.actions';
 import { BANK_DATA } from './bank.controller';
 import {
   BankDataPaths,
   BankDataType,
   BankFileDataType,
-  MonthDatasetType,
+  DatasetType,
 } from './bank.types';
 
 export const parseCSVData = (
@@ -159,12 +163,82 @@ const isDebit = (item: BankDataType) => {
   return item['debit/credit'] === 'D';
 };
 
-export const getMonthDataset = (
-  bankData: BankFileDataType
-): MonthDatasetType | null => {
-  if (!bankData.valid) return null;
-  const data = bankData.data;
-  const labelsKeymap: { [key: string]: string } = {
+export const getMonthDataset = (bankData: BankFileDataType): any | null => {
+  // if (!bankData.valid) return null;
+  // const data = bankData.data;
+  // const labelsKeymap: { [key: string]: string } = {
+  //   0: 'January',
+  //   1: 'February',
+  //   2: 'March',
+  //   3: 'April',
+  //   4: 'May',
+  //   5: 'June',
+  //   6: 'July',
+  //   7: 'August',
+  //   8: 'September',
+  //   9: 'October',
+  //   10: 'November',
+  //   11: 'Dezember',
+  // };
+  // const dataset: any = {};
+
+  // for (const item of data) {
+  //   const month = item.date.getMonth();
+  //   const year = item.date.getFullYear();
+  //   if (!isNaN(month) && !isNaN(year)) {
+  //     // Create new Year template to miss on month
+  //     if (!dataset.hasOwnProperty(year)) {
+  //       dataset[year] = {
+  //         0: 0,
+  //         1: 0,
+  //         2: 0,
+  //         3: 0,
+  //         4: 0,
+  //         5: 0,
+  //         6: 0,
+  //         7: 0,
+  //         8: 0,
+  //         9: 0,
+  //         10: 0,
+  //         11: 0,
+  //       };
+  //     }
+
+  //     // Calculate amount based on the debit and credit
+  //     if (isCredit(item)) dataset[year][month] += item.amount;
+  //     else if (isDebit(item)) dataset[year][month] -= item.amount;
+  //   }
+  // }
+
+  // const finalDataset: { [key: string]: { labels: string[]; data: number[] } } =
+  //   {};
+
+  // // Map data to displayable data based on years
+  // for (const key of Object.keys(dataset)) {
+  //   if (!finalDataset.hasOwnProperty(key)) {
+  //     finalDataset[key] = { labels: [], data: [] };
+  //   }
+
+  //   finalDataset[key]['labels'] = Object.keys(dataset[key]).map(
+  //     (m) => labelsKeymap[m]
+  //   );
+  //   finalDataset[key]['data'] = Object.keys(dataset[key]).map(
+  //     (m) => dataset[key][m]
+  //   );
+  // }
+
+  const dataFormatter = new ChartDataFormatter(bankData);
+
+  dataFormatter.getDayBased(); // TODO
+
+  return {
+    name: bankData.name,
+    dataset: {}, // finalDataset,
+  };
+};
+
+class ChartDataFormatter {
+  private monthLabelKeymap = {
     0: 'January',
     1: 'February',
     2: 'March',
@@ -178,55 +252,46 @@ export const getMonthDataset = (
     10: 'November',
     11: 'Dezember',
   };
-  const dataset: any = {};
 
-  for (const item of data) {
-    const month = item.date.getMonth();
-    const year = item.date.getFullYear();
-    if (!isNaN(month) && !isNaN(year)) {
-      // Create new Year template to miss on month
-      if (!dataset.hasOwnProperty(year)) {
-        dataset[year] = {
-          0: 0,
-          1: 0,
-          2: 0,
-          3: 0,
-          4: 0,
-          5: 0,
-          6: 0,
-          7: 0,
-          8: 0,
-          9: 0,
-          10: 0,
-          11: 0,
-        };
-      }
+  public data: BankDataType[];
+  public name: string;
+  public parseTimestamp: number;
+  public valid: boolean;
 
-      // Calculate amount based on the debit and credit
-      if (isCredit(item)) dataset[year][month] += item.amount;
-      else if (isDebit(item)) dataset[year][month] -= item.amount;
-    }
+  constructor(bankData: BankFileDataType) {
+    this.data = bankData.data;
+    this.name = bankData.name;
+    this.parseTimestamp = bankData.parseTimestamp;
+    this.valid = bankData.valid;
   }
 
-  const finalDataset: { [key: string]: { labels: string[]; data: number[] } } =
-    {};
+  public getDayBased(): DatasetType {
+    const dataset: DatasetType = {
+      labels: [],
+      endAmounts: [],
+      creditDebitAmounts: {
+        credit: [],
+        debit: [],
+      },
+      tagAmounts: {},
+    };
+    const mappedDataToLabels: { [key: string]: BankDataType } = {};
 
-  // Map data to displayable data based on years
-  for (const key of Object.keys(dataset)) {
-    if (!finalDataset.hasOwnProperty(key)) {
-      finalDataset[key] = { labels: [], data: [] };
+    // Map data to labels
+    for (const data of this.data) {
+      mappedDataToLabels[dateToGermanDateString(data.date)] = data;
     }
 
-    finalDataset[key]['labels'] = Object.keys(dataset[key]).map(
-      (m) => labelsKeymap[m]
-    );
-    finalDataset[key]['data'] = Object.keys(dataset[key]).map(
-      (m) => dataset[key][m]
-    );
+    console.log('Debug: ', { mappedDataToLabels });
+
+    return null as any;
   }
 
-  return {
-    name: bankData.name,
-    dataset: finalDataset,
-  };
-};
+  public getMonthBased(): DatasetType {
+    return null as any;
+  }
+
+  public getYearBased(): DatasetType {
+    return null as any;
+  }
+}

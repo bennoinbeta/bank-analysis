@@ -6,3 +6,15 @@ export const parseGermanDate = (germanDate: string): Date | null => {
 
   return null;
 };
+
+export const dateToGermanDateString = (
+  date: Date
+): `${string}:${string}:${string}` => {
+  const month = date.getMonth() + 1; // getMonth() is zero-based
+  const day = date.getDate();
+  const year = date.getFullYear();
+
+  return `${(day > 9 ? '' : '0') + day}:${
+    (month > 9 ? '' : '0') + month
+  }:${year}`;
+};

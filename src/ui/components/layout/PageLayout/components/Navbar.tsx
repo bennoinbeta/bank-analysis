@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { MAX_WIDTH } from '..';
 import { useTheme } from '../../../../hooks/useTheme';
@@ -11,11 +12,17 @@ type Props = {
 const Navbar: React.FC<Props> = (props) => {
   const { absolute } = props;
   const theme = useTheme();
+  const history = useHistory();
 
   return (
     <Container absolute={absolute as any} maxWidth={MAX_WIDTH}>
-      <Icon.Logo color={theme.colors.on_background} width={30} height={30}/>
-      <AppName>Bank Analysis</AppName>
+      <LogoContainer
+        onClick={() => {
+          history.push('/');
+        }}>
+        <Icon.Logo color={theme.colors.on_background} width={30} height={30} />
+        <AppName>Bank Analysis</AppName>
+      </LogoContainer>
     </Container>
   );
 };
@@ -44,6 +51,15 @@ const Container = styled.div<{ absolute: boolean; maxWidth: number }>`
 
   background-color: ${({ theme, absolute }) =>
     !absolute ? theme.colors.background : 'transparent'};
+`;
+
+const LogoContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  cursor: pointer;
 `;
 
 const AppName = styled.p`
