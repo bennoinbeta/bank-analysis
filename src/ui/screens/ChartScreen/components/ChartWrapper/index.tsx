@@ -1,6 +1,6 @@
 import React from 'react';
 import { BankFileDataType } from '../../../../../core/entities/bank/bank.types';
-import BarChart from '../Charts/BarChart';
+import BarChart from '../charts/BarChart';
 import { bank } from '../../../../../core';
 import { useChartData } from '../../hooks/useChartData';
 
