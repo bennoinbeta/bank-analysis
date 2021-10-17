@@ -21,6 +21,12 @@
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.3.12",
+    "@storybook/addon-essentials": "^6.3.12",
+    "@storybook/addon-links": "^6.3.12",
+    "@storybook/node-logger": "^6.3.12",
+    "@storybook/preset-create-react-app": "^3.2.0",
+    "@storybook/react": "^6.3.12",
     "@tauri-apps/cli": "^1.0.0-beta.10",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -50,12 +56,24 @@
     "dev": "yarn run tauri dev",
     "bundle": "yarn run tauri build",
     "prettier": "prettier --config .prettierrc --write \"**/*.{js,ts}\"",
-    "lint": "eslint --cache \"**/*.{js,jsx,ts,tsx}\""
+    "lint": "eslint --cache \"**/*.{js,jsx,ts,tsx}\"",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
     ]
   },
   "browserslist": {

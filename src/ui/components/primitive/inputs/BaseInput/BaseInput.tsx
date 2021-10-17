@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { PolymorphicRef, PolymorphicComponentProps } from './types';
+import {
+  PolymorphicComponentProps,
+  PolymorphicRef,
+} from '../../../../../types/Polymorphic';
 
 export type BaseInputProps = {
   leftSection?: {

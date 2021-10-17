@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import BaseInput, { BaseInputProps } from './BaseInput';
+import BaseInput, { BaseInputProps } from '../BaseInput';
 
 export interface NativeSelectProps
   extends BaseInputProps,
@@ -16,7 +16,7 @@ export interface SelectItem {
   [key: string]: any;
 }
 
-export const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
+const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
   (props: NativeSelectProps, ref) => {
     const {
       data,
@@ -57,3 +57,5 @@ export const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
     );
   }
 );
+
+export default NativeSelect;
