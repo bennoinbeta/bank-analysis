@@ -1,10 +1,11 @@
+import { copy } from '@agile-ts/utils';
 import { createState } from '@agile-ts/core';
 import { BankFileDataType } from './bank.types';
 
 export const BANK_DATA = createState<BankFileDataType[]>([]).persist({
   key: 'bank-data',
   onSave: (value: BankFileDataType[]) => {
-    return value.map((bankFileData) => {
+    return copy(value).map((bankFileData) => {
       const newBankFileData = bankFileData;
       newBankFileData.data = newBankFileData.data.map((data) => {
         data.date = data.date.getTime() as any;

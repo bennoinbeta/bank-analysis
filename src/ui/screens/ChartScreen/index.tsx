@@ -1,8 +1,6 @@
 import { useAgile } from '@agile-ts/react';
 import React from 'react';
-import { Redirect } from 'react-router';
 import styled from 'styled-components';
-import { ui } from '../../../core';
 import { BANK_DATA } from '../../../core/entities/bank/bank.controller';
 import { IS_LOADING } from '../../../core/entities/ui/ui.controller';
 import routingHistory from '../../../routing/history';
