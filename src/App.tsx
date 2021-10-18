@@ -1,7 +1,6 @@
 import React from 'react';
-import { useEvent } from '@agile-ts/event';
 import { toast, ToastContainer } from 'react-toastify';
-import { useAgile } from '@agile-ts/react';
+import { useAgile, useEvent } from '@agile-ts/react';
 import { ThemeProvider } from 'styled-components';
 import ThemeContext from './context/ThemeContext';
 import { ui } from './core';
@@ -10,11 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AppRouter from './routing/AppRouter';
 
 const App: React.FC = () => {
-  // Adding dark theme fallback,
-  // because currently the Computed initial value is 'null'
-  // before the first computition.
-  // Will be fixed in the next AgileTs release ^^
-  const theme = useAgile(ui.THEME) || ui.themes.dark;
+  const theme = useAgile(ui.THEME);
 
   // Handle UI-Events
   useEvent(ui.TOAST_EVENT, (payload) => {

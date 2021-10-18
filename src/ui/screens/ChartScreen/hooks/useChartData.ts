@@ -1,4 +1,4 @@
-import { NullType } from '../../../../core/entities/utils/utils.types';
+import { NullType } from '../../../../types/General';
 import { DatasetType } from './../../../../core/entities/bank/bank.types';
 
 export const useChartData = (

@@ -8,7 +8,9 @@ export const TOAST_EVENT = createEvent<ToastEventPayload>();
 TOAST_EVENT.on((payload) => {
   console.log('Event: ', payload);
 });
-export const THEME_TYPE = createState<ThemePaths>('dark').persist('theme');
+export const THEME_TYPE = createState<ThemePaths>('dark').persist({
+  key: 'theme',
+});
 export const THEME = createComputed<ThemeInterface>(() => {
   return themes[THEME_TYPE.value];
 });
