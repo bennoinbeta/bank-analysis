@@ -15,20 +15,7 @@ const CustomComponent = ({
   </div>
 );
 
-const getThemes = (props?: any) =>
-  ['red', 'green'].map((color) => (
-    <Text key={color} color={color} style={{ marginTop: 5 }} {...props}>
-      {color} text
-    </Text>
-  ));
-
-const sizes = ([10, 20, 30] as const).map((size) => (
-  <Text size={size} key={size}>
-    {size} text
-  </Text>
-));
-
-storiesOf('@mantine/core/Text', module)
+storiesOf('core/Text', module)
   .add('General usage', () => (
     <>
       <Text>Default text</Text>
@@ -44,7 +31,6 @@ storiesOf('@mantine/core/Text', module)
       Custom component
     </Text>
   ))
-  .add('Gradient', () => <Text variant="gradient">Custom component</Text>)
   .add('Multiline', () => (
     <Text
       style={{
@@ -87,8 +73,24 @@ storiesOf('@mantine/core/Text', module)
       </p>
     </Text>
   ))
-  .add('Themes', () => <div style={{ padding: 20 }}>{getThemes()}</div>)
-  .add('Sizes', () => <div style={{ padding: 20 }}>{sizes}</div>)
+  .add('Themes', () => (
+    <div style={{ padding: 20 }}>
+      {['red', 'green'].map((color) => (
+        <Text key={color} color={color} style={{ marginTop: 5 }}>
+          {color} text
+        </Text>
+      ))}
+    </div>
+  ))
+  .add('Sizes', () => (
+    <div style={{ padding: 20 }}>
+      {([10, 20, 30] as const).map((size) => (
+        <Text size={size} key={size}>
+          {size} text
+        </Text>
+      ))}
+    </div>
+  ))
   .add('Link', () => (
     <div style={{ padding: 20 }}>
       <Text component="a" href="https://mantine.dev" variant="link">

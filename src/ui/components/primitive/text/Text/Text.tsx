@@ -51,7 +51,7 @@ const Text: TextComponent = React.forwardRef(
       className,
       component,
       children,
-      size = 12,
+      size = 18,
       weight,
       transform,
       style,
@@ -63,18 +63,22 @@ const Text: TextComponent = React.forwardRef(
       inherit = false,
       ...others
     } = props;
-    const Element = component || 'p';
+    const Text = component || 'p';
 
     return React.createElement(
-      Element,
+      Text,
       {
+        ...others,
         ref,
         style: {
           fontWeight: inherit ? 'inherit' : weight,
           textTransform: transform,
           textAlign: align,
+          color: color,
+          size: size,
+          fontSize: size,
+          ...style,
         },
-        ...others,
       },
       children
     );
