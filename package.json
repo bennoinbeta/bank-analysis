@@ -7,6 +7,7 @@
     "@agile-ts/event": "^0.0.14",
     "@agile-ts/react": "^0.2.3",
     "@agile-ts/utils": "^0.0.11",
+    "@emotion/react": "^11.5.0",
     "@react-spring/web": "^9.2.6",
     "@tauri-apps/api": "^1.0.0-beta.8",
     "chart.js": "^3.5.1",

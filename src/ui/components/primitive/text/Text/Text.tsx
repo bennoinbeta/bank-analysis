@@ -3,6 +3,7 @@ import {
   PolymorphicComponentProps,
   PolymorphicRef,
 } from '../../../../../types/Polymorphic';
+import { css, jsx } from '@emotion/react';
 
 export interface SharedTextProps {
   /** Predefined font-size from theme.fontSizes */
@@ -63,22 +64,44 @@ const Text: TextComponent = React.forwardRef(
       inherit = false,
       ...others
     } = props;
+    const { classes, cx } = useStyles(
+      {
+        variant,
+        color,
+        size,
+        lineClamp,
+        inline,
+        inherit,
+      },
+      null,
+      'text'
+    );
     const Text = component || 'p';
+
+    console.log({
+      root: css`
+        color: ${color};
+      `,
+      item: css`
+        color: blue;
+      `,
+    });
 
     return React.createElement(
       Text,
       {
         ...others,
         ref,
-        style: {
-          fontWeight: inherit ? 'inherit' : weight,
-          textTransform: transform,
-          textAlign: align,
-          color: color,
-          size: size,
-          fontSize: size,
-          ...style,
-        },
+        className: cx(classes.root, className),
+        // style: {
+        //   fontWeight: inherit ? 'inherit' : weight,
+        //   textTransform: transform,
+        //   textAlign: align,
+        //   color: color,
+        //   size: size,
+        //   fontSize: size,
+        //   ...style,
+        // },
       },
       children
     );

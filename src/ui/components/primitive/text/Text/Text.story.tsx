@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Text from './Text';
+import styled from '@emotion/styled-base';
 
 const CustomComponent = ({
   emoji,
@@ -14,6 +15,11 @@ const CustomComponent = ({
     {emoji} {children}
   </div>
 );
+
+const StyledText = styled(Text)`
+  color: red;
+  font-weight: bold;
+`;
 
 storiesOf('core/Text', module)
   .add('General usage', () => (
@@ -31,6 +37,7 @@ storiesOf('core/Text', module)
       Custom component
     </Text>
   ))
+  .add('Styled component', () => <StyledText>Custom component</StyledText>)
   .add('Multiline', () => (
     <Text
       style={{
