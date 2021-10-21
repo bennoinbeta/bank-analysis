@@ -1,15 +1,17 @@
+// https://www.benmvp.com/blog/forwarding-refs-polymorphic-react-component-typescript/
+
 import React from 'react';
 
 // Merges the 'OverrideProps' into the '_ExtendedProps'
-type ExtendedProps<_ExtendedProps = {}, OverrideProps = {}> = OverrideProps &
-  Omit<_ExtendedProps, keyof OverrideProps>;
+type ExtendableProps<ExtendedProps = {}, OverrideProps = {}> = OverrideProps &
+  Omit<ExtendedProps, keyof OverrideProps>;
 
 // Extracts the props of the specified JSX Component
 type PropsOf<
   C extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>
 > = JSX.LibraryManagedAttributes<C, React.ComponentPropsWithoutRef<C>>;
 
-type InheritedProps<C extends React.ElementType, Props = {}> = ExtendedProps<
+type InheritedProps<C extends React.ElementType, Props = {}> = ExtendableProps<
   PropsOf<C>,
   Props
 >;
