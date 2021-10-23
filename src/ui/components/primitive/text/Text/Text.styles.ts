@@ -21,6 +21,7 @@ function createStyles<Params = void>(
     const theme = useTheme();
     const _serializedStyles = getSerializedStyles(theme, params);
 
+    // TODO https://github.com/emotion-js/emotion/blob/main/packages/react/src/class-names.js
     console.log(_serializedStyles);
 
     // TODO
