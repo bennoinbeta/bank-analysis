@@ -2,18 +2,17 @@ import { SerializedStyles } from '@emotion/react';
 import { ThemeInterface } from '../core/entities/ui/ui.types';
 import { useTheme } from '../ui/hooks/useTheme';
 import { useCss } from './hooks/useCss';
-import { fromEntries, mergeClassNames } from './utils';
+import { mergeClassNames } from './utils';
+
+export type CSSType = SerializedStyles | string;
 
 export function createStyles<Params = any>(
-  serializedStyles: (
+  styles: (
     theme: ThemeInterface,
     params: Params
-  ) => Record<string, SerializedStyles> | Record<string, SerializedStyles>
+  ) => Record<string, CSSType> | Record<string, CSSType>
 ) {
-  const getSerializedStyles =
-    typeof serializedStyles === 'function'
-      ? serializedStyles
-      : () => serializedStyles;
+  const getStyles = typeof styles === 'function' ? styles : () => styles;
 
   function useStyles(
     params: Params,
@@ -22,20 +21,17 @@ export function createStyles<Params = any>(
   ) {
     const theme = useTheme();
     const { css, cx } = useCss();
+    const _styles = getStyles(theme, params);
 
-    const _serializedStyles = getSerializedStyles(theme, params);
-
-    const classes = fromEntries(
-      Object.keys(_serializedStyles).map((key) => [
-        key,
-        css(_serializedStyles[key]),
-      ])
-    ) as any as Record<string, string>;
-
-    console.log('useStyles', { css, cx, classes, _serializedStyles, params });
+    // Transfrom specified styles into classes
+    const classes: Record<string, string> = {};
+    Object.keys(_styles).forEach((key) => {
+      classes[key] = css(_styles[key]);
+    });
+    const mergedClasses = mergeClassNames(cx, classes, classNames || {}, name);
 
     return {
-      classes: mergeClassNames(cx, classes, classNames || {}, name),
+      classes: mergedClasses,
       cx,
     };
   }

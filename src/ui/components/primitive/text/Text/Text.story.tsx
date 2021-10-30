@@ -38,6 +38,7 @@ storiesOf('core/Text', module)
     </Text>
   ))
   .add('Styled component', () => <StyledText>Custom component</StyledText>)
+  .add('Gradient', () => <Text variant="gradient">Gradient component</Text>)
   .add('Multiline', () => (
     <Text
       style={{

@@ -32,6 +32,13 @@ export interface SharedTextProps {
 
   /** Inherit font properties from parent element */
   inherit?: boolean;
+
+  /** Controls gradient settings in gradient variant only */
+  gradient?: {
+    from: string;
+    to: string;
+    deg?: number;
+  };
 }
 
 export type TextProps<C extends React.ElementType> = PolymorphicComponentProps<
@@ -60,6 +67,7 @@ const Text: TextComponent = React.forwardRef(
       align,
       variant = 'text',
       lineClamp,
+      gradient = { from: 'blue', to: 'red', deg: 45 },
       inline = false,
       inherit = false,
       ...others
@@ -72,6 +80,7 @@ const Text: TextComponent = React.forwardRef(
         lineClamp,
         inline,
         inherit,
+        gradient,
       },
       null,
       'text'
@@ -84,16 +93,11 @@ const Text: TextComponent = React.forwardRef(
       {
         ...others,
         ref,
-        className: cx(classes.root, className),
-        // style: {
-        //   fontWeight: inherit ? 'inherit' : weight,
-        //   textTransform: transform,
-        //   textAlign: align,
-        //   color: color,
-        //   size: size,
-        //   fontSize: size,
-        //   ...style,
-        // },
+        className: cx(
+          classes.root,
+          { [classes.gradient]: variant === 'gradient' },
+          className
+        ),
       },
       children
     );

@@ -1,26 +1,20 @@
-export function mergeClassNames<T extends Record<string, string>>(
-  cx: (..._classNames: any) => string,
-  classes: T,
-  classNames: Partial<T>,
+import { CXType } from './hooks/useCss';
+
+const prefix = 'merged';
+
+export function mergeClassNames(
+  cx: CXType,
+  classes: Record<string, string>,
+  classNames: Partial<Record<string, string>>,
   name: string
-) {
-  return Object.keys(classes).reduce((acc: any, className: string) => {
-    acc[className] = cx(
-      classes[className],
-      classNames != null && classNames[className],
-      name ? `ui-${name}-${className}` : null
+): Record<string, string> {
+  const mergedClasses: Record<string, string> = {};
+  Object.keys(classes).forEach((classKey: string) => {
+    mergedClasses[classKey] = cx(
+      classes[classKey],
+      classNames != null && classNames[classKey],
+      name ? `${prefix}-${name}-${classKey}` : null
     );
-    return acc;
-  }, {}) as T;
-}
-
-export function fromEntries(entries: any) {
-  const o: any = {};
-
-  Object.keys(entries).forEach((key) => {
-    const [k, v] = entries[key];
-    o[k] = v;
   });
-
-  return o;
+  return mergedClasses;
 }
