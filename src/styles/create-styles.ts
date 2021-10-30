@@ -2,7 +2,7 @@ import { defineConfig } from '@agile-ts/utils';
 import { SerializedStyles } from '@emotion/react';
 import { ThemeInterface } from '../core/entities/ui/ui.types';
 import { useTheme } from '../ui/hooks/useTheme';
-import { useCss } from './hooks/useCss';
+import { useCss, CXType } from './hooks/useCss';
 import { mergeClassNames } from './utils';
 
 export type StyleType = SerializedStyles | string;
@@ -20,7 +20,10 @@ export function createStyles<Params extends Object = Object>(
 ) {
   const getStyles = typeof styles === 'function' ? styles : () => styles;
 
-  function useStyles(params: Params, config: UseStylesConfig = {}) {
+  function useStyles(
+    params: Params,
+    config: UseStylesConfig = {}
+  ): { cx: CXType; classes: Record<string, string> } {
     config = defineConfig(config, { name: 'unknown', classNames: {} });
     const theme = useTheme();
     const { css, cx } = useCss();
@@ -31,6 +34,8 @@ export function createStyles<Params extends Object = Object>(
     Object.keys(_styles).forEach((key) => {
       classes[key] = css(_styles[key]);
     });
+
+    // Merges the specified classes with the classNames from the config
     const mergedClasses = mergeClassNames(
       cx,
       classes,
