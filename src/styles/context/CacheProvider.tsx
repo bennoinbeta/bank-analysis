@@ -1,12 +1,14 @@
 import React from 'react';
 import createCache, { EmotionCache } from '@emotion/cache';
 
+const cacheKey = 'custom-cache';
+
 export const { getCache } = (() => {
   let cache: EmotionCache;
 
   function _getCache() {
     if (cache == null) {
-      cache = createCache({ key: 'ui' });
+      cache = createCache({ key: cacheKey });
     }
     return cache;
   }

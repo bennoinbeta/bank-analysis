@@ -72,21 +72,8 @@ const Text: TextComponent = React.forwardRef(
       inherit = false,
       ...others
     } = props;
-    const { cx, classes } = useStyles(
-      {
-        variant,
-        color,
-        size,
-        lineClamp,
-        inline,
-        inherit,
-        gradient,
-      },
-      null,
-      'text'
-    );
-    console.log('Styles', { classes, cx });
-    const Text = component || 'p';
+    const { cx, classes } = useStyles(props, { name: 'text' });
+    const Text: React.ElementType = component || 'p';
 
     return React.createElement(
       Text,
