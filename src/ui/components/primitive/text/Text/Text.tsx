@@ -64,7 +64,7 @@ const Text: TextComponent = React.forwardRef(
       inherit = false,
       ...others
     } = props;
-    const styles = useStyles(
+    const { cx, classes } = useStyles(
       {
         variant,
         color,
@@ -76,6 +76,7 @@ const Text: TextComponent = React.forwardRef(
       null,
       'text'
     );
+    console.log('Styles', { classes, cx });
     const Text = component || 'p';
 
     return React.createElement(
@@ -83,7 +84,7 @@ const Text: TextComponent = React.forwardRef(
       {
         ...others,
         ref,
-        className: null, // cx(classes.root, className),
+        className: cx(classes.root, className),
         // style: {
         //   fontWeight: inherit ? 'inherit' : weight,
         //   textTransform: transform,
