@@ -47,6 +47,7 @@ storiesOf('core/Text', module)
         marginRight: 'auto',
         marginTop: 20,
       }}
+      component={'div'}
       lineClamp={7}>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui cum optio
@@ -101,7 +102,7 @@ storiesOf('core/Text', module)
   ))
   .add('Link', () => (
     <div style={{ padding: 20 }}>
-      <Text component="a" href="https://mantine.dev" variant="link">
+      <Text component="a" href="https://google.com" variant="link">
         Link
       </Text>
     </div>
