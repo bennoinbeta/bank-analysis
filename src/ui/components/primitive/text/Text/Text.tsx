@@ -3,7 +3,7 @@ import {
   PolymorphicComponentProps,
   PolymorphicRef,
 } from '../../../../../types/Polymorphic';
-import useStyles from './Text.styles';
+import { useStyles } from './Text.styles';
 
 export interface SharedTextProps {
   /** Predefined font-size from theme.fontSizes */
