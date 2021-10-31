@@ -1,11 +1,15 @@
 import { defineConfig } from '@agile-ts/utils';
-import { SerializedStyles } from '@emotion/react';
+import { Interpolation, SerializedStyles } from '@emotion/react';
 import { ThemeInterface } from '../core/entities/ui/ui.types';
 import { useTheme } from '../ui/hooks/useTheme';
 import { useCss, CXType } from './hooks/useCss';
 import { mergeClassNames } from './utils';
 
-export type StyleType = SerializedStyles | string;
+export type StyleType =
+  | SerializedStyles
+  | TemplateStringsArray
+  | Interpolation<any>;
+
 type StylesType<Params extends Object = Object> = (
   theme: ThemeInterface,
   params: Params
@@ -23,6 +27,7 @@ export function createStyles<Params extends Object = Object>(
   function useStyles(
     params: Params,
     config: UseStylesConfig = {}
+    // TODO make this more type safe
   ): { cx: CXType; classes: Record<string, string> } {
     config = defineConfig(config, { name: 'unknown', classNames: {} });
     const theme = useTheme();

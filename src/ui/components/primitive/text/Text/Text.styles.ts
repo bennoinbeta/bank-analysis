@@ -1,6 +1,26 @@
-import { css } from '@emotion/react';
+import { css, SerializedStyles } from '@emotion/react';
+import { ThemeInterface } from '../../../../../core/entities/ui/ui.types';
 import createStyles from '../../../../../styles';
 import { TextProps } from './Text';
+
+type GetTextColor = {
+  theme: ThemeInterface;
+  color?: string;
+  variant: TextProps<any>['variant'];
+};
+
+function getTextColor(config: GetTextColor): SerializedStyles {
+  const color =
+    config.color != null
+      ? config.color
+      : config.variant === 'link'
+      ? config.theme.primitiveColors.purple_darker
+      : config.theme.primitiveColors.black;
+
+  return css`
+    color: ${color};
+  `;
+}
 
 export default createStyles<TextProps<any>>(
   (
@@ -9,8 +29,8 @@ export default createStyles<TextProps<any>>(
   ) => {
     return {
       root: css`
-        color: ${color != null ? color : theme.primitiveColors.black};
-        font-family: ${inherit ? 'inherit' : 'roboto'};
+        ${getTextColor({ color, theme, variant })};
+        font-family: ${inherit ? 'inherit' : 'sans-serif'};
         font-size: ${inherit ? 'inherit' : size + 'px'};
         line-height: ${inherit ? 'inherit' : undefined};
         text-decoration: none;
