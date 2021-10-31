@@ -15,7 +15,9 @@ type StylesType<Params extends Object = Object> = (
   params: Params
 ) => Record<string, StyleType> | Record<string, StyleType>;
 type UseStylesConfig = {
+  // Class names to extend the styles specified in 'createStyles'
   classNames?: Partial<Record<string, string>>;
+  // Key/Name identifier of the created styles
   name?: string;
 };
 
@@ -30,6 +32,7 @@ export function createStyles<Params extends Object = Object>(
     // TODO make this more type safe
   ): { cx: CXType; classes: Record<string, string> } {
     config = defineConfig(config, { name: 'unknown', classNames: {} });
+
     const theme = useTheme();
     const { css, cx } = useCss();
     const _styles = getStyles(theme, params);
@@ -40,12 +43,12 @@ export function createStyles<Params extends Object = Object>(
       classes[key] = css(_styles[key]);
     });
 
-    // Merges the specified classes with the classNames from the config
+    // Merges the specified classes with the classNames from config at the corresponding key
     const mergedClasses = mergeClassNames(
-      cx,
       classes,
       config.classNames as any,
-      config.name as any
+      config.name as any,
+      cx
     );
 
     return {

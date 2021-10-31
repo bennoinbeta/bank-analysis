@@ -2,11 +2,12 @@ import { CXType } from './hooks/useCss';
 
 const prefix = 'merged';
 
-export function mergeClassNames(
-  cx: CXType,
-  classes: Record<string, string>,
-  classNames: Partial<Record<string, string>>,
-  name: string
+// Merges the specified classes with the provided 'classNames' at the corresponding key
+export function mergeClassNames<T extends Record<string, string>>(
+  classes: T,
+  classNames: Partial<T>,
+  name: string,
+  cx: CXType
 ): Record<string, string> {
   const mergedClasses: Record<string, string> = {};
   Object.keys(classes).forEach((classKey: string) => {
