@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {
   PolymorphicComponentProps,
   PolymorphicRef,
-} from '../../../../../types/Polymorphic';
+} from '../../../../../styles/types/Polymorphic';
 
 export type BaseInputProps = {
   leftSection?: {

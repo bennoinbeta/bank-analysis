@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import Text from './Text';
 import styled from '@emotion/styled-base';
 import { css } from '@emotion/react';
+import { createStyles } from '../../../../../styles';
 
 const CustomComponent = ({
   emoji,
@@ -19,8 +20,13 @@ const CustomComponent = ({
 
 const StyledText = styled(Text)`
   color: red;
-  font-weight: bold;
 `;
+
+const useStylesText = createStyles()({
+  root: css`
+    color: #61dafb;
+  `,
+});
 
 storiesOf('core/Text', module)
   .add('General usage', () => (
@@ -38,24 +44,26 @@ storiesOf('core/Text', module)
       Custom component
     </Text>
   ))
-  .add('Styled component', () => (
-    <div>
-      <StyledText>Styled with styled components</StyledText>
-      <Text
-        css={css`
-          background-color: yellow;
-          font-size: 30px;
-          font-weight: bold;
-          font-family: Roboto;
-        `}>
-        Styled with emotion
-      </Text>
-      <Text style={{ color: 'blue' }}>Styled with style property</Text>
-      <Text styles={{ root: { color: 'purple', fontWeight: 'bold' } }}>
-        Styled with styles property
-      </Text>
-    </div>
-  ))
+  .add('Styled component', () => {
+    const { classes } = useStylesText();
+
+    return (
+      <div>
+        <StyledText>Styled with styled components</StyledText>
+        <Text
+          css={css`
+            color: green;
+          `}>
+          Styled with emotion
+        </Text>
+        <Text style={{ color: 'blue' }}>Styled with style property</Text>
+        <Text styles={{ root: { color: 'purple' } }}>
+          Styled with styles property
+        </Text>
+        <Text styles={{ root: classes.root }}>Styled with class name</Text>
+      </div>
+    );
+  })
   .add('Gradient', () => (
     <Text variant="gradient" align={'center'}>
       Gradient component

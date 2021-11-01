@@ -3,6 +3,8 @@ import { Interpolation, SerializedStyles } from '@emotion/react';
 import { ThemeInterface } from '../core/entities/ui/ui.types';
 import { useTheme } from '../ui/hooks/useTheme';
 import { useCss, CXType } from './hooks/useCss';
+import { MapToX } from './types';
+import { stylePrefix } from './config';
 
 /**
  * Helper method to merge the specified classes
@@ -23,15 +25,14 @@ function mergeClassNames<T extends Record<string, string>>(
 
   for (const classKey of Object.keys(classes)) {
     const toMergeClassName = classNames[classKey];
-    if (toMergeClassName != null) {
-      mergedClasses[classKey] = cx(
-        classes[classKey],
-        toMergeClassName,
-        name ? `merged-${name}-${classKey}` : null // just for debugging
-      );
-    } else {
-      mergedClasses[classKey] = classes[classKey];
-    }
+    mergedClasses[classKey] = cx(
+      classes[classKey],
+      toMergeClassName || null,
+      // To have a readable 'static selector' for styling with e.g. scss.
+      // This class name has initially no styling applied.
+      // e.g. 'prefix-text-root' or 'prefix-button-container'
+      name ? `${stylePrefix}-${name}-${classKey}` : null
+    );
   }
 
   return mergedClasses as any;
@@ -69,7 +70,7 @@ export const createStyles =
 
       const theme = useTheme();
       const { css, cx } = useCss();
-      const _styles = getStyles(theme, params);
+      const _styles = getStyles(theme, params as any);
       const _extendedStyles = (
         typeof config.styles === 'function'
           ? config.styles(theme)
@@ -153,10 +154,6 @@ export type UseStylesType<
   TParams extends Object,
   TStyles extends StylesData
 > = (
-  params: TParams,
+  params?: TParams,
   config?: UseStylesConfigType<TStyles>
 ) => UseStylesReturnType<TStyles>;
-
-export type MapToX<T, X = any> = {
-  [K in keyof T]: X;
-};

@@ -2,14 +2,12 @@ import React from 'react';
 import {
   PolymorphicComponentProps,
   PolymorphicRef,
-} from '../../../../../types/Polymorphic';
-import { useStyles } from './Text.styles';
-import { jsx } from '@emotion/react';
-import {
   MapToX,
   StyleItem,
   UseStylesType,
-} from '../../../../../styles/create-styles';
+} from '../../../../../styles';
+import { useStyles } from './Text.styles';
+import { jsx } from '@emotion/react';
 
 export interface SharedTextProps {
   size?: number;
