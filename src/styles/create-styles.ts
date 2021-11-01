@@ -149,11 +149,14 @@ type UseStylesReturnType<TStyles extends StylesData> = {
   classes: MapToX<TStyles, string>;
 };
 
-type UseStylesType<TParams extends Object, TStyles extends StylesData> = (
+export type UseStylesType<
+  TParams extends Object,
+  TStyles extends StylesData
+> = (
   params: TParams,
   config?: UseStylesConfigType<TStyles>
 ) => UseStylesReturnType<TStyles>;
 
-type MapToX<T, X = any> = {
+export type MapToX<T, X = any> = {
   [K in keyof T]: X;
 };
