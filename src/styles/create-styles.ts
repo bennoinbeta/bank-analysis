@@ -37,63 +37,68 @@ function mergeClassNames<T extends Record<string, string>>(
   return mergedClasses as any;
 }
 
-/**
- * Transfers the (in object shape or emotion style) specified styles
- * into the returned 'useStyles()' hook.
- *
- * The 'useStyles()' hook should be used in React components
- * where the styles are to be used in.
- * It provides the specified styles mapped to class names
- * and some handy utilities for working with these class names.
- *
- * @param styles - Styles to be passed to the returned 'useStyles()' hook and converted to class names.
- */
-export function createStyles<
-  TParams extends Object = Object,
-  TStyles extends StylesData = StylesData
->(styles: StylesType<TParams, TStyles>): UseStylesType<TParams, TStyles> {
-  const getStyles = typeof styles === 'function' ? styles : () => styles;
-
+// Double method due to partial type inference
+// https://stackoverflow.com/questions/63678306/typescript-partial-type-inference
+export const createStyles =
+  <TParams extends Object = Object>() =>
   /**
-   * Hook for accessing the generated class names
-   * based on the styles created in 'createStyles()'.
+   * Transfers the (in object shape or emotion style) specified styles
+   * into the returned 'useStyles()' hook.
    *
-   * @param params - Parameters to be passed to the style creation ('createStyles()') method.
-   * @param config - Configuration object
+   * The 'useStyles()' hook should be used in React components
+   * where the styles are to be used in.
+   * It provides the specified styles mapped to class names
+   * and some handy utilities for working with these class names.
+   *
+   * @param styles - Styles to be passed to the returned 'useStyles()' hook and converted to class names.
    */
-  return (params, config = {}) => {
-    config = defineConfig(config, { name: 'unknown', styles: {} });
+  <TStyles extends StylesData = StylesData>(
+    styles: StylesType<TParams, TStyles>
+  ): UseStylesType<TParams, TStyles> => {
+    const getStyles = typeof styles === 'function' ? styles : () => styles;
 
-    const theme = useTheme();
-    const { css, cx } = useCss();
-    const _styles = getStyles(theme, params);
-    const _extendedStyles = (
-      typeof config.styles === 'function' ? config.styles(theme) : config.styles
-    ) as Partial<TStyles>;
+    /**
+     * Hook for accessing the generated class names
+     * based on the styles created in 'createStyles()'.
+     *
+     * @param params - Parameters to be passed to the style creation ('createStyles()') method.
+     * @param config - Configuration object
+     */
+    return (params, config = {}) => {
+      config = defineConfig(config, { name: 'unknown', styles: {} });
 
-    // Transform specified styles into classes
-    const classes: Record<string, string> = {};
-    Object.keys(_styles).forEach((key) => {
-      classes[key] = css(_styles[key]);
-    });
+      const theme = useTheme();
+      const { css, cx } = useCss();
+      const _styles = getStyles(theme, params);
+      const _extendedStyles = (
+        typeof config.styles === 'function'
+          ? config.styles(theme)
+          : config.styles
+      ) as Partial<TStyles>;
 
-    // Transform specified extendedStyles into classes
-    const extendedClasses: Record<string, string> = {};
-    Object.keys(_extendedStyles).forEach((key) => {
-      extendedClasses[key] = css(_extendedStyles[key]);
-    });
+      // Transform specified styles into classes
+      const classes: Record<string, string> = {};
+      Object.keys(_styles).forEach((key) => {
+        classes[key] = css(_styles[key]);
+      });
 
-    return {
-      classes: mergeClassNames<MapToString<TStyles>>(
-        classes as any,
-        extendedClasses as any,
+      // Transform specified extendedStyles into classes
+      const extendedClasses: Record<string, string> = {};
+      Object.keys(_extendedStyles).forEach((key) => {
+        extendedClasses[key] = css(_extendedStyles[key]);
+      });
+
+      return {
+        classes: mergeClassNames<MapToX<TStyles, string>>(
+          classes as any,
+          extendedClasses as any,
+          cx,
+          config.name
+        ),
         cx,
-        config.name
-      ),
-      cx,
+      };
     };
   };
-}
 
 export type StyleItem =
   | SerializedStyles // to do emotion based 'css' styles
@@ -102,17 +107,18 @@ export type StyleItem =
 
 export type StylesData = Record<string, StyleItem>;
 
-type StylesType<
-  TParams extends Object = Object,
-  TStyles extends StylesData = StylesData
-> = TStyles | ((theme: ThemeInterface, params: TParams) => TStyles);
+type StylesType<TParams extends Object, TStyles extends StylesData> =
+  | TStyles
+  | ((theme: ThemeInterface, params: TParams) => TStyles);
 
 type UseStylesConfigType<TStyles extends StylesData> = {
   /**
    * Styles keymap to extend the styles specified in the 'createStyles()' method.
    * @default {}
    */
-  styles?: Partial<TStyles> | ((theme: ThemeInterface) => Partial<TStyles>);
+  styles?:
+    | Partial<MapToX<TStyles, StyleItem>>
+    | ((theme: ThemeInterface) => Partial<MapToX<TStyles, StyleItem>>);
   /**
    * Key/Name identifier of the created styles.
    * @default 'unknown'
@@ -120,7 +126,7 @@ type UseStylesConfigType<TStyles extends StylesData> = {
   name?: string;
 };
 
-type UseStylesReturnType<TStyles extends Record<string, string>> = {
+type UseStylesReturnType<TStyles extends StylesData> = {
   /**
    * Merges the specified class names.
    *
@@ -140,14 +146,14 @@ type UseStylesReturnType<TStyles extends Record<string, string>> = {
    * Class names keymap based on the styles key map
    * specified in the 'createStyles()' method.
    */
-  classes: TStyles;
+  classes: MapToX<TStyles, string>;
 };
 
 type UseStylesType<TParams extends Object, TStyles extends StylesData> = (
   params: TParams,
-  config: UseStylesConfigType<TStyles>
-) => UseStylesReturnType<MapToString<TStyles>>;
+  config?: UseStylesConfigType<TStyles>
+) => UseStylesReturnType<TStyles>;
 
-type MapToString<T, S extends string = string> = {
-  [K in keyof T]: S;
+type MapToX<T, X = any> = {
+  [K in keyof T]: X;
 };

@@ -22,7 +22,7 @@ function getTextColor(config: GetTextColor): SerializedStyles {
   `;
 }
 
-export const useStyles = createStyles<TextProps<any>>(
+export const useStyles = createStyles<TextProps<any>>()(
   (
     theme,
     { color, variant, size, inherit, gradient, weight, transform, align }

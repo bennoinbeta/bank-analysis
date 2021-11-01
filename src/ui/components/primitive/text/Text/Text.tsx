@@ -72,8 +72,6 @@ const Text: TextComponent = React.forwardRef(
     );
     const Element: React.ElementType = component || 'p';
 
-    console.log({ cx, classes }); // TODO REMOVE
-
     // jsx == React.createElement but with 'css' support
     // https://github.com/emotion-js/emotion/issues/1368
     return jsx(
