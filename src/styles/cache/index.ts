@@ -1,16 +1,20 @@
 import CacheProvider from './CacheProvider';
 import createCache, { EmotionCache, Options } from '@emotion/cache';
 
-const cacheKey = 'custom-css';
-
 export const { getCache } = (() => {
   let cache: EmotionCache;
+  const cacheKey = 'custom-css';
 
-  // Creates a new cache if no cache has been created yet
-  // TODO find out how to access the default emotion cache
-  function _getCache(options?: Options) {
+  /**
+   * Returns the existing cache or creates a new one
+   * and returns the newly created cache
+   * if no cache has been created yet.
+   *
+   * @param config - Configuration object
+   */
+  function _getCache(config?: Options) {
     if (cache == null) {
-      cache = createCache(options ?? { key: cacheKey, prepend: true });
+      cache = createCache(config ?? { key: cacheKey, prepend: true });
     }
     return cache;
   }
