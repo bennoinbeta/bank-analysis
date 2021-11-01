@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Text from './Text';
 import styled from '@emotion/styled-base';
+import { css } from '@emotion/react';
 
 const CustomComponent = ({
   emoji,
@@ -37,8 +38,29 @@ storiesOf('core/Text', module)
       Custom component
     </Text>
   ))
-  .add('Styled component', () => <StyledText>Custom component</StyledText>)
-  .add('Gradient', () => <Text variant="gradient">Gradient component</Text>)
+  .add('Styled component', () => (
+    <div>
+      <StyledText>Styled with styled components</StyledText>
+      <Text
+        css={css`
+          background-color: yellow;
+          font-size: 30px;
+          font-weight: bold;
+          font-family: Roboto;
+        `}>
+        Styled with emotion
+      </Text>
+      <Text style={{ color: 'blue' }}>Styled with style property</Text>
+      <Text styles={{ root: { color: 'purple', fontWeight: 'bold' } }}>
+        Styled with styles property
+      </Text>
+    </div>
+  ))
+  .add('Gradient', () => (
+    <Text variant="gradient" align={'center'}>
+      Gradient component
+    </Text>
+  ))
   .add('Multiline', () => (
     <Text
       style={{

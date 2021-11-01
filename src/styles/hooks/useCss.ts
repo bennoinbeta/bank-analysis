@@ -83,5 +83,5 @@ export function useCss() {
   return React.useMemo(() => cssFactory(cache), [cache]);
 }
 
-type CSSType = (styles: StyleItem[] | StyleItem) => string;
+export type CSSType = (styles: StyleItem[] | StyleItem) => string;
 export type CXType = (...args: any) => string;

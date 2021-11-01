@@ -45,7 +45,7 @@ export const useStyles = createStyles<TextProps<any>>(
     `,
 
     gradient: css`
-      background-image: linear-gradient(
+      background: linear-gradient(
         ${gradient?.deg}deg,
         ${gradient?.from} 0%,
         ${gradient?.to} 100%

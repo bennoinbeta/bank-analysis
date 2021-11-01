@@ -6,35 +6,35 @@ import { useCss, CXType } from './hooks/useCss';
 
 /**
  * Helper method to merge the specified classes
- * with the provided 'classNames' at the corresponding key.
+ * with the provided styles at the corresponding key.
  *
  * @param classes - Classes key map to merge the specified 'classNames' in.
  * @param classNames - Class names key map to be merged into the specified classes.
- * @param name - Key/Name identifier to be contained in each new merged class name.
  * @param cx - CX method
+ * @param name - Key/Name identifier to be contained in each new merged class name.
  */
 function mergeClassNames<T extends Record<string, string>>(
   classes: T,
   classNames: Partial<T>,
-  name: string,
-  cx: CXType
-): Record<string, string> {
+  cx: CXType,
+  name?: string
+): T {
   const mergedClasses: Record<string, string> = {};
 
   for (const classKey of Object.keys(classes)) {
-    const toMergeClassNAme = classNames[classKey];
-    if (toMergeClassNAme != null) {
+    const toMergeClassName = classNames[classKey];
+    if (toMergeClassName != null) {
       mergedClasses[classKey] = cx(
         classes[classKey],
-        toMergeClassNAme,
-        name ? `merged-${name}-${classKey}` : null
+        toMergeClassName,
+        name ? `merged-${name}-${classKey}` : null // just for debugging
       );
     } else {
       mergedClasses[classKey] = classes[classKey];
     }
   }
 
-  return mergedClasses;
+  return mergedClasses as any;
 }
 
 /**
@@ -62,11 +62,14 @@ export function createStyles<
    * @param config - Configuration object
    */
   return (params, config = {}) => {
-    config = defineConfig(config, { name: 'unknown', classNames: {} });
+    config = defineConfig(config, { name: 'unknown', styles: {} });
 
     const theme = useTheme();
     const { css, cx } = useCss();
     const _styles = getStyles(theme, params);
+    const _extendedStyles = (
+      typeof config.styles === 'function' ? config.styles(theme) : config.styles
+    ) as Partial<TStyles>;
 
     // Transform specified styles into classes
     const classes: Record<string, string> = {};
@@ -74,13 +77,19 @@ export function createStyles<
       classes[key] = css(_styles[key]);
     });
 
+    // Transform specified extendedStyles into classes
+    const extendedClasses: Record<string, string> = {};
+    Object.keys(_extendedStyles).forEach((key) => {
+      extendedClasses[key] = css(_extendedStyles[key]);
+    });
+
     return {
-      classes: mergeClassNames(
-        classes,
-        config.classNames as any,
-        config.name as any,
-        cx
-      ) as any,
+      classes: mergeClassNames<MapToString<TStyles>>(
+        classes as any,
+        extendedClasses as any,
+        cx,
+        config.name
+      ),
       cx,
     };
   };
@@ -88,7 +97,7 @@ export function createStyles<
 
 export type StyleItem =
   | SerializedStyles // to do emotion based 'css' styles
-  | TemplateStringsArray // to do emotion based 'object' styles
+  | TemplateStringsArray // to do class name based styles
   | Interpolation<any>; // to do emotion based 'object' styles
 
 export type StylesData = Record<string, StyleItem>;
@@ -100,10 +109,10 @@ type StylesType<
 
 type UseStylesConfigType<TStyles extends StylesData> = {
   /**
-   * Class names keymap to extend the styles specified in the 'createStyles()' method.
+   * Styles keymap to extend the styles specified in the 'createStyles()' method.
    * @default {}
    */
-  classNames?: Partial<TStyles>;
+  styles?: Partial<TStyles> | ((theme: ThemeInterface) => Partial<TStyles>);
   /**
    * Key/Name identifier of the created styles.
    * @default 'unknown'
