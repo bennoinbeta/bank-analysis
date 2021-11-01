@@ -77,16 +77,22 @@ export const createStyles =
           : config.styles
       ) as Partial<TStyles>;
 
-      // Transform specified styles into classes
+      // Transform specified 'styles' into classes
       const classes: Record<string, string> = {};
       Object.keys(_styles).forEach((key) => {
-        classes[key] = css(_styles[key]);
+        classes[key] =
+          typeof _styles[key] !== 'string'
+            ? css(_styles[key])
+            : (_styles[key] as any);
       });
 
-      // Transform specified extendedStyles into classes
+      // Transform specified 'extendedStyles' into classes
       const extendedClasses: Record<string, string> = {};
       Object.keys(_extendedStyles).forEach((key) => {
-        extendedClasses[key] = css(_extendedStyles[key]);
+        extendedClasses[key] =
+          typeof _extendedStyles[key] !== 'string'
+            ? css(_extendedStyles[key])
+            : (_extendedStyles[key] as any);
       });
 
       return {

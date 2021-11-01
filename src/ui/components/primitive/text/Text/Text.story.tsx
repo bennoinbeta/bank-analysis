@@ -25,6 +25,7 @@ const StyledText = styled(Text)`
 const useStylesText = createStyles()({
   root: css`
     color: #61dafb;
+    font-weight: bold;
   `,
 });
 
@@ -45,7 +46,7 @@ storiesOf('core/Text', module)
     </Text>
   ))
   .add('Styled component', () => {
-    const { classes } = useStylesText();
+    const { classes } = useStylesText({}, { name: 'sandbox' });
 
     return (
       <div>

@@ -1,1 +1,1 @@
-export const stylePrefix = 'ui-library';
+export const stylePrefix = 'uil';
