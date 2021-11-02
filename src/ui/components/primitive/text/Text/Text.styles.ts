@@ -1,13 +1,7 @@
 import { css, SerializedStyles } from '@emotion/react';
 import { ThemeInterface } from '../../../../../core/entities/ui/ui.types';
-import { createStyles } from '../../../../../styles';
+import { createStyles, ExtractStylesType, UseStylesType } from '../../../../../styles';
 import { TextProps } from './Text';
-
-type GetTextColor = {
-  theme: ThemeInterface;
-  color?: string;
-  variant: TextProps<any>['variant'];
-};
 
 function getTextColor(config: GetTextColor): SerializedStyles {
   const color =
@@ -22,7 +16,7 @@ function getTextColor(config: GetTextColor): SerializedStyles {
   `;
 }
 
-export const useStyles = createStyles<TextProps<any>>()(
+export const useStyles = createStyles<TextProps>()(
   (
     theme,
     { color, variant, size, inherit, gradient, weight, transform, align }
@@ -36,6 +30,7 @@ export const useStyles = createStyles<TextProps<any>>()(
       font-weight: ${weight};
       text-transform: ${transform};
       text-align: ${align};
+      margin: 0;
 
       -webkit-tap-highlight-color: transparent;
 
@@ -55,3 +50,11 @@ export const useStyles = createStyles<TextProps<any>>()(
     `,
   })
 );
+
+type GetTextColor = {
+  theme: ThemeInterface;
+  color?: string;
+  variant: TextProps['variant'];
+};
+
+export type ExtractedStylesType = ExtractStylesType<typeof useStyles>;

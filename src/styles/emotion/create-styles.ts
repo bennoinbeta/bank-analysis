@@ -1,10 +1,10 @@
 import { defineConfig } from '@agile-ts/utils';
 import { Interpolation, SerializedStyles } from '@emotion/react';
-import { ThemeInterface } from '../core/entities/ui/ui.types';
-import { useTheme } from '../ui/hooks/useTheme';
+import { ThemeInterface } from '../../core/entities/ui/ui.types';
+import { useTheme } from '../../ui/hooks/useTheme';
 import { useCss, CXType } from './hooks/useCss';
-import { MapToX } from './types';
-import { stylePrefix } from './config';
+import { MapToX } from '../types';
+import { stylePrefix } from '../config';
 
 /**
  * Helper method to merge the specified classes
@@ -118,14 +118,15 @@ type StylesType<TParams extends Object, TStyles extends StylesData> =
   | TStyles
   | ((theme: ThemeInterface, params: TParams) => TStyles);
 
+export type ExtendedStylesType<TStyles extends StylesData> = Partial<MapToX<TStyles, StyleItem>>
+  | ((theme: ThemeInterface) => Partial<MapToX<TStyles, StyleItem>>);
+
 type UseStylesConfigType<TStyles extends StylesData> = {
   /**
    * Styles keymap to extend the styles specified in the 'createStyles()' method.
    * @default {}
    */
-  styles?:
-    | Partial<MapToX<TStyles, StyleItem>>
-    | ((theme: ThemeInterface) => Partial<MapToX<TStyles, StyleItem>>);
+  styles?: ExtendedStylesType<TStyles>
   /**
    * Key/Name identifier of the created styles.
    * @default 'unknown'
@@ -161,3 +162,7 @@ export type UseStylesType<
   TStyles extends StylesData,
   TConfig extends UseStylesConfigType<TStyles> = UseStylesConfigType<TStyles>
 > = (params?: TParams, config?: TConfig) => UseStylesReturnType<TStyles>;
+
+export type ExtractStylesType<T> = T extends UseStylesType<infer P, infer S, infer C>
+  ? C['styles']
+  : never;

@@ -2,12 +2,10 @@ import React from 'react';
 import {
   PolymorphicComponentProps,
   PolymorphicRef,
-  MapToX,
-  StyleItem,
-  UseStylesType,
 } from '../../../../../styles';
-import { useStyles } from './Text.styles';
+import { ExtractedStylesType, useStyles } from './Text.styles';
 import { jsx } from '@emotion/react';
+import { DefaultProps } from '../../../../../styles/theme';
 
 export interface SharedTextProps {
   size?: number;
@@ -24,16 +22,15 @@ export interface SharedTextProps {
     to: string;
     deg?: number;
   };
-  styles?: ExtractStyleType<typeof useStyles>;
 }
 
-export type TextProps<C extends React.ElementType> = PolymorphicComponentProps<
+export type TextProps<C extends React.ElementType = 'p'> = PolymorphicComponentProps<
   C,
   SharedTextProps
 >;
 
 type TextComponent = <C extends React.ElementType = 'p'>(
-  props: TextProps<C>
+  props: TextProps<C> & DefaultProps<ExtractedStylesType>
 ) => React.ReactElement;
 
 const Text: TextComponent = React.forwardRef(
@@ -94,7 +91,3 @@ const Text: TextComponent = React.forwardRef(
 ) as any;
 
 export default Text;
-
-type ExtractStyleType<T> = T extends UseStylesType<infer P, infer S, infer C>
-  ? C['styles']
-  : never;

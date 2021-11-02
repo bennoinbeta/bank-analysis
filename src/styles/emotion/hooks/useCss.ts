@@ -1,4 +1,4 @@
-import { StyleItem } from './../create-styles';
+import { StyleItem } from '../create-styles';
 import React from 'react';
 import clsx from 'clsx';
 import { serializeStyles, RegisteredCache } from '@emotion/serialize';

@@ -1,8 +1,3 @@
-import { createStyles } from './create-styles';
-
-export * from './create-styles';
-export * from './cache';
-export * from './types';
+export * from './emotion';
 export * from './config';
-
-export default createStyles;
+export * from './types'
