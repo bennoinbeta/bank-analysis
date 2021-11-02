@@ -95,6 +95,6 @@ const Text: TextComponent = React.forwardRef(
 
 export default Text;
 
-type ExtractStyleType<T> = T extends UseStylesType<infer P, infer S>
-  ? Partial<MapToX<S, StyleItem>>
+type ExtractStyleType<T> = T extends UseStylesType<infer P, infer S, infer C>
+  ? C['styles']
   : never;

@@ -20,6 +20,7 @@ const CustomComponent = ({
 
 const StyledText = styled(Text)`
   color: red;
+  font-weight: bold;
 `;
 
 const useStylesText = createStyles()({
@@ -46,22 +47,37 @@ storiesOf('core/Text', module)
     </Text>
   ))
   .add('Styled component', () => {
-    const { classes } = useStylesText({}, { name: 'sandbox' });
+    const { classes } = useStylesText();
 
     return (
       <div>
         <StyledText>Styled with styled components</StyledText>
         <Text
           css={css`
-            color: green;
+            color: chocolate;
+            font-weight: bold;
           `}>
           Styled with emotion
         </Text>
-        <Text style={{ color: 'blue' }}>Styled with style property</Text>
-        <Text styles={{ root: { color: 'purple' } }}>
-          Styled with styles property
+        <Text style={{ color: 'blue', fontWeight: 'bold' }}>
+          Styled with style property
         </Text>
-        <Text styles={{ root: classes.root }}>Styled with class name</Text>
+        <Text
+          styles={(theme) => ({
+            root: { color: theme.primitiveColors.purple, fontWeight: 'bold' },
+          })}>
+          Styled root with styles property
+        </Text>
+        <Text
+          styles={(theme) => ({
+            root: css`
+              color: ${theme.primitiveColors.green};
+              font-weight: bold;
+            `,
+          })}>
+          Styled root with emotion
+        </Text>
+        <Text styles={{ root: classes.root }}>Styled root with class name</Text>
       </div>
     );
   })

@@ -66,7 +66,7 @@ export const createStyles =
      * @param config - Configuration object
      */
     return (params, config = {}) => {
-      config = defineConfig(config, { name: 'unknown', styles: {} });
+      config = defineConfig(config, { name: null, styles: {} });
 
       const theme = useTheme();
       const { css, cx } = useCss();
@@ -158,8 +158,6 @@ type UseStylesReturnType<TStyles extends StylesData> = {
 
 export type UseStylesType<
   TParams extends Object,
-  TStyles extends StylesData
-> = (
-  params?: TParams,
-  config?: UseStylesConfigType<TStyles>
-) => UseStylesReturnType<TStyles>;
+  TStyles extends StylesData,
+  TConfig extends UseStylesConfigType<TStyles> = UseStylesConfigType<TStyles>
+> = (params?: TParams, config?: TConfig) => UseStylesReturnType<TStyles>;
