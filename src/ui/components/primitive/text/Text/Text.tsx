@@ -5,7 +5,7 @@ import {
 } from '../../../../../styles';
 import { ExtractedStylesType, useStyles } from './Text.styles';
 import { jsx } from '@emotion/react';
-import { DefaultProps } from '../../../../../styles/theme';
+import { DefaultProps, Gradient } from '../../../../../styles/theme';
 
 export interface SharedTextProps {
   size?: number;
@@ -17,17 +17,11 @@ export interface SharedTextProps {
   lineClamp?: number;
   inline?: boolean;
   inherit?: boolean;
-  gradient?: {
-    from: string;
-    to: string;
-    deg?: number;
-  };
+  gradient?: Gradient;
 }
 
-export type TextProps<C extends React.ElementType = 'p'> = PolymorphicComponentProps<
-  C,
-  SharedTextProps
->;
+export type TextProps<C extends React.ElementType = 'p'> =
+  PolymorphicComponentProps<C, SharedTextProps>;
 
 type TextComponent = <C extends React.ElementType = 'p'>(
   props: TextProps<C> & DefaultProps<ExtractedStylesType>
