@@ -5,7 +5,7 @@ import {
 } from '../../../../../styles';
 import { ExtractedStylesType, useStyles } from './Text.styles';
 import { jsx } from '@emotion/react';
-import { DefaultProps, Gradient } from '../../../../../styles/theme';
+import { DefaultProps, AgileGradient } from '../../../../../styles/theme';
 
 export interface SharedTextProps {
   size?: number;
@@ -17,7 +17,7 @@ export interface SharedTextProps {
   lineClamp?: number;
   inline?: boolean;
   inherit?: boolean;
-  gradient?: Gradient;
+  gradient?: AgileGradient;
 }
 
 export type TextProps<C extends React.ElementType = 'p'> =

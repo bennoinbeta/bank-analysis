@@ -1,9 +1,9 @@
-import { OverwriteTheme, Theme } from './types';
+import { OverwriteTheme, AgileTheme } from './types';
 
 export function mergeTheme(
-  currentTheme: Theme,
+  currentTheme: AgileTheme,
   themeOverride?: OverwriteTheme
-): Theme {
+): AgileTheme {
   if (themeOverride == null) return currentTheme;
 
   // TODO MERGE THEMES

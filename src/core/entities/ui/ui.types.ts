@@ -1,4 +1,4 @@
-import { Theme } from '../../../styles/theme';
+import { AgileTheme } from '../../../styles/theme';
 
 export type ToastEventType = 'error' | 'success' | 'warn';
 
@@ -33,5 +33,5 @@ export type PrimitiveColorsType = {
 // https://nyxo.app/tips-for-using-typescript-with-styled-components
 // Declare Theme type for 'styled-components'
 declare module 'styled-components' {
-  export interface DefaultTheme extends Theme {}
+  export interface DefaultTheme extends AgileTheme {}
 }

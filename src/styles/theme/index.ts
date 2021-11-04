@@ -1,4 +1,4 @@
 export * from './types';
-export * from './ThemeProvider';
+export * from './AgileThemeProvider';
 export * from './default-theme';
 export * from './default-primitive-colors';

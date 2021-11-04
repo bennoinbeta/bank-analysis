@@ -3,7 +3,7 @@ import { Colors } from './Color';
 import { Sizes } from './Size';
 import { DeepPartial } from '../../types';
 
-export interface Theme {
+export interface AgileTheme {
   colors: Colors;
   fontFamily: React.CSSProperties['fontFamily'];
   lineHeight: React.CSSProperties['lineHeight'];
@@ -38,7 +38,7 @@ export type ThemePaths<T> = {
   string;
 
 export type ThemeObject = {
-  theme: Theme;
+  theme: AgileTheme;
   type: string;
   primitiveColors: Record<string, string | string[]>;
 };

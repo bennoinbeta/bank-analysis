@@ -1,5 +1,10 @@
 import React from 'react';
-import { OverwriteThemeObject, ThemeObject, ThemePaths } from './types';
+import {
+  AgileTheme,
+  OverwriteThemeObject,
+  ThemeObject,
+  ThemePaths,
+} from './types';
 import { DEFAULT_THEME } from './default-theme';
 import { mergeTheme } from './merge-theme';
 import { DEFAULT_PRIMITIVE_COLORS } from './default-primitive-colors';
@@ -17,7 +22,7 @@ const defaultTheme: ThemeContextType = {
 
 const ThemeContext = React.createContext<ThemeContextType>(defaultTheme);
 
-export function useTheme() {
+export function useAgileTheme(): AgileTheme {
   const themeContext = React.useContext(ThemeContext);
 
   if (themeContext == null) {
@@ -26,12 +31,16 @@ export function useTheme() {
   }
 
   return (
-    themeContext.themes[themeContext.activeTheme] ||
-    themeContext.themes[Object.keys(themeContext.themes)[0]]
+    (themeContext.themes[themeContext.activeTheme] as any) ||
+    (themeContext.themes[Object.keys(themeContext.themes)[0]] as any)
   );
 }
 
-const ThemeProvider: React.FC<ThemeProviderProps> = (props) => {
+export const AgileThemeProvider: React.FC<ThemeProviderProps> = <
+  T extends Record<string, OverwriteThemeObject>
+>(
+  props: ThemeProviderProps<T>
+) => {
   const { children, activeTheme } = props;
   const themes = props.themes ?? defaultTheme.themes;
   const [mergedThemes, setMergedThemes] = React.useState<
@@ -62,15 +71,10 @@ const ThemeProvider: React.FC<ThemeProviderProps> = (props) => {
   );
 };
 
-export default ThemeProvider;
+export default AgileThemeProvider;
 
-type ThemeProviderProps<
-  T extends Record<string, OverwriteThemeObject> = Record<
-    string,
-    OverwriteThemeObject
-  >
-> = {
-  themes?: T;
+type ThemeProviderProps<T extends Record<string, OverwriteThemeObject>> = {
+  themes: T;
   activeTheme?: ThemePaths<T>;
   children: React.ReactNode;
 };
@@ -80,4 +84,14 @@ type ThemeContextType<
 > = {
   themes: T;
   activeTheme: ThemePaths<T>;
+};
+
+// TODO
+const test: ThemeProviderProps = {
+  themes: {
+    light: {},
+    dark: {},
+  },
+  activeTheme: 'light',
+  children: null as any,
 };

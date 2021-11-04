@@ -2,14 +2,14 @@ import React from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { useAgile, useEvent } from '@agile-ts/react';
 import { ThemeProvider } from 'styled-components';
-import ThemeContext from './context/ThemeContext';
 import { ui } from './core';
 
 import 'react-toastify/dist/ReactToastify.css';
 import AppRouter from './routing/AppRouter';
+import AgileThemeProvider from './styles/theme/AgileThemeProvider';
 
 const App: React.FC = () => {
-  const theme = useAgile(ui.THEME);
+  const activeTheme = useAgile(ui.THEME_TYPE);
 
   // Handle UI-Events
   useEvent(ui.TOAST_EVENT, (payload) => {
@@ -17,7 +17,12 @@ const App: React.FC = () => {
   });
 
   return (
-    <ThemeContext.Provider value={theme}>
+    <AgileThemeProvider
+      activeTheme={activeTheme}
+      themes={{
+        light: {},
+        dark: {},
+      }}>
       <ThemeProvider theme={theme}>
         <ToastContainer
           position="top-left"
@@ -29,11 +34,11 @@ const App: React.FC = () => {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme={theme.type as any}
+          theme={activeTheme as any}
         />
         <AppRouter />
       </ThemeProvider>
-    </ThemeContext.Provider>
+    </AgileThemeProvider>
   );
 };
 

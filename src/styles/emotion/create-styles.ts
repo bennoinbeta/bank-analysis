@@ -1,10 +1,9 @@
 import { defineConfig } from '@agile-ts/utils';
 import { Interpolation, SerializedStyles } from '@emotion/react';
-import { ThemeInterface } from '../../core/entities/ui/ui.types';
-import { useTheme } from '../../ui/hooks/useTheme';
 import { useCss, CXType } from './hooks/useCss';
 import { MapToX } from '../types';
 import { stylePrefix } from '../config';
+import { AgileTheme, useAgileTheme } from '../theme';
 
 /**
  * Helper method to merge the specified classes
@@ -68,7 +67,7 @@ export const createStyles =
     return (params, config = {}) => {
       config = defineConfig(config, { name: null, styles: {} });
 
-      const theme = useTheme();
+      const theme = useAgileTheme();
       const { css, cx } = useCss();
       const _styles = getStyles(theme, params as any);
       const _extendedStyles = (
@@ -116,17 +115,18 @@ export type StylesData = Record<string, StyleItem>;
 
 type StylesType<TParams extends Object, TStyles extends StylesData> =
   | TStyles
-  | ((theme: ThemeInterface, params: TParams) => TStyles);
+  | ((theme: AgileTheme, params: TParams) => TStyles);
 
-export type ExtendedStylesType<TStyles extends StylesData> = Partial<MapToX<TStyles, StyleItem>>
-  | ((theme: ThemeInterface) => Partial<MapToX<TStyles, StyleItem>>);
+export type ExtendedStylesType<TStyles extends StylesData> =
+  | Partial<MapToX<TStyles, StyleItem>>
+  | ((theme: AgileTheme) => Partial<MapToX<TStyles, StyleItem>>);
 
 type UseStylesConfigType<TStyles extends StylesData> = {
   /**
    * Styles keymap to extend the styles specified in the 'createStyles()' method.
    * @default {}
    */
-  styles?: ExtendedStylesType<TStyles>
+  styles?: ExtendedStylesType<TStyles>;
   /**
    * Key/Name identifier of the created styles.
    * @default 'unknown'
@@ -163,6 +163,10 @@ export type UseStylesType<
   TConfig extends UseStylesConfigType<TStyles> = UseStylesConfigType<TStyles>
 > = (params?: TParams, config?: TConfig) => UseStylesReturnType<TStyles>;
 
-export type ExtractStylesType<T> = T extends UseStylesType<infer P, infer S, infer C>
+export type ExtractStylesType<T> = T extends UseStylesType<
+  infer P,
+  infer S,
+  infer C
+>
   ? C['styles']
   : never;

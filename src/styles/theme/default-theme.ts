@@ -1,4 +1,4 @@
-import { Colors, Theme } from './types';
+import { Colors, AgileTheme } from './types';
 import { DEFAULT_PRIMITIVE_COLORS } from './default-primitive-colors';
 
 export const DEFAULT_COLORS: Colors = {
@@ -35,7 +35,7 @@ export const DEFAULT_COLORS: Colors = {
   },
 };
 
-export const DEFAULT_THEME: Theme = {
+export const DEFAULT_THEME: AgileTheme = {
   colors: DEFAULT_COLORS,
   fontFamily:
     '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji',
