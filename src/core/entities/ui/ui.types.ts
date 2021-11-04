@@ -1,4 +1,4 @@
-import themes from './themes';
+import { Theme } from '../../../styles/theme';
 
 export type ToastEventType = 'error' | 'success' | 'warn';
 
@@ -30,49 +30,8 @@ export type PrimitiveColorsType = {
   green_light: string;
 };
 
-export type ThemeColorsType = {
-  // Primary
-  primary: string;
-  on_primary: string;
-
-  // Background
-  background: string;
-  on_background: string;
-  on_background_2: string;
-
-  // Surface
-  surface: string;
-  surface_2: string;
-  surface_border: string;
-  surface_border_2: string;
-  on_surface: string;
-  on_surface_2: string;
-  on_surface_3: string;
-
-  // Error
-  error: string;
-  on_error: string;
-
-  // Success
-  success: string;
-  on_success: string;
-};
-
-export interface ThemeInterface {
-  type: string;
-  primitiveColors: PrimitiveColorsType;
-  colors: ThemeColorsType;
-}
-
-type ThemePath<T> = {
-  [K in keyof T]: T[K] extends any ? K : never;
-}[keyof T] &
-  string;
-
-export type ThemePaths = ThemePath<typeof themes>;
-
 // https://nyxo.app/tips-for-using-typescript-with-styled-components
 // Declare Theme type for 'styled-components'
 declare module 'styled-components' {
-  export interface DefaultTheme extends ThemeInterface {}
+  export interface DefaultTheme extends Theme {}
 }

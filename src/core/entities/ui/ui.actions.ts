@@ -1,9 +1,4 @@
-import {
-  IS_LOADING,
-  SHOW_GRAP,
-  THEME_TYPE,
-  TOAST_EVENT,
-} from './ui.controller';
+import { IS_LOADING, THEME_TYPE, TOAST_EVENT } from './ui.controller';
 import { ThemePaths, ToastEventType } from './ui.types';
 
 export const toast = (message: string, type: ToastEventType = 'error') => {

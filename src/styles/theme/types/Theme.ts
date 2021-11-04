@@ -1,6 +1,7 @@
 import React from 'react';
 import { Colors } from './Color';
 import { Sizes } from './Size';
+import { DeepPartial } from '../../types';
 
 export interface Theme {
   colors: Colors;
@@ -30,3 +31,16 @@ export interface HeadingStyle {
   fontSize: React.CSSProperties['fontSize'];
   lineHeight: React.CSSProperties['lineHeight'];
 }
+
+export type ThemePaths<T> = {
+  [K in keyof T]: T[K] extends any ? K : never;
+}[keyof T] &
+  string;
+
+export type ThemeObject = {
+  theme: Theme;
+  type: string;
+  primitiveColors: Record<string, string | string[]>;
+};
+
+export type OverwriteThemeObject = DeepPartial<ThemeObject>;
