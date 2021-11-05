@@ -15,8 +15,6 @@ export const DEFAULT_COLORS: Colors = {
     on_error: DEFAULT_PRIMITIVE_COLORS.dark[9],
     success: DEFAULT_PRIMITIVE_COLORS.green[7],
     on_success: DEFAULT_PRIMITIVE_COLORS.dark[9],
-    warning: DEFAULT_PRIMITIVE_COLORS.yellow[7],
-    on_warning: DEFAULT_PRIMITIVE_COLORS.dark[9],
   },
 
   interactive: {
@@ -86,4 +84,15 @@ export const DEFAULT_THEME: AgileTheme = {
       h6: { fontSize: 14, lineHeight: 1.5 },
     },
   },
+};
+
+export const DEFAULT_THEME_OBJECT = {
+  themes: {
+    light: {
+      type: 'light',
+      theme: DEFAULT_THEME,
+      primitiveColors: DEFAULT_PRIMITIVE_COLORS,
+    },
+  },
+  activeThemeKey: 'light',
 };

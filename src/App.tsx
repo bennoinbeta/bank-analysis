@@ -7,6 +7,7 @@ import { ui } from './core';
 import 'react-toastify/dist/ReactToastify.css';
 import AppRouter from './routing/AppRouter';
 import AgileThemeProvider from './styles/theme/AgileThemeProvider';
+import { FinalTheme } from './core/entities/ui/ui.types';
 
 const App: React.FC = () => {
   const activeTheme = useAgile(ui.THEME_TYPE);
@@ -18,26 +19,28 @@ const App: React.FC = () => {
 
   return (
     <AgileThemeProvider
-      activeTheme={activeTheme}
+      activeThemeKey={activeTheme as any}
       themes={{
-        light: {},
-        dark: {},
+        light: { theme: {} },
+        dark: { theme: {} },
       }}>
-      <ThemeProvider theme={theme}>
-        <ToastContainer
-          position="top-left"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme={activeTheme as any}
-        />
-        <AppRouter />
-      </ThemeProvider>
+      {(theme) => (
+        <ThemeProvider theme={theme}>
+          <ToastContainer
+            position="top-left"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme={activeTheme as any}
+          />
+          <AppRouter />
+        </ThemeProvider>
+      )}
     </AgileThemeProvider>
   );
 };

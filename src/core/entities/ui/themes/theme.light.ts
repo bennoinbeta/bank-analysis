@@ -1,4 +1,5 @@
 import { PrimitiveColorsType } from '../ui.types';
+import { AgileOverwriteTheme, AgileTheme } from '../../../../styles/theme';
 
 const primitiveColors: PrimitiveColorsType = {
   black: '#1A181B',
@@ -20,39 +21,42 @@ const primitiveColors: PrimitiveColorsType = {
   red_light: '#FF9E9E',
 
   green: '#00FF19',
-  green_light: '9EFFB9',
+  green_light: '#9EFFB9',
 };
 
-const themeColors = {
-  // Primary
-  primary: primitiveColors.purple,
-  on_primary: primitiveColors.black,
-
-  // Background
-  background: primitiveColors.white,
-  on_background: primitiveColors.black,
-  on_background_2: primitiveColors.black_light,
-
-  // Surface
-  surface: primitiveColors.black_light,
-  surface_2: primitiveColors.gray,
-  surface_border: primitiveColors.white_dark,
-  surface_border_2: primitiveColors.purple_dark,
-  on_surface: primitiveColors.white,
-  on_surface_2: primitiveColors.white_dark,
-  on_surface_3: primitiveColors.white_darker,
-
-  // Error
-  error: primitiveColors.red,
-  on_error: primitiveColors.white,
-
-  // Success
-  success: primitiveColors.green,
-  on_success: primitiveColors.white,
+const theme: AgileOverwriteTheme = {
+  colors: {
+    disabled: {
+      d1: primitiveColors.white_dark,
+      d2: primitiveColors.white_darker,
+    },
+    interactive: {
+      primary: {
+        pM2: primitiveColors.purple_light,
+        pM1: primitiveColors.purple_light,
+        p0: primitiveColors.purple,
+        pP1: primitiveColors.purple_dark,
+        pP2: primitiveColors.purple_darker,
+      },
+    },
+    layout: {
+      p: primitiveColors.purple,
+      bg: primitiveColors.black_light,
+      lc: primitiveColors.white_darker,
+      rHc: primitiveColors.white_dark,
+      hc: primitiveColors.white,
+    },
+    denotive: {
+      success: primitiveColors.green,
+      on_success: primitiveColors.black,
+      error: primitiveColors.red,
+      on_error: primitiveColors.black,
+    },
+  },
 };
 
 export default {
-  colors: themeColors,
+  theme,
   primitiveColors,
   type: 'light',
 };

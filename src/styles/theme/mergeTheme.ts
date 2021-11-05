@@ -1,8 +1,9 @@
-import { OverwriteTheme, AgileTheme } from './types';
+import { AgileTheme } from './types';
+import { DeepPartial } from '../types';
 
 export function mergeTheme(
   currentTheme: AgileTheme,
-  themeOverride?: OverwriteTheme
+  themeOverride?: DeepPartial<AgileTheme>
 ): AgileTheme {
   if (themeOverride == null) return currentTheme;
 

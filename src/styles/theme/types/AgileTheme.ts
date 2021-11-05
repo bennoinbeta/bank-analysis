@@ -1,6 +1,6 @@
 import React from 'react';
-import { Colors } from './Color';
-import { Sizes } from './Size';
+import { Colors } from './AgileColors';
+import { Sizes } from './AgileSize';
 import { DeepPartial } from '../../types';
 
 export interface AgileTheme {
@@ -37,10 +37,10 @@ export type ThemePaths<T> = {
 }[keyof T] &
   string;
 
-export type ThemeObject = {
+export type AgileThemeObject = {
   theme: AgileTheme;
   type: string;
   primitiveColors: Record<string, string | string[]>;
 };
 
-export type OverwriteThemeObject = DeepPartial<ThemeObject>;
+export type AgileOverwriteTheme = DeepPartial<AgileTheme>;

@@ -1,97 +1,72 @@
 import React from 'react';
 import {
+  AgileOverwriteTheme,
   AgileTheme,
-  OverwriteThemeObject,
-  ThemeObject,
+  AgileThemeObject,
   ThemePaths,
 } from './types';
-import { DEFAULT_THEME } from './default-theme';
-import { mergeTheme } from './merge-theme';
+import { DEFAULT_THEME, DEFAULT_THEME_OBJECT } from './default-theme';
+import { mergeTheme } from './mergeTheme';
 import { DEFAULT_PRIMITIVE_COLORS } from './default-primitive-colors';
 
-const defaultTheme: ThemeContextType = {
-  themes: {
-    light: {
-      theme: DEFAULT_THEME,
-      type: 'light',
-      primitiveColors: DEFAULT_PRIMITIVE_COLORS,
-    },
-  },
-  activeTheme: 'light',
-};
+export const AgileThemeContext =
+  React.createContext<ThemeContextType>(DEFAULT_THEME_OBJECT);
 
-const ThemeContext = React.createContext<ThemeContextType>(defaultTheme);
-
-export function useAgileTheme(): AgileTheme {
-  const themeContext = React.useContext(ThemeContext);
-
-  if (themeContext == null) {
-    console.error('No Theme Context found!');
-    return DEFAULT_THEME;
-  }
-
-  return (
-    (themeContext.themes[themeContext.activeTheme] as any) ||
-    (themeContext.themes[Object.keys(themeContext.themes)[0]] as any)
-  );
-}
-
-export const AgileThemeProvider: React.FC<ThemeProviderProps> = <
-  T extends Record<string, OverwriteThemeObject>
->(
+export const AgileThemeProvider = <T extends ThemeProviderPropsThemeObject>(
   props: ThemeProviderProps<T>
 ) => {
-  const { children, activeTheme } = props;
-  const themes = props.themes ?? defaultTheme.themes;
-  const [mergedThemes, setMergedThemes] = React.useState<
-    Record<string, ThemeObject>
-  >({});
+  const themes = props.themes ?? DEFAULT_THEME_OBJECT.themes;
+  const activeThemeKey = props.activeThemeKey ?? Object.keys(themes)[0];
 
-  // Merge default Theme with provided Themes
-  React.useEffect(() => {
-    const tempMergedThemes: Record<string, ThemeObject> = {};
-    for (const themeKey of Object.keys(themes)) {
-      themes[themeKey].theme = mergeTheme(
-        DEFAULT_THEME,
-        themes[themeKey].theme
-      );
-      tempMergedThemes[themeKey] = themes[themeKey] as any;
-    }
-    setMergedThemes(tempMergedThemes);
-  }, [themes, setMergedThemes]);
+  // Merge specified theme with default Theme
+  const mergedThemes = Object.keys(themes).reduce((acc, key) => {
+    const theme = themes[key];
+    acc[key] = {
+      theme: mergeTheme(DEFAULT_THEME, theme.theme),
+      type: key,
+      primitiveColors: theme.primitiveColors ?? DEFAULT_PRIMITIVE_COLORS,
+    };
+
+    return acc;
+  }, {} as Record<string, AgileThemeObject>);
+
+  const activeTheme = mergedThemes[activeThemeKey];
+
+  const children =
+    typeof props.children === 'function'
+      ? props.children(activeTheme.theme)
+      : props.children;
 
   return (
-    <ThemeContext.Provider
+    <AgileThemeContext.Provider
       value={{
         themes: mergedThemes,
-        activeTheme: activeTheme ?? Object.keys(mergedThemes)[0],
+        activeThemeKey,
       }}>
       {children}
-    </ThemeContext.Provider>
+    </AgileThemeContext.Provider>
   );
 };
 
 export default AgileThemeProvider;
 
-type ThemeProviderProps<T extends Record<string, OverwriteThemeObject>> = {
+type ThemeProviderProps<T extends ThemeProviderPropsThemeObject> = {
   themes: T;
-  activeTheme?: ThemePaths<T>;
-  children: React.ReactNode;
+  activeThemeKey?: ThemePaths<T>;
+  children: React.ReactNode | ((theme: AgileTheme) => React.ReactNode);
 };
+
+type ThemeProviderPropsThemeObject = Record<
+  string,
+  {
+    primitiveColors?: AgileThemeObject['primitiveColors'];
+    theme: AgileOverwriteTheme;
+  }
+>;
 
 type ThemeContextType<
-  T extends Record<string, ThemeObject> = Record<string, ThemeObject>
+  T extends Record<string, AgileThemeObject> = Record<string, AgileThemeObject>
 > = {
   themes: T;
-  activeTheme: ThemePaths<T>;
-};
-
-// TODO
-const test: ThemeProviderProps = {
-  themes: {
-    light: {},
-    dark: {},
-  },
-  activeTheme: 'light',
-  children: null as any,
+  activeThemeKey: ThemePaths<T>;
 };

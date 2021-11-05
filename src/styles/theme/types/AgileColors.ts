@@ -19,8 +19,6 @@ export interface DenotiveColors {
   on_error: string;
   success: string;
   on_success: string;
-  warning: string;
-  on_warning: string;
 }
 
 export interface DisabledColors {
