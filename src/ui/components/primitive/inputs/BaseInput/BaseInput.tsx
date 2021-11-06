@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {
   PolymorphicComponentProps,
   PolymorphicRef,
-} from '../../../../../styles/types/Polymorphic';
+} from '../../../../../styles';
 
 export type BaseInputProps = {
   leftSection?: {
@@ -75,16 +75,16 @@ const BaseInput: InputComponent = React.forwardRef(
 export default BaseInput;
 
 const WrapperContainer = styled.div`
-  background-color: ${({ theme }) => theme.colors.surface};
+  background-color: ${({ theme }) => theme.colors.layout.p};
 
-  border: solid 1 ${({ theme }) => theme.colors.surface_border};
+  border: solid 1 ${({ theme }) => theme.colors.layout.p};
 
   transition: border-color 100ms ease, box-shadow 100ms ease;
 
-  ::focus,
-  ::focus-within {
+  :focus,
+  :focus-within {
     outline: none;
-    border-color: ${({ theme }) => theme.colors.surface_border_2};
+    border-color: ${({ theme }) => theme.colors.layout.p};
   }
 `;
 
@@ -92,14 +92,14 @@ const StyledInput = styled.div`
   display: block;
   text-align: left;
 
-  color: ${({ theme }) => theme.colors.on_surface};
-  background-color: ${({ theme }) => theme.colors.surface};
+  color: ${({ theme }) => theme.colors.layout.p};
+  background-color: ${({ theme }) => theme.colors.layout.p};
 
   width: 100%;
 
   :disabled {
-    color: ${({ theme }) => theme.colors.on_surface_3};
-    background-color: ${({ theme }) => theme.colors.surface_2};
+    color: ${({ theme }) => theme.colors.layout.p};
+    background-color: ${({ theme }) => theme.colors.layout.p};
     opacity: 0.6;
     cursor: not-allowed;
   }
@@ -116,9 +116,9 @@ const LeftSectionContainer = styled.div`
   left: 0;
   top: 0;
   bottom: 0;
-  display: 'flex';
-  align-items: 'center';
-  justify-content: 'center';
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const RigthSectionContainer = styled.div`
@@ -126,7 +126,7 @@ const RigthSectionContainer = styled.div`
   top: 0;
   bottom: 0;
   right: 0;
-  display: 'flex';
-  align-items: 'center';
-  justify-content: 'center';
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

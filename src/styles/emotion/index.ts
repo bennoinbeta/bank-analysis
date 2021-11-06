@@ -1,6 +1,6 @@
-import { createStyles } from './create-styles';
+import { createStyles } from './createStyles';
 
-export * from './create-styles';
+export * from './createStyles';
 export * from './cache';
 
 export default createStyles;

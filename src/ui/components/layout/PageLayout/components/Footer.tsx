@@ -43,18 +43,18 @@ const Container = styled.div<{ absolute: boolean; maxWidth: number }>`
   margin-right: auto;
 
   background-color: ${({ theme, absolute }) =>
-    !absolute ? theme.colors.background : 'transparent'};
+    !absolute ? theme.colors.layout.p : 'transparent'};
 `;
 
 const RightsReservedText = styled.p`
   margin: 0 10px 0 0;
-  color: ${({ theme }) => theme.colors.on_background_2};
+  color: ${({ theme }) => theme.colors.layout.rHc};
   font-size: 12px;
 `;
 
 const LegalButton = styled.p`
   margin: 0 10px 0 0;
-  color: ${({ theme }) => theme.colors.on_background};
+  color: ${({ theme }) => theme.colors.layout.hc};
   font-size: 12px;
 
   cursor: pointer;

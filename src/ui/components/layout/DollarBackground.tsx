@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import ThemeContext from '../../../context/ThemeContext';
 import Icon from '../icons';
 import { useSpring, animated } from '@react-spring/web';
 import { useWindowSize } from '../../hooks/useWindowSize';
+import { useAgileTheme } from '../../../styles/theme';
 
 type Props = {
   isLoading?: boolean;
@@ -11,7 +11,7 @@ type Props = {
 
 const DollarBackground: React.FC<Props> = (props) => {
   const { children, isLoading } = props;
-  const theme = React.useContext(ThemeContext);
+  const theme = useAgileTheme();
   const { windowWidth } = useWindowSize();
 
   const rotateAnimationProps = useSpring({
@@ -47,7 +47,7 @@ const DollarBackground: React.FC<Props> = (props) => {
         }}>
         <BackgroundShape
           strokeWidth={1.1}
-          color={theme.primitiveColors.white}
+          color={theme.colors.layout.p}
           {...scaleAnimationProps}
         />
       </RotateContainer>
@@ -90,7 +90,7 @@ const RotateContainer = styled(animated.div)`
 `;
 
 const BackgroundShape = styled(animated(Icon.DollarSign))`
-  position: 'relative';
+  position: relative;
 
   z-index: 0;
 
@@ -103,5 +103,5 @@ const LoadingText = styled.p`
 
   font-size: 12px;
 
-  color: ${({ theme }) => theme.colors.on_background_2};
+  color: ${({ theme }) => theme.colors.layout.lc};
 `;

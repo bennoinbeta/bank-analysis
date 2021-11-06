@@ -1,5 +1,6 @@
 import { IS_LOADING, THEME_TYPE, TOAST_EVENT } from './ui.controller';
-import { ThemePaths, ToastEventType } from './ui.types';
+import { ToastEventType } from './ui.types';
+import { ThemeTypes } from './themes';
 
 export const toast = (message: string, type: ToastEventType = 'error') => {
   TOAST_EVENT.trigger({ message, type });
@@ -9,7 +10,7 @@ export const setIsLoading = (loading: boolean) => {
   IS_LOADING.set(loading);
 };
 
-export const setTheme = (type: ThemePaths) => {
+export const setTheme = (type: ThemeTypes) => {
   THEME_TYPE.set(type);
 };
 

@@ -1,5 +1,6 @@
 import dark from './theme.dark';
 import light from './theme.light';
+import { ThemePaths } from '../../../../styles/theme';
 
 // Themes
 const themes = {
@@ -10,3 +11,5 @@ const themes = {
 export default themes;
 
 export { dark, light };
+
+export type ThemeTypes = ThemePaths<typeof themes>;

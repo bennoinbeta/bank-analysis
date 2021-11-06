@@ -54,14 +54,14 @@ const Container = styled(DollarBackground)`
   width: 100%;
   height: 100vh;
 
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.layout.bg};
 `;
 
-const InnerContainer = styled.div<{maxWidth: number}>`
+const InnerContainer = styled.div<{ maxWidth: number }>`
   display: flex;
   flex: 1;
 
-  max-width: ${({maxWidth}) => maxWidth}px;
+  max-width: ${({ maxWidth }) => maxWidth}px;
 
   margin-left: auto;
   margin-right: auto;

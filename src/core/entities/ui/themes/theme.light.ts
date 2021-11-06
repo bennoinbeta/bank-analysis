@@ -1,5 +1,5 @@
 import { PrimitiveColorsType } from '../ui.types';
-import { AgileOverwriteTheme, AgileTheme } from '../../../../styles/theme';
+import { AgileOverwriteTheme } from '../../../../styles/theme';
 
 const primitiveColors: PrimitiveColorsType = {
   black: '#1A181B',

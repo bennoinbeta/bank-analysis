@@ -1,5 +1,5 @@
-import { NullType } from '../../../../types/General';
-import { DatasetType } from './../../../../core/entities/bank/bank.types';
+import { NullType } from '../../../../types/Utils';
+import { DatasetType } from '../../../../core/entities/bank/bank.types';
 
 export const useChartData = (
   dataset: DatasetType | NullType,

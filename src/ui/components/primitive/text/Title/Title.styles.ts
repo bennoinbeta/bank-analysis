@@ -1,4 +1,4 @@
-import { createStyles } from '../../../../../styles/emotion/createStyles';
+import { createStyles } from '../../../../../styles';
 
 export const useStyles = createStyles<TitleStyles>()((theme, { element }) => ({
   root: {

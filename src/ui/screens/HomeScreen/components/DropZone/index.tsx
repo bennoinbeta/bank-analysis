@@ -11,7 +11,6 @@ type Props = {
 const DropZone: React.FC<Props> = (props) => {
   const { onDrop } = props;
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-  const theme = useAgileTheme(); // TODO add type to AgileTheme
 
   return (
     <Container {...getRootProps()} isDragActive={isDragActive}>
@@ -33,12 +32,10 @@ const Container = styled.div<{ isDragActive: boolean }>`
   padding: 25px;
 
   background: ${({ theme, isDragActive }) =>
-    isDragActive ? theme : theme.colors.surface};
+    isDragActive ? theme.colors.layout.lc : theme.colors.layout.rHc};
   border: 2px solid
     ${({ theme, isDragActive }) =>
-      isDragActive
-        ? theme.colors.layout.
-        : theme.colors.surface_border};
+      isDragActive ? theme.colors.layout.p : theme.colors.layout.p};
   border-radius: 5px;
 
   cursor: pointer;
@@ -51,8 +48,8 @@ const Container = styled.div<{ isDragActive: boolean }>`
   transition: all 200ms ease;
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.surface_border_2};
-    background: ${({ theme }) => theme.colors.surface_2};
+    border-color: ${({ theme }) => theme.colors.layout.p};
+    background: ${({ theme }) => theme.colors.layout.p};
 
     filter: drop-shadow(0px 8px 14px rgba(0, 0, 0, 0.25));
   }
@@ -70,6 +67,6 @@ const DropField = styled.input`
 `;
 
 const Text = styled.p`
-  color: ${({ theme }) => theme.colors.on_surface_2};
+  color: ${({ theme }) => theme.colors.layout.hc};
   margin-left: 10px;
 `;

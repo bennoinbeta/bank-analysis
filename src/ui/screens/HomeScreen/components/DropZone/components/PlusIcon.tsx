@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import Icon from '../../../../../components/icons';
-import { useTheme } from '../../../../../hooks/useTheme';
+import { useAgileTheme } from '../../../../../../styles/theme';
 
 const PlusIcon: React.FC = () => {
-  const theme = useTheme();
+  const theme = useAgileTheme();
 
   return (
     <Container>
-      <Icon.Plus color={theme.colors.on_surface_3} />
+      <Icon.Plus color={theme.colors.layout.rHc} />
     </Container>
   );
 };
@@ -24,6 +24,6 @@ const Container = styled.div`
   width: 50px;
   height: 50px;
 
-  border: 2px solid ${({ theme }) => theme.colors.on_surface_3};
+  border: 2px solid ${({ theme }) => theme.colors.layout.rHc};
   border-radius: 5px;
 `;

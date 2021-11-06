@@ -2,8 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { MAX_WIDTH } from '..';
-import { useTheme } from '../../../../hooks/useTheme';
 import Icon from '../../../icons';
+import { useAgileTheme } from '../../../../../styles/theme';
 
 type Props = {
   absolute?: boolean;
@@ -11,7 +11,7 @@ type Props = {
 
 const Navbar: React.FC<Props> = (props) => {
   const { absolute } = props;
-  const theme = useTheme();
+  const theme = useAgileTheme();
   const history = useHistory();
 
   return (
@@ -20,7 +20,7 @@ const Navbar: React.FC<Props> = (props) => {
         onClick={() => {
           history.push('/');
         }}>
-        <Icon.Logo color={theme.colors.on_background} width={30} height={30} />
+        <Icon.Logo color={theme.colors.layout.bg} width={30} height={30} />
         <AppName>Bank Analysis</AppName>
       </LogoContainer>
     </Container>
@@ -50,7 +50,7 @@ const Container = styled.div<{ absolute: boolean; maxWidth: number }>`
   margin-right: auto;
 
   background-color: ${({ theme, absolute }) =>
-    !absolute ? theme.colors.background : 'transparent'};
+    !absolute ? theme.colors.layout.bg : 'transparent'};
 `;
 
 const LogoContainer = styled.div`
@@ -67,5 +67,5 @@ const AppName = styled.p`
 
   font-size: 14px;
 
-  color: ${({ theme }) => theme.colors.on_background};
+  color: ${({ theme }) => theme.colors.layout.hc};
 `;
