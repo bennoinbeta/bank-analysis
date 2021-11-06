@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { MAX_WIDTH } from '..';
 import routingHistory from '../../../../../routing/history';
 

@@ -8,5 +8,5 @@ export function mergeTheme(
   if (themeOverride == null) return currentTheme;
 
   // TODO MERGE THEMES
-  return currentTheme;
+  return themeOverride as any;
 }

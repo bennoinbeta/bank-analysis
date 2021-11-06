@@ -1,7 +1,7 @@
 import React from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { useAgile, useEvent } from '@agile-ts/react';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@emotion/react';
 import core, { ui } from './core';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,7 +24,7 @@ const App: React.FC = () => {
         [core.ui.themes.dark.type]: core.ui.themes.dark.theme,
       }}>
       {(theme) => (
-        <ThemeProvider theme={theme as any}>
+        <ThemeProvider theme={theme}>
           <ToastContainer
             position="top-left"
             autoClose={5000}

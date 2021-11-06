@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Icon from '../icons';
 import { useSpring, animated } from '@react-spring/web';
 import { useWindowSize } from '../../hooks/useWindowSize';
@@ -103,5 +103,5 @@ const LoadingText = styled.p`
 
   font-size: 12px;
 
-  color: ${({ theme }) => theme.colors.layout.lc};
+  color: ${({ theme }) => theme.colors.layout.rHc};
 `;

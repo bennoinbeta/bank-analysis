@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { MAX_WIDTH } from '..';
 import Icon from '../../../icons';
 import { useAgileTheme } from '../../../../../styles/theme';

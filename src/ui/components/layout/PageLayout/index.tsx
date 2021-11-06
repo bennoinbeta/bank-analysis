@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import DollarBackground from '../DollarBackground';
 import Footer from './components/Footer';
 import Head from './components/Head';

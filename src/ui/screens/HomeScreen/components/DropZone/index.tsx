@@ -1,8 +1,7 @@
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import PlusIcon from './components/PlusIcon';
-import { useAgileTheme } from '../../../../../styles/theme';
 
 type Props = {
   onDrop: (acceptedFiles: File[]) => void;
@@ -32,10 +31,10 @@ const Container = styled.div<{ isDragActive: boolean }>`
   padding: 25px;
 
   background: ${({ theme, isDragActive }) =>
-    isDragActive ? theme.colors.layout.lc : theme.colors.layout.rHc};
+    isDragActive ? theme.colors.layout.bg : theme.colors.layout.lc};
   border: 2px solid
     ${({ theme, isDragActive }) =>
-      isDragActive ? theme.colors.layout.p : theme.colors.layout.p};
+      isDragActive ? theme.colors.layout.p : theme.colors.layout.rHc};
   border-radius: 5px;
 
   cursor: pointer;
@@ -49,7 +48,7 @@ const Container = styled.div<{ isDragActive: boolean }>`
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.layout.p};
-    background: ${({ theme }) => theme.colors.layout.p};
+    background: ${({ theme }) => theme.colors.layout.lc};
 
     filter: drop-shadow(0px 8px 14px rgba(0, 0, 0, 0.25));
   }
@@ -67,6 +66,6 @@ const DropField = styled.input`
 `;
 
 const Text = styled.p`
-  color: ${({ theme }) => theme.colors.layout.hc};
+  color: ${({ theme }) => theme.colors.layout.rHc};
   margin-left: 10px;
 `;

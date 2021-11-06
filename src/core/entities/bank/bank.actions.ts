@@ -1,4 +1,4 @@
-import { dateToString, getDatesBetween } from './../utils/utils.actions';
+import { dateToString, getDatesBetween } from '../utils/utils.actions';
 import { ParsedCSVDataType } from '../csv/csv.types';
 import { getDecimal, unformatMoney } from '../money/money.actions';
 import ui from '../ui';

@@ -1,6 +1,6 @@
-import { useAgile } from '@agile-ts/react';
 import React from 'react';
-import styled from 'styled-components';
+import { useAgile } from '@agile-ts/react';
+import styled from '@emotion/styled';
 import { BANK_DATA } from '../../../core/entities/bank/bank.controller';
 import { IS_LOADING } from '../../../core/entities/ui/ui.controller';
 import routingHistory from '../../../routing/history';

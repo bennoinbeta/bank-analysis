@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Text from './Text';
-import styled from '@emotion/styled-base';
+import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { createStyles } from '../../../../../styles';
 
