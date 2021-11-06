@@ -2,6 +2,7 @@ import React from 'react';
 import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components';
 import PlusIcon from './components/PlusIcon';
+import { useAgileTheme } from '../../../../../styles/theme';
 
 type Props = {
   onDrop: (acceptedFiles: File[]) => void;
@@ -10,6 +11,7 @@ type Props = {
 const DropZone: React.FC<Props> = (props) => {
   const { onDrop } = props;
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const theme = useAgileTheme(); // TODO add type to AgileTheme
 
   return (
     <Container {...getRootProps()} isDragActive={isDragActive}>
@@ -31,11 +33,11 @@ const Container = styled.div<{ isDragActive: boolean }>`
   padding: 25px;
 
   background: ${({ theme, isDragActive }) =>
-    isDragActive ? theme.colors.surface_2 : theme.colors.surface};
+    isDragActive ? theme : theme.colors.surface};
   border: 2px solid
     ${({ theme, isDragActive }) =>
       isDragActive
-        ? theme.colors.surface_border_2
+        ? theme.colors.layout.
         : theme.colors.surface_border};
   border-radius: 5px;
 

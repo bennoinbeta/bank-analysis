@@ -25,6 +25,7 @@ const primitiveColors: PrimitiveColorsType = {
 };
 
 const theme: AgileOverwriteTheme = {
+  primitiveColors,
   colors: {
     disabled: {
       d1: primitiveColors.white_dark,
@@ -57,6 +58,5 @@ const theme: AgileOverwriteTheme = {
 
 export default {
   theme,
-  primitiveColors,
   type: 'dark',
 };

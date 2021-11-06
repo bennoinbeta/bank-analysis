@@ -4,7 +4,9 @@ import { Sizes } from './AgileSize';
 import { DeepPartial } from '../../types';
 
 export interface AgileTheme {
+  type: string;
   colors: Colors;
+  primitiveColors: Record<string, string | string[]>;
   fontFamily: React.CSSProperties['fontFamily'];
   lineHeight: React.CSSProperties['lineHeight'];
 
@@ -36,11 +38,5 @@ export type ThemePaths<T> = {
   [K in keyof T]: T[K] extends any ? K : never;
 }[keyof T] &
   string;
-
-export type AgileThemeObject = {
-  theme: AgileTheme;
-  type: string;
-  primitiveColors: Record<string, string | string[]>;
-};
 
 export type AgileOverwriteTheme = DeepPartial<AgileTheme>;

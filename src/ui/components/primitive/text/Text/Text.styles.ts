@@ -1,15 +1,18 @@
 import { css, SerializedStyles } from '@emotion/react';
-import { ThemeInterface } from '../../../../../core/entities/ui/ui.types';
-import { createStyles, ExtractStylesType, UseStylesType } from '../../../../../styles';
 import { TextProps } from './Text';
+import {
+  createStyles,
+  ExtractStylesType,
+} from '../../../../../styles/emotion/createStyles';
+import { AgileTheme } from '../../../../../styles/theme';
 
 function getTextColor(config: GetTextColor): SerializedStyles {
   const color =
     config.color != null
       ? config.color
       : config.variant === 'link'
-      ? config.theme.primitiveColors.purple_darker
-      : config.theme.primitiveColors.black;
+      ? config.theme.colors.layout.p
+      : config.theme.colors.layout.hc;
 
   return css`
     color: ${color};
@@ -52,7 +55,7 @@ export const useStyles = createStyles<TextProps>()(
 );
 
 type GetTextColor = {
-  theme: ThemeInterface;
+  theme: AgileTheme;
   color?: string;
   variant: TextProps['variant'];
 };

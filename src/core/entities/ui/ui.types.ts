@@ -1,4 +1,4 @@
-import { AgileThemeObject } from '../../../styles/theme';
+import { AgileTheme } from '../../../styles/theme';
 
 export type ToastEventType = 'error' | 'success' | 'warn';
 
@@ -30,12 +30,8 @@ export type PrimitiveColorsType = {
   green_light: string;
 };
 
-export interface FinalTheme extends AgileThemeObject {
-  primitiveColors: PrimitiveColorsType;
-}
-
 // https://nyxo.app/tips-for-using-typescript-with-styled-components
 // Declare Theme type for 'styled-components'
 declare module 'styled-components' {
-  export interface DefaultTheme extends FinalTheme {}
+  export interface DefaultTheme extends AgileTheme {}
 }
