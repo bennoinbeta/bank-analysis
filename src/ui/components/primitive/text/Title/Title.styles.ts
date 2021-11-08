@@ -1,4 +1,5 @@
 import { createStyles } from '../../../../../styles';
+import { HeadingElement } from './Title';
 
 export const useStyles = createStyles<TitleStyles>()((theme, { element }) => ({
   root: {
@@ -11,8 +12,6 @@ export const useStyles = createStyles<TitleStyles>()((theme, { element }) => ({
   },
 }));
 
-type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-
-interface TitleStyles {
+type TitleStyles = {
   element: HeadingElement;
-}
+};
