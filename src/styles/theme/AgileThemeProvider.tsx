@@ -1,7 +1,7 @@
 import React from 'react';
 import { AgileOverwriteTheme, AgileTheme, ThemePaths } from './types';
 import { DEFAULT_THEME, DEFAULT_THEME_OBJECT } from './default-theme';
-import { mergeTheme } from './mergeTheme';
+import { mergeTheme } from './utils/mergeTheme';
 
 export const AgileThemeContext =
   React.createContext<ThemeContextType>(DEFAULT_THEME_OBJECT);

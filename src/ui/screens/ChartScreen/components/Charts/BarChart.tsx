@@ -1,6 +1,6 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 type Props = {
   data: any;
