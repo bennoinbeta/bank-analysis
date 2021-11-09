@@ -2,43 +2,35 @@ import { AgileTheme } from '../types';
 import { DeepPartial } from '../../types';
 import { isValidObject } from '@agile-ts/utils';
 
-function mergeChildren<
-  DataType extends Record<string, any> = Record<string, any>
->(source: DataType, changes: Record<string, any>): DataType {
-  const _source: any = {};
-
-  for (const key of Object.keys(source)) {
-    if (typeof source[key] === 'object') {
-      _source[key] = {
-        ...source[key],
-        ...changes[key],
-      };
-    } else {
-      _source[key] = changes[key];
-    }
-  }
-
-  return _source;
-}
-
+/**
+ * Merges the specified `changes` into the `target` object.
+ *
+ * @param target - Target object to merge the changes in.
+ * @param changes - Array of changes objects to be merged into the target object.
+ */
 function mergeDeep<DataType extends Record<string, any>>(
   target: DataType,
   ...changes: any[]
 ): DataType {
-  if (changes == null || changes.length === 0) return target;
+  if (changes == null || changes.length === 0 || !isValidObject(target))
+    return target;
+
+  // Extract the to proceed change from the changes array
   const change = changes.shift();
 
-  if (isValidObject(target) && isValidObject(change)) {
+  if (isValidObject(change, true)) {
     for (const key in change) {
-      if (isValidObject(change[key])) {
-        if (!target[key]) Object.assign(target, { [key]: {} });
+      // If the target object does have the requested property (key)
+      // and the corresponding changes are a valid object,
+      // merge the corresponding changes into the target object at the property
+      if (target[key] != null && isValidObject(change[key], false))
         mergeDeep(target[key], change[key]);
-      } else {
-        Object.assign(target, { [key]: change[key] });
-      }
+      // otherwise assign the changes to the target object at the corresponding property
+      else Object.assign(target, { [key]: change[key] });
     }
   }
 
+  // Merge the missing changes until no changes are left
   return mergeDeep(target, ...changes);
 }
 
@@ -47,46 +39,5 @@ export function mergeTheme(
   themeOverride?: DeepPartial<AgileTheme>
 ): AgileTheme {
   if (themeOverride == null) return currentTheme;
-
-  const finalTheme: AgileTheme = {} as any;
-  for (const key of Object.keys(currentTheme)) {
-    // Merge headings
-    if (key === 'headings' && themeOverride.headings) {
-      const sizes: AgileTheme['headings']['sizes'] =
-        typeof themeOverride.headings.sizes === 'object'
-          ? mergeChildren(
-              currentTheme.headings.sizes,
-              themeOverride.headings.sizes
-            )
-          : currentTheme.headings.sizes;
-
-      finalTheme['headings'] = {
-        ...currentTheme.headings,
-        ...themeOverride.headings,
-        sizes,
-      } as any;
-    }
-
-    // Merge colors
-    if (key === 'colors' && themeOverride.colors) {
-      themeOverride['colors'] =
-        typeof themeOverride.colors === 'object'
-          ? mergeChildren(currentTheme.colors, themeOverride.colors)
-          : currentTheme.colors;
-    }
-
-    // Merge rest
-    // @ts-ignore
-    if (typeof themeOverride[key] === 'object') {
-      // @ts-ignore
-      finalTheme[key] = { ...currentTheme[key], ...themeOverride[key] };
-    } else {
-      // @ts-ignore
-      finalTheme[key] = themeOverride[key] ?? currentTheme[key];
-    }
-  }
-
-  console.log('Theme', finalTheme, mergeDeep(currentTheme, themeOverride));
-
   return mergeDeep(currentTheme, themeOverride);
 }

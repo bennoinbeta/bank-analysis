@@ -21,7 +21,7 @@ describe('@agile/mergeTheme', () => {
     ).toEqual({
       ...DEFAULT_THEME,
       primitiveColors: {
-        ...DEFAULT_THEME.colors,
+        ...DEFAULT_THEME.primitiveColors,
         stone: ['#ccc', '#ddd', '#eee'],
         red: ['red'],
       },
