@@ -52,6 +52,7 @@ storiesOf('core/Text', module)
     return (
       <div>
         <StyledText>Styled with styled components</StyledText>
+
         <Text
           css={css`
             color: chocolate;
@@ -59,15 +60,20 @@ storiesOf('core/Text', module)
           `}>
           Styled with emotion
         </Text>
+
         <Text style={{ color: 'blue', fontWeight: 'bold' }}>
           Styled with style property
         </Text>
+
         <Text
-          styles={(theme) => ({
-            root: { color: theme.primitiveColors.purple, fontWeight: 'bold' },
-          })}>
+          styles={(theme) => {
+            return {
+              root: { color: theme.primitiveColors.red, fontWeight: 'bold' },
+            };
+          }}>
           Styled root with styles property
         </Text>
+
         <Text
           styles={(theme) => ({
             root: css`
@@ -77,6 +83,7 @@ storiesOf('core/Text', module)
           })}>
           Styled root with emotion
         </Text>
+
         <Text styles={{ root: classes.root }}>Styled root with class name</Text>
       </div>
     );
@@ -140,8 +147,8 @@ storiesOf('core/Text', module)
   ))
   .add('Sizes', () => (
     <div style={{ padding: 20 }}>
-      {([10, 20, 30] as const).map((size) => (
-        <Text size={size} key={size}>
+      {['xs', 'sm', 'md', 'lg', 'xl', 10, 20, 30].map((size) => (
+        <Text size={size as any} key={size}>
           {size} text
         </Text>
       ))}

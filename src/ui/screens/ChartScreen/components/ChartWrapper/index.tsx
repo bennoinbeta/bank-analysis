@@ -4,10 +4,6 @@ import BarChart from '../charts/BarChart';
 import { bank } from '../../../../../core';
 import { useChartData } from '../../hooks/useChartData';
 
-type Props = {
-  data: BankFileDataType;
-};
-
 const ChartWrapper: React.FC<Props> = (props) => {
   const { data } = props;
   const chartData = useChartData(
@@ -19,3 +15,7 @@ const ChartWrapper: React.FC<Props> = (props) => {
 };
 
 export default ChartWrapper;
+
+type Props = {
+  data: BankFileDataType;
+};

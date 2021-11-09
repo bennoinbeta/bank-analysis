@@ -2,10 +2,7 @@ import React from 'react';
 import { useDropzone } from 'react-dropzone';
 import styled from '@emotion/styled';
 import PlusIcon from './components/PlusIcon';
-
-type Props = {
-  onDrop: (acceptedFiles: File[]) => void;
-};
+import Text from '../../../../components/primitive/text/Text';
 
 const DropZone: React.FC<Props> = (props) => {
   const { onDrop } = props;
@@ -16,13 +13,19 @@ const DropZone: React.FC<Props> = (props) => {
       <DropField {...getInputProps()} />
       <ContentContainer>
         <PlusIcon />
-        <Text>Add your bank CSV file to start analysing.</Text>
+        <InfoText size={'md'}>
+          Add your bank CSV file to start analysing.
+        </InfoText>
       </ContentContainer>
     </Container>
   );
 };
 
 export default DropZone;
+
+type Props = {
+  onDrop: (acceptedFiles: File[]) => void;
+};
 
 const Container = styled.div<{ isDragActive: boolean }>`
   display: flex;
@@ -65,7 +68,7 @@ const DropField = styled.input`
   flex: 1;
 `;
 
-const Text = styled.p`
+const InfoText = styled(Text)`
   color: ${({ theme }) => theme.colors.layout.rHc};
   margin-left: 10px;
 `;

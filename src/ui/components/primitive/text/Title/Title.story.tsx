@@ -35,6 +35,7 @@ storiesOf('core/Title', module)
     return (
       <div>
         <StyledTitle>Styled with styled components</StyledTitle>
+
         <Title
           css={css`
             color: chocolate;
@@ -42,15 +43,20 @@ storiesOf('core/Title', module)
           `}>
           Styled with emotion
         </Title>
+
         <Title style={{ color: 'blue', fontWeight: 'bold' }}>
           Styled with style property
         </Title>
+
         <Title
-          styles={(theme) => ({
-            root: { color: theme.primitiveColors.purple, fontWeight: 'bold' },
-          })}>
+          styles={(theme) => {
+            return {
+              root: { color: theme.primitiveColors.red, fontWeight: 'bold' },
+            };
+          }}>
           Styled root with styles property
         </Title>
+
         <Title
           styles={(theme) => ({
             root: css`
@@ -60,6 +66,7 @@ storiesOf('core/Title', module)
           })}>
           Styled root with emotion
         </Title>
+
         <Title styles={{ root: classes.root }}>
           Styled root with class name
         </Title>

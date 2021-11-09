@@ -1,7 +1,12 @@
 import { css, SerializedStyles } from '@emotion/react';
 import { TextProps } from './Text';
 import { createStyles, ExtractStylesType } from '../../../../../styles';
-import { AgileGradient, AgileTheme } from '../../../../../styles/theme';
+import {
+  AgileGradient,
+  AgileNumberSize,
+  AgileSize,
+  AgileTheme,
+} from '../../../../../styles/theme';
 import React from 'react';
 
 function getTextColor(config: GetTextColor): SerializedStyles {
@@ -25,7 +30,9 @@ export const useStyles = createStyles<TextStyles>()(
     root: css`
       ${getTextColor({ color, theme, variant })};
       font-family: ${inherit ? 'inherit' : 'sans-serif'};
-      font-size: ${inherit ? 'inherit' : size + 'px'};
+      font-size: ${inherit
+        ? 'inherit'
+        : (typeof size === 'string' ? theme.fontSizes[size] : size) + 'px'};
       line-height: ${inherit ? 'inherit' : undefined};
       text-decoration: none;
       font-weight: ${weight};
@@ -55,7 +62,7 @@ export const useStyles = createStyles<TextStyles>()(
 interface TextStyles {
   color?: string;
   variant: 'text' | 'link' | 'gradient';
-  size: number;
+  size: AgileNumberSize;
   lineClamp?: number;
   inline: boolean;
   inherit: boolean;

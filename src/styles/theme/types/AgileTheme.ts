@@ -1,6 +1,6 @@
 import React from 'react';
 import { Colors } from './AgileColors';
-import { Sizes } from './AgileSize';
+import { AgileSizes } from './AgileSize';
 import { DeepPartial } from '../../types';
 
 export interface DefaultAgileTheme {
@@ -10,10 +10,10 @@ export interface DefaultAgileTheme {
   fontFamily: React.CSSProperties['fontFamily'];
   lineHeight: React.CSSProperties['lineHeight'];
 
-  fontSizes: Sizes<number>;
-  radius: Sizes<number>;
-  spacing: Sizes<number>;
-  shadows: Sizes<string>;
+  fontSizes: AgileSizes<number>;
+  radius: AgileSizes<number>;
+  spacing: AgileSizes<number>;
+  shadows: AgileSizes<string>;
 
   headings: {
     fontFamily: React.CSSProperties['fontFamily'];

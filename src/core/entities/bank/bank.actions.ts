@@ -14,7 +14,7 @@ import { copy } from '@agile-ts/utils';
 
 export const parseCSVData = (
   csvData: ParsedCSVDataType,
-  tolleranze = 10
+  tolerance = 10
 ): BankFileDataType | null => {
   const parsedData: BankFileDataType = {
     name: csvData.name,
@@ -57,8 +57,8 @@ export const parseCSVData = (
         valid = false;
       }
 
-      // Make whole dataset invalid if more than in the tolleranze specified rows are invalid
-      if (invalidRows > tolleranze) parsedData.valid = valid;
+      // Make whole dataset invalid if more than in the tolerance specified rows are invalid
+      if (invalidRows > tolerance) parsedData.valid = valid;
       if (!valid) invalidRows++;
 
       return valid;

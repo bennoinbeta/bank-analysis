@@ -3,10 +3,17 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useAgile, useEvent } from '@agile-ts/react';
 import { ThemeProvider } from '@emotion/react';
 import core, { ui } from './core';
-
-import 'react-toastify/dist/ReactToastify.css';
 import AppRouter from './routing/AppRouter';
 import AgileThemeProvider from './styles/theme/AgileThemeProvider';
+
+// Apply styles to toasts
+import 'react-toastify/dist/ReactToastify.css';
+
+// UI-Themes
+const themes = {
+  [core.ui.themes.light.type]: core.ui.themes.light.theme,
+  [core.ui.themes.dark.type]: core.ui.themes.dark.theme,
+};
 
 const App: React.FC = () => {
   const activeTheme = useAgile(ui.THEME_TYPE);
@@ -17,12 +24,7 @@ const App: React.FC = () => {
   });
 
   return (
-    <AgileThemeProvider
-      activeThemeKey={activeTheme as any}
-      themes={{
-        [core.ui.themes.light.type]: core.ui.themes.light.theme,
-        [core.ui.themes.dark.type]: core.ui.themes.dark.theme,
-      }}>
+    <AgileThemeProvider activeThemeKey={activeTheme as any} themes={themes}>
       {(theme) => (
         <ThemeProvider theme={theme}>
           <ToastContainer

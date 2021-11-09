@@ -5,13 +5,6 @@ import Footer from './components/Footer';
 import Head from './components/Head';
 import Navbar from './components/Navbar';
 
-type Props = {
-  shouldRenderNavbar?: boolean;
-  shouldRenderHeader?: boolean;
-  shouldRenderFooter?: boolean;
-  isLoading?: boolean;
-};
-
 export const MAX_WIDTH = 1100;
 
 const PageLayout: React.FC<Props> = (props) => {
@@ -46,6 +39,13 @@ PageLayout.defaultProps = {
 };
 
 export default PageLayout;
+
+type Props = {
+  shouldRenderNavbar?: boolean;
+  shouldRenderHeader?: boolean;
+  shouldRenderFooter?: boolean;
+  isLoading?: boolean;
+};
 
 const Container = styled(DollarBackground)`
   display: flex;

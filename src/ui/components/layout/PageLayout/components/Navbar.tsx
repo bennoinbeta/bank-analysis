@@ -4,10 +4,7 @@ import styled from '@emotion/styled';
 import { MAX_WIDTH } from '..';
 import Icon from '../../../icons';
 import { useAgileTheme } from '../../../../../styles/theme';
-
-type Props = {
-  absolute?: boolean;
-};
+import Text from '../../../primitive/text/Text';
 
 const Navbar: React.FC<Props> = (props) => {
   const { absolute } = props;
@@ -21,7 +18,7 @@ const Navbar: React.FC<Props> = (props) => {
           history.push('/');
         }}>
         <Icon.Logo color={theme.colors.layout.hc} width={30} height={30} />
-        <AppName>Bank Analysis</AppName>
+        <AppName size={'md'}>Bank Analysis</AppName>
       </LogoContainer>
     </Container>
   );
@@ -32,6 +29,10 @@ Navbar.defaultProps = {
 };
 
 export default Navbar;
+
+type Props = {
+  absolute?: boolean;
+};
 
 const Container = styled.div<{ absolute: boolean; maxWidth: number }>`
   position: ${({ absolute }) => (absolute ? 'absolute' : 'relative')};
@@ -62,10 +63,8 @@ const LogoContainer = styled.div`
   cursor: pointer;
 `;
 
-const AppName = styled.p`
+const AppName = styled(Text)`
   margin: 0 0 0 10px;
-
-  font-size: 14px;
 
   color: ${({ theme }) => theme.colors.layout.hc};
 `;

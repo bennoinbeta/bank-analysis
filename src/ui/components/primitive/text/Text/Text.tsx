@@ -5,27 +5,11 @@ import {
 } from '../../../../../styles';
 import { ExtractedStylesType, useStyles } from './Text.styles';
 import { jsx } from '@emotion/react';
-import { DefaultProps, AgileGradient } from '../../../../../styles/theme';
-
-export interface SharedTextProps {
-  size?: number;
-  color?: string;
-  weight?: React.CSSProperties['fontWeight'];
-  transform?: 'capitalize' | 'uppercase' | 'lowercase';
-  align?: 'left' | 'center' | 'right';
-  variant?: 'text' | 'link' | 'gradient';
-  lineClamp?: number;
-  inline?: boolean;
-  inherit?: boolean;
-  gradient?: AgileGradient;
-}
-
-export type TextProps<C extends React.ElementType = 'p'> =
-  PolymorphicComponentProps<C, SharedTextProps>;
-
-type TextComponent = <C extends React.ElementType = 'p'>(
-  props: TextProps<C> & DefaultProps<ExtractedStylesType>
-) => React.ReactElement;
+import {
+  DefaultProps,
+  AgileGradient,
+  AgileNumberSize,
+} from '../../../../../styles/theme';
 
 const Text: TextComponent = React.forwardRef(
   <C extends React.ElementType = 'p'>(
@@ -36,7 +20,7 @@ const Text: TextComponent = React.forwardRef(
       className,
       component,
       children,
-      size = 18,
+      size = 'md',
       weight,
       transform,
       color,
@@ -85,3 +69,23 @@ const Text: TextComponent = React.forwardRef(
 ) as any;
 
 export default Text;
+
+export interface SharedTextProps {
+  size?: AgileNumberSize;
+  color?: string;
+  weight?: React.CSSProperties['fontWeight'];
+  transform?: 'capitalize' | 'uppercase' | 'lowercase';
+  align?: 'left' | 'center' | 'right';
+  variant?: 'text' | 'link' | 'gradient';
+  lineClamp?: number;
+  inline?: boolean;
+  inherit?: boolean;
+  gradient?: AgileGradient;
+}
+
+export type TextProps<C extends React.ElementType = 'p'> =
+  PolymorphicComponentProps<C, SharedTextProps>;
+
+type TextComponent = <C extends React.ElementType = 'p'>(
+  props: TextProps<C> & DefaultProps<ExtractedStylesType>
+) => React.ReactElement;

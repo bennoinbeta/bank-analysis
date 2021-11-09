@@ -40,7 +40,7 @@ const ChartScreen: React.FC = () => {
         setWaitTimeout(null);
       }
     };
-  });
+  }, []);
 
   if (!canShowBankData) return <PageLayout isLoading={true} />;
 
