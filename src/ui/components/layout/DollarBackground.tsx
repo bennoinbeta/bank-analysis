@@ -30,7 +30,7 @@ const DollarBackground: React.FC<Props> = (props) => {
     to: {
       width: isLoading ? 50 : (windowWidth || 0) * 1.2,
       height: '100%',
-      opacity: isLoading ? '100%' : '2%',
+      opacity: isLoading ? '100%' : '5%',
     },
   });
 
@@ -47,7 +47,7 @@ const DollarBackground: React.FC<Props> = (props) => {
         }}>
         <BackgroundShape
           strokeWidth={1.1}
-          color={theme.colors.layout.p}
+          color={theme.colors.layout.hc}
           {...scaleAnimationProps}
         />
       </RotateContainer>

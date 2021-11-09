@@ -34,7 +34,7 @@ const Container = styled.div<{ isDragActive: boolean }>`
     isDragActive ? theme.colors.layout.bg : theme.colors.layout.lc};
   border: 2px solid
     ${({ theme, isDragActive }) =>
-      isDragActive ? theme.colors.layout.p : theme.colors.layout.rHc};
+      isDragActive ? theme.colors.layout.p : theme.colors.layout.rHc2};
   border-radius: 5px;
 
   cursor: pointer;

@@ -21,8 +21,9 @@ const theme: AgileOverwriteTheme = {
       p: primitiveColors.purple_dark,
       bg: primitiveColors.black,
       lc: primitiveColors.black_light,
-      rHc: primitiveColors.white,
-      hc: primitiveColors.gray2,
+      hc: primitiveColors.white,
+      rHc: primitiveColors.gray2,
+      rHc2: primitiveColors.gray3,
     },
     denotive: {
       success: primitiveColors.green,

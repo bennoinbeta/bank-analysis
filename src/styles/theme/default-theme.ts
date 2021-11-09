@@ -35,8 +35,11 @@ export const DEFAULT_COLORS: Colors = {
 
 export const DEFAULT_THEME: AgileTheme = {
   type: 'light',
-  colors: DEFAULT_COLORS,
-  primitiveColors: DEFAULT_PRIMITIVE_COLORS,
+  // 'as any' if sb decided to overwrite the AgileTheme,
+  // then it is his responsibility to provide valid colors
+  // and shouldn't rely on the DEFAULT_THEME
+  colors: DEFAULT_COLORS as any,
+  primitiveColors: DEFAULT_PRIMITIVE_COLORS as any,
   fontFamily:
     '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji',
   lineHeight: 1.55,

@@ -1,11 +1,10 @@
-import { PrimitiveColorsType } from '../ui.types';
-
-export const primitiveColors: PrimitiveColorsType = {
+export const primitiveColors = {
   black: '#332D33',
   black_light: '#473D47',
 
   gray: '#5D6464',
   gray2: '#8F7E8F',
+  gray3: '#6A5A6A',
 
   white: '#FFFAFE',
 

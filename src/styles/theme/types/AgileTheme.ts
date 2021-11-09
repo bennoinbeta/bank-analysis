@@ -3,7 +3,7 @@ import { Colors } from './AgileColors';
 import { Sizes } from './AgileSize';
 import { DeepPartial } from '../../types';
 
-export interface AgileTheme {
+export interface DefaultAgileTheme {
   type: string;
   colors: Colors;
   primitiveColors: Record<string, string | string[]>;
@@ -28,6 +28,8 @@ export interface AgileTheme {
     };
   };
 }
+
+export interface AgileTheme extends DefaultAgileTheme {}
 
 export interface HeadingStyle {
   fontSize: React.CSSProperties['fontSize'];

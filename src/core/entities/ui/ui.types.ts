@@ -1,4 +1,4 @@
-import { AgileTheme } from '../../../styles/theme';
+import { AgileTheme, DefaultAgileTheme } from '../../../styles/theme';
 
 export type ToastEventType = 'error' | 'success' | 'warn';
 
@@ -7,28 +7,16 @@ export type ToastEventPayload = {
   message: string;
 };
 
-export type PrimitiveColorsType = {
-  black: string;
-  black_light: string;
-
-  gray: string;
-  gray2: string;
-
-  white: string;
-
-  purple: string;
-  purple_lighter: string;
-  purple_light: string;
-  purple_dark: string;
-  purple_darker: string;
-  purple_darkest: string;
-
-  red: string;
-  red_dark: string;
-
-  green: string;
-  green_dark: string;
-};
+// Expand Agile Theme
+declare module '../../../styles/theme' {
+  export interface AgileTheme extends DefaultAgileTheme {
+    colors: DefaultAgileTheme['colors'] & {
+      layout: DefaultAgileTheme['colors']['layout'] & {
+        rHc2: string;
+      };
+    };
+  }
+}
 
 // https://nyxo.app/tips-for-using-typescript-with-styled-components
 // Declare Theme type for 'styled-components'

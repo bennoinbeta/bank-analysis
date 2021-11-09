@@ -20,7 +20,7 @@ const Navbar: React.FC<Props> = (props) => {
         onClick={() => {
           history.push('/');
         }}>
-        <Icon.Logo color={theme.colors.layout.bg} width={30} height={30} />
+        <Icon.Logo color={theme.colors.layout.hc} width={30} height={30} />
         <AppName>Bank Analysis</AppName>
       </LogoContainer>
     </Container>
