@@ -8,8 +8,8 @@ type Props = {
   className?: string; // Required to apply styling via Styled-Components
 } & React.SVGProps<SVGSVGElement>;
 
-const Plus: React.FC<Props> = (props) => {
-  const { width, height, color, strokeWidth } = props;
+const Plus = React.forwardRef<SVGSVGElement, Props>((props, ref) => {
+  const { width, height, color, strokeWidth, ...others } = props;
 
   return (
     <svg
@@ -18,7 +18,8 @@ const Plus: React.FC<Props> = (props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      {...props}>
+      ref={ref}
+      {...others}>
       <path
         d="M12 5v14M5 12h14"
         stroke={color}
@@ -28,12 +29,12 @@ const Plus: React.FC<Props> = (props) => {
       />
     </svg>
   );
-};
+});
 
 Plus.defaultProps = {
   color: '#000000',
-  width: 24,
-  height: 24,
+  width: 15,
+  height: 15,
   strokeWidth: 2,
 };
 

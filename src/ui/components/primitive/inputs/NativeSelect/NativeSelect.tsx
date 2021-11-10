@@ -39,9 +39,7 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
         ref={ref}
         value={value === null ? '' : value}
         rightSection={{
-          component: (
-            <Icon.ChevronUpDown width={15} style={{ paddingRight: 10 }} />
-          ),
+          component: <Icon.ChevronUpDown style={{ paddingRight: 10 }} />,
         }}
         {...others}>
         {options}

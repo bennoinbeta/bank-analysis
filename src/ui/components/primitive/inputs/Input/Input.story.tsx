@@ -29,18 +29,14 @@ function ValidInvalid() {
 
 const useStyles = createStyles()({
   input: {
-    border: '2px solid red',
-
-    '&::placeholder': {
-      color: 'red',
-    },
+    border: '4px solid green',
   },
 });
 
 function WithStyles() {
   const { classes } = useStyles();
 
-  return <Input className={classes.input} placeholder="red" />;
+  return <Input className={classes.input} placeholder="Styled" />;
 }
 
 const actionIcon = <Icon.Plus />;

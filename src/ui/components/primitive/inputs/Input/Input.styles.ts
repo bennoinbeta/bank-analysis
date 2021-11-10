@@ -79,9 +79,9 @@ export const useStyles = createStyles<InputStyles>()(
 
         height: ${multiline ? 'auto' : getSizeValue(size, sizes)};
         min-height: ${getSizeValue(size, sizes)}px;
-        line-height: ${multiline
-          ? theme.lineHeight
-          : `${getSizeValue(size, sizes) - 2}px`};
+        line-height: ${
+          multiline ? theme.lineHeight : `${getSizeValue(size, sizes) - 2}px`
+        };
 
         -webkit-tap-highlight-color: transparent;
 
@@ -93,7 +93,8 @@ export const useStyles = createStyles<InputStyles>()(
         color: ${theme.colors.layout.hc};
         background-color: ${theme.colors.layout.lc};
         border-color: ${theme.colors.layout.rHc};
-        border: 1px solid;
+        border-style: solid;
+        border-width: 1px;
         border-radius: ${getSizeValue(radius, theme.radius)}px;
 
         transition: border-color 100ms ease, box-shadow 100ms ease;
@@ -104,15 +105,30 @@ export const useStyles = createStyles<InputStyles>()(
         &:focus,
         &:focus-within {
           outline: none;
-          border-color: ${theme.colors.interactive.primary.pP2};
+          border-color: ${!invalid && theme.colors.interactive.primary.p0};
         }
 
         &:disabled {
-          background-color: ${theme.colors.disabled.d2};
           color: ${theme.colors.disabled.d1};
+          background-color: ${theme.colors.disabled.d2};
           opacity: 70%;
           cursor: not-allowed;
         }
+
+        &::placeholder {
+          opacity: 1;
+          user-select: none;
+          color: ${theme.colors.layout.rHc},
+        },
+
+        &::-webkit-inner-spin-button, &::-webkit-outer-spin-button, &::-webkit-search-decoration, &::-webkit-search-cancel-button, &::-webkit-search-results-button, &::-webkit-search-results-decoration:
+        {
+          appearance: none;
+        },
+        
+        &[type=number] {
+          -moz-appearance: textfield
+        },
       `,
 
       withLeftSection: css`
@@ -141,7 +157,7 @@ export const useStyles = createStyles<InputStyles>()(
         pointer-events: none;
         color: ${invalid
           ? theme.colors.denotive.error
-          : theme.colors.layout.hc};
+          : theme.colors.layout.rHc};
       `,
 
       rightSection: css`

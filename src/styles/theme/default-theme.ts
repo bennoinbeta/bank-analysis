@@ -5,11 +5,11 @@ export const DEFAULT_SIZES = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 export const DEFAULT_COLORS: Colors = {
   layout: {
-    bg: DEFAULT_PRIMITIVE_COLORS.dark[0],
-    p: DEFAULT_PRIMITIVE_COLORS.teal[8],
-    lc: DEFAULT_PRIMITIVE_COLORS.dark[1],
-    hc: DEFAULT_PRIMITIVE_COLORS.dark[7],
-    rHc: DEFAULT_PRIMITIVE_COLORS.dark[6],
+    bg: '#ffffff',
+    p: DEFAULT_PRIMITIVE_COLORS.blue[8],
+    lc: DEFAULT_PRIMITIVE_COLORS.gray[0],
+    hc: DEFAULT_PRIMITIVE_COLORS.dark[9],
+    rHc: DEFAULT_PRIMITIVE_COLORS.gray[4],
   },
 
   denotive: {
@@ -21,17 +21,17 @@ export const DEFAULT_COLORS: Colors = {
 
   interactive: {
     primary: {
-      pM1: DEFAULT_PRIMITIVE_COLORS.grape[5],
-      pM2: DEFAULT_PRIMITIVE_COLORS.grape[6],
-      p0: DEFAULT_PRIMITIVE_COLORS.grape[7],
-      pP1: DEFAULT_PRIMITIVE_COLORS.grape[9],
-      pP2: DEFAULT_PRIMITIVE_COLORS.grape[9],
+      pM1: DEFAULT_PRIMITIVE_COLORS.blue[5],
+      pM2: DEFAULT_PRIMITIVE_COLORS.blue[6],
+      p0: DEFAULT_PRIMITIVE_COLORS.blue[7],
+      pP1: DEFAULT_PRIMITIVE_COLORS.blue[9],
+      pP2: DEFAULT_PRIMITIVE_COLORS.blue[9],
     },
   },
 
   disabled: {
-    d1: DEFAULT_PRIMITIVE_COLORS.dark[3],
-    d2: DEFAULT_PRIMITIVE_COLORS.dark[4],
+    d1: DEFAULT_PRIMITIVE_COLORS.gray[1],
+    d2: DEFAULT_PRIMITIVE_COLORS.gray[2],
   },
 };
 
