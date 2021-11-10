@@ -4,7 +4,6 @@ import {
   PolymorphicRef,
 } from '../../../../../styles';
 import { ExtractedStylesType, useStyles } from './Text.styles';
-import { jsx } from '@emotion/react';
 import {
   DefaultProps,
   AgileGradient,
@@ -20,7 +19,7 @@ const Text: TextComponent = React.forwardRef(
       className,
       component,
       children,
-      size = 'md',
+      size = 'sm',
       weight,
       transform,
       color,
@@ -50,20 +49,17 @@ const Text: TextComponent = React.forwardRef(
     );
     const Element: React.ElementType = component || 'p';
 
-    // jsx == React.createElement but with 'css' support
-    // https://github.com/emotion-js/emotion/issues/1368
-    return jsx(
-      Element,
-      {
-        ref,
-        className: cx(
+    return (
+      <Element
+        ref={ref}
+        className={cx(
           classes.root,
           { [classes.gradient]: variant === 'gradient' },
           className
-        ),
-        ...others,
-      },
-      children
+        )}
+        {...others}>
+        {children}
+      </Element>
     );
   }
 ) as any;

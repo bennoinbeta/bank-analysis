@@ -6,7 +6,7 @@ import {
 import { useStyles } from './Input.styles';
 import { AgileNumberSize, DefaultProps } from '../../../../../styles/theme';
 
-const BaseInput: InputComponent = React.forwardRef(
+const Input: InputComponent = React.forwardRef(
   <C extends React.ElementType = 'input'>(
     props: InputProps<C>,
     ref: PolymorphicRef<C>
@@ -21,13 +21,13 @@ const BaseInput: InputComponent = React.forwardRef(
       rightSection,
       wrapperProps,
       multiline = false,
-      radius,
-      size = 'md',
+      radius = 'sm',
+      size = 'sm',
       styles,
-      ...other
+      ...others
     } = props;
     const { classes, cx } = useStyles(
-      { size, multiline, disabled, radius, invalid },
+      { size, multiline, disabled, radius, invalid, rightSection, leftSection },
       { styles }
     );
     const Element: React.ElementType = component || 'input';
@@ -41,15 +41,18 @@ const BaseInput: InputComponent = React.forwardRef(
         )}
 
         <Element
-          {...other}
           ref={ref}
           aria-required={required}
           aria-invalid={invalid}
           disabled={disabled}
           className={cx(
-            { [classes.withLeftSection]: leftSection },
+            {
+              [classes.withLeftSection]: leftSection,
+              [classes.withRightSection]: rightSection,
+            },
             classes.input
           )}
+          {...others}
         />
 
         {rightSection && (
@@ -62,31 +65,34 @@ const BaseInput: InputComponent = React.forwardRef(
   }
 ) as any;
 
-export type BaseInputProps = {
+export type InputBaseProps = {
   disabled?: boolean;
   multiline?: boolean;
   size?: AgileNumberSize;
   required?: boolean;
   invalid?: boolean;
+  radius?: AgileNumberSize;
 
   leftSection?: {
     component: React.ReactNode;
     props?: React.ComponentPropsWithoutRef<'div'>;
+    width?: number;
   };
   rightSection?: {
     component: React.ReactNode;
     props?: React.ComponentPropsWithoutRef<'div'>;
+    width?: number;
   };
   wrapperProps?: React.ComponentPropsWithoutRef<'div'>;
 };
 
 export type InputProps<C extends React.ElementType> = PolymorphicComponentProps<
   C,
-  BaseInputProps & DefaultProps
+  InputBaseProps & DefaultProps
 >;
 
 type InputComponent = <C extends React.ElementType = 'input'>(
   props: InputProps<C>
 ) => React.ReactElement;
 
-export default BaseInput;
+export default Input;

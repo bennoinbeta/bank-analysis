@@ -1,7 +1,6 @@
 import React, { forwardRef } from 'react';
 import { useStyles } from './Title.styles';
 import { DefaultProps } from '../../../../../styles/theme';
-import { jsx } from '@emotion/react';
 
 const Title = forwardRef<HTMLHeadingElement, TitleProps>((props, ref) => {
   const {
@@ -23,16 +22,10 @@ const Title = forwardRef<HTMLHeadingElement, TitleProps>((props, ref) => {
     return null;
   }
 
-  // jsx == React.createElement but with 'css' support
-  // https://github.com/emotion-js/emotion/issues/1368
-  return jsx(
-    Element,
-    {
-      className: cx(classes.root, className),
-      ref,
-      ...others,
-    },
-    children
+  return (
+    <Element ref={ref} className={cx(classes.root, className)} {...others}>
+      {children}
+    </Element>
   );
 });
 

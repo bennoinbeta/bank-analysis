@@ -2,6 +2,7 @@ import { createStyles } from '../../../../../styles';
 import { AgileNumberSize, AgileTheme } from '../../../../../styles/theme';
 import { css } from '@emotion/react';
 import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
+import { InputBaseProps } from './Input';
 
 export const sizes = {
   xs: 30,
@@ -57,7 +58,10 @@ function getDisabledStyles({
 }
 
 export const useStyles = createStyles<InputStyles>()(
-  (theme, { size, multiline, radius, invalid, disabled }) => {
+  (
+    theme,
+    { size, multiline, radius, invalid, disabled, rightSection, leftSection }
+  ) => {
     return {
       root: css`
         position: relative;
@@ -88,7 +92,8 @@ export const useStyles = createStyles<InputStyles>()(
 
         color: ${theme.colors.layout.hc};
         background-color: ${theme.colors.layout.lc};
-        border: 1px solid ${theme.colors.layout.rHc};
+        border-color: ${theme.colors.layout.rHc};
+        border: 1px solid;
         border-radius: ${getSizeValue(radius, theme.radius)}px;
 
         transition: border-color 100ms ease, box-shadow 100ms ease;
@@ -111,7 +116,13 @@ export const useStyles = createStyles<InputStyles>()(
       `,
 
       withLeftSection: css`
-        padding-left: ${getSizeValue(size, sizes)}px !important;
+        padding-left: ${leftSection?.width ??
+        getSizeValue(size, sizes)}px !important;
+      `,
+
+      withRightSection: css`
+        padding-right: ${rightSection?.width ??
+        getSizeValue(size, sizes)}px !important;
       `,
 
       leftSection: css`
@@ -121,12 +132,13 @@ export const useStyles = createStyles<InputStyles>()(
         top: 0;
         bottom: 0;
 
+        width: ${leftSection?.width ?? getSizeValue(size, sizes)}px;
+
         display: flex;
         align-items: center;
         justify-content: center;
 
         pointer-events: none;
-        width: ${getSizeValue(size, sizes)}px;
         color: ${invalid
           ? theme.colors.denotive.error
           : theme.colors.layout.hc};
@@ -138,6 +150,8 @@ export const useStyles = createStyles<InputStyles>()(
         top: 0;
         bottom: 0;
         right: 0;
+
+        width: ${rightSection?.width ? rightSection?.width + 'px' : undefined};
 
         display: flex;
         align-items: center;
@@ -153,4 +167,6 @@ interface InputStyles {
   multiline: boolean;
   invalid: boolean;
   disabled: boolean;
+  rightSection?: InputBaseProps['rightSection'];
+  leftSection?: InputBaseProps['leftSection'];
 }

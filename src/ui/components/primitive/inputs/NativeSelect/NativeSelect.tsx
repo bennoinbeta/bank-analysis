@@ -1,20 +1,7 @@
 import React, { forwardRef } from 'react';
-import BaseInput, { BaseInputProps } from '../BaseInput';
-
-export interface NativeSelectProps
-  extends BaseInputProps,
-    React.ComponentPropsWithoutRef<'select'> {
-  placeholder?: string;
-  data: (string | SelectItem)[];
-}
-
-export interface SelectItem {
-  value: string;
-  label?: string;
-  disabled?: boolean;
-  group?: string;
-  [key: string]: any;
-}
+import Input, { InputBaseProps } from '../Input';
+import { DefaultProps } from '../../../../../styles/theme';
+import Icon from '../../../icons';
 
 const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
   (props: NativeSelectProps, ref) => {
@@ -23,10 +10,11 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
       placeholder,
       wrapperProps,
       rightSection,
-      onChange,
       value,
-      ...other
+      styles,
+      ...others
     } = props;
+
     const formattedData = data.map((item) =>
       typeof item === 'string' ? { label: item, value: item } : item
     );
@@ -46,16 +34,36 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
     }
 
     return (
-      <BaseInput<'select'>
-        {...other}
+      <Input<'select'>
         component="select"
-        onChange={onChange}
         ref={ref}
-        value={value === null ? '' : value}>
+        value={value === null ? '' : value}
+        rightSection={{
+          component: (
+            <Icon.ChevronUpDown width={15} style={{ paddingRight: 10 }} />
+          ),
+        }}
+        {...others}>
         {options}
-      </BaseInput>
+      </Input>
     );
   }
 );
 
 export default NativeSelect;
+
+export interface NativeSelectProps
+  extends InputBaseProps,
+    DefaultProps,
+    Omit<React.ComponentPropsWithoutRef<'select'>, 'size'> {
+  placeholder?: string;
+  data: (string | SelectItem)[];
+}
+
+export interface SelectItem {
+  value: string;
+  label?: string;
+  disabled?: boolean;
+  group?: string;
+  [key: string]: any;
+}

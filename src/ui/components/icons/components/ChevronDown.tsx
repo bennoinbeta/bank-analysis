@@ -6,7 +6,7 @@ type Props = {
   height?: number | string;
   strokeWidth?: number;
   className?: string; // Required to apply styling via Styled-Components
-};
+} & React.SVGProps<SVGSVGElement>;
 
 const ChevronDown: React.FC<Props> = (props) => {
   const { width, height, color, strokeWidth } = props;

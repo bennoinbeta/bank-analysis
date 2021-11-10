@@ -5,7 +5,7 @@ type Props = {
   width?: number | string;
   height?: number | string;
   className?: string; // Required to apply styling via Styled-Components
-};
+} & React.SVGProps<SVGSVGElement>;
 
 const Logo: React.FC<Props> = (props) => {
   const { width, height, color } = props;
