@@ -2,10 +2,6 @@ import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import styled from '@emotion/styled';
 
-type Props = {
-  data: any;
-};
-
 const BarChart: React.FC<Props> = (props) => {
   const { data } = props;
 
@@ -17,6 +13,10 @@ const BarChart: React.FC<Props> = (props) => {
 };
 
 export default BarChart;
+
+type Props = {
+  data: any;
+};
 
 const Container = styled.div`
   position: relative;

@@ -4,10 +4,10 @@ import { createStyles, ExtractStylesType } from '../../../../../styles';
 import {
   AgileGradient,
   AgileNumberSize,
-  AgileSize,
   AgileTheme,
 } from '../../../../../styles/theme';
 import React from 'react';
+import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
 
 function getTextColor(config: GetTextColor): SerializedStyles {
   const color =
@@ -32,7 +32,7 @@ export const useStyles = createStyles<TextStyles>()(
       font-family: ${inherit ? 'inherit' : 'sans-serif'};
       font-size: ${inherit
         ? 'inherit'
-        : (typeof size === 'string' ? theme.fontSizes[size] : size) + 'px'};
+        : getSizeValue(size, theme.fontSizes) + 'px'};
       line-height: ${inherit ? 'inherit' : undefined};
       text-decoration: none;
       font-weight: ${weight};

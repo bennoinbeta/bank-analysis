@@ -1,6 +1,8 @@
 import { Colors, AgileTheme } from './types';
 import { DEFAULT_PRIMITIVE_COLORS } from './default-primitive-colors';
 
+export const DEFAULT_SIZES = ['xs', 'sm', 'md', 'lg', 'xl'];
+
 export const DEFAULT_COLORS: Colors = {
   layout: {
     bg: DEFAULT_PRIMITIVE_COLORS.dark[0],
