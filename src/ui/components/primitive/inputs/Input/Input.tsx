@@ -25,11 +25,12 @@ const Input: InputComponent = React.forwardRef(
       size = 'sm',
       styles,
       style,
+      __staticSelector = 'Input',
       ...others
     } = props;
     const { classes, cx } = useStyles(
       { size, multiline, disabled, radius, invalid, rightSection, leftSection },
-      { styles }
+      { name: __staticSelector, styles }
     );
     const Element: React.ElementType = component || 'input';
 
@@ -92,7 +93,8 @@ export type InputBaseProps = {
 
 export type InputProps<C extends React.ElementType> = PolymorphicComponentProps<
   C,
-  InputBaseProps & DefaultProps<ExtractedStylesType>
+  InputBaseProps &
+    DefaultProps<ExtractedStylesType> & { __staticSelector?: string }
 >;
 
 type InputComponent = <C extends React.ElementType = 'input'>(

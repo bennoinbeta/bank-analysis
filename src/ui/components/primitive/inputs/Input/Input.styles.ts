@@ -3,6 +3,7 @@ import { AgileNumberSize, AgileTheme } from '../../../../../styles/theme';
 import { css } from '@emotion/react';
 import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
 import { InputBaseProps } from './Input';
+import React from 'react';
 
 export const inputSizes = {
   xs: 30,
@@ -185,8 +186,16 @@ interface InputStyles {
   multiline: boolean;
   invalid: boolean;
   disabled: boolean;
-  rightSection?: InputBaseProps['rightSection'];
-  leftSection?: InputBaseProps['leftSection'];
+  rightSection?: {
+    component: React.ReactNode;
+    props?: React.ComponentPropsWithoutRef<'div'>;
+    width?: number;
+  };
+  leftSection?: {
+    component: React.ReactNode;
+    props?: React.ComponentPropsWithoutRef<'div'>;
+    width?: number;
+  };
 }
 
 export type ExtractedStylesType = ExtractStylesType<typeof useStyles>;

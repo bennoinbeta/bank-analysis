@@ -44,7 +44,7 @@ const Text: TextComponent = React.forwardRef(
         transform,
         align,
       },
-      { name: 'text', styles }
+      { name: 'Text', styles }
     );
     const Element: React.ElementType = component || 'p';
 
@@ -68,7 +68,7 @@ const Text: TextComponent = React.forwardRef(
 
 export default Text;
 
-export interface SharedTextProps {
+export type BaseTextProps = {
   size?: AgileNumberSize;
   color?: string;
   weight?: React.CSSProperties['fontWeight'];
@@ -79,11 +79,14 @@ export interface SharedTextProps {
   inline?: boolean;
   inherit?: boolean;
   gradient?: AgileGradient;
-}
+};
 
 export type TextProps<C extends React.ElementType = 'p'> =
-  PolymorphicComponentProps<C, SharedTextProps>;
+  PolymorphicComponentProps<
+    C,
+    BaseTextProps & DefaultProps<ExtractedStylesType>
+  >;
 
 type TextComponent = <C extends React.ElementType = 'p'>(
-  props: TextProps<C> & DefaultProps<ExtractedStylesType>
+  props: TextProps<C>
 ) => React.ReactElement;

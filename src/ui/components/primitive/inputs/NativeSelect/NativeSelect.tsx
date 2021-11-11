@@ -57,6 +57,7 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
             />
           ),
         }}
+        __staticSelector="NativeSelect"
         {...others}>
         {options}
       </Input>

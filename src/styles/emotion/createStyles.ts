@@ -65,12 +65,12 @@ export const createStyles =
      * @param config - Configuration object
      */
     return (params, config = {}) => {
-      config = defineConfig(config, { name: null, styles: {} });
+      config = defineConfig(config, { name: null, styles: {}, classNames: {} });
 
       const theme = useAgileTheme();
       const { css, cx } = useCss();
       const _styles = getStyles(theme, params as any);
-      const _extendedStyles = (
+      const _expandedStyles = (
         typeof config.styles === 'function'
           ? config.styles(theme)
           : config.styles
@@ -78,26 +78,28 @@ export const createStyles =
 
       // Transform specified 'styles' into classes
       const classes: Record<string, string> = {};
-      Object.keys(_styles).forEach((key) => {
+      for (const key of Object.keys(_styles)) {
         classes[key] =
           typeof _styles[key] !== 'string'
             ? css(_styles[key])
             : (_styles[key] as any);
-      });
+      }
 
-      // Transform specified 'extendedStyles' into classes
-      const extendedClasses: Record<string, string> = {};
-      Object.keys(_extendedStyles).forEach((key) => {
-        extendedClasses[key] =
-          typeof _extendedStyles[key] !== 'string'
-            ? css(_extendedStyles[key])
-            : (_extendedStyles[key] as any);
-      });
+      // Transform specified 'expandedStyles' into classes and merge them with the 'classNames'
+      const expandedClasses: Record<string, string> = {};
+      for (const key of Object.keys(_expandedStyles)) {
+        expandedClasses[key] = cx(
+          typeof _expandedStyles[key] !== 'string'
+            ? css(_expandedStyles[key])
+            : _expandedStyles[key],
+          config.classNames
+        );
+      }
 
       return {
         classes: mergeClassNames<MapToX<TStyles, string>>(
           classes as any,
-          extendedClasses as any,
+          expandedClasses as any,
           cx,
           config.name
         ),
@@ -127,6 +129,15 @@ type UseStylesConfigType<TStyles extends StylesData> = {
    * @default {}
    */
   styles?: ExtendedStylesType<TStyles>;
+  /**
+   * ClassNames keymap to extend the styles specified in the 'createStyles()' method.
+   *
+   * ClassNames can also specified in the 'styles' property,
+   * however in case we need additional styles (e.g. that depend on a local property)
+   * beside the className styles this property exists.
+   * @default {}
+   */
+  classNames?: Partial<Record<string, string>>;
   /**
    * Key/Name identifier of the created styles.
    * @default 'unknown'

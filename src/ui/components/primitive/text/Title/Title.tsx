@@ -33,9 +33,9 @@ export default Title;
 
 export type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
-export interface TitleProps
-  extends DefaultProps<ExtractedStylesType>,
-    React.ComponentPropsWithoutRef<'h1'> {
+export type TitleBaseProps = {
   element?: HeadingElement;
   align?: 'right' | 'left' | 'center';
-}
+} & React.ComponentPropsWithoutRef<'h1'>;
+
+export type TitleProps = TitleBaseProps & DefaultProps<ExtractedStylesType>;

@@ -74,7 +74,7 @@ interface TextStyles {
 type GetTextColor = {
   theme: AgileTheme;
   color?: string;
-  variant: TextProps['variant'];
+  variant: TextStyles['variant'];
 };
 
 export type ExtractedStylesType = ExtractStylesType<typeof useStyles>;
