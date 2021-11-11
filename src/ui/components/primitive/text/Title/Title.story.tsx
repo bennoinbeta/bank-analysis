@@ -1,7 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Title from './Title';
-import Text from '../Text';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { createStyles } from '../../../../../styles';

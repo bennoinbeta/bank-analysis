@@ -1,5 +1,4 @@
 import { css, SerializedStyles } from '@emotion/react';
-import { TextProps } from './Text';
 import { createStyles, ExtractStylesType } from '../../../../../styles';
 import {
   AgileGradient,
@@ -7,7 +6,6 @@ import {
   AgileTheme,
 } from '../../../../../styles/theme';
 import React from 'react';
-import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
 import { getFontStyles } from '../../../../../styles/theme/utils/commonStyles';
 
 function getTextColor(config: GetTextColor): SerializedStyles {
