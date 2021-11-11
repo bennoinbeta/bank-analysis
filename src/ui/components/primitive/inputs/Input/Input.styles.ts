@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
 import { InputBaseProps } from './Input';
 
-export const sizes = {
+export const inputSizes = {
   xs: 30,
   sm: 36,
   md: 42,
@@ -77,16 +77,18 @@ export const useStyles = createStyles<InputStyles>()(
 
         width: 100%;
 
-        height: ${multiline ? 'auto' : getSizeValue(size, sizes)};
-        min-height: ${getSizeValue(size, sizes)}px;
+        height: ${multiline ? 'auto' : getSizeValue(size, inputSizes)};
+        min-height: ${getSizeValue(size, inputSizes)}px;
         line-height: ${
-          multiline ? theme.lineHeight : `${getSizeValue(size, sizes) - 2}px`
+          multiline
+            ? theme.lineHeight
+            : `${getSizeValue(size, inputSizes) - 2}px`
         };
 
         -webkit-tap-highlight-color: transparent;
 
-        padding-left: ${getSizeValue(size, sizes) / 3}px;
-        padding-right: ${getSizeValue(size, sizes) / 3}px;
+        padding-left: ${getSizeValue(size, inputSizes) / 3}px;
+        padding-right: ${getSizeValue(size, inputSizes) / 3}px;
 
         font-size: ${getSizeValue(size, theme.fontSizes)}px;
 
@@ -133,12 +135,12 @@ export const useStyles = createStyles<InputStyles>()(
 
       withLeftSection: css`
         padding-left: ${leftSection?.width ??
-        getSizeValue(size, sizes)}px !important;
+        getSizeValue(size, inputSizes) / 1.1}px !important;
       `,
 
       withRightSection: css`
         padding-right: ${rightSection?.width ??
-        getSizeValue(size, sizes)}px !important;
+        getSizeValue(size, inputSizes)}px !important;
       `,
 
       leftSection: css`
@@ -148,7 +150,7 @@ export const useStyles = createStyles<InputStyles>()(
         top: 0;
         bottom: 0;
 
-        width: ${leftSection?.width ?? getSizeValue(size, sizes)}px;
+        width: ${leftSection?.width ?? getSizeValue(size, inputSizes)}px;
 
         display: flex;
         align-items: center;
@@ -167,7 +169,7 @@ export const useStyles = createStyles<InputStyles>()(
         bottom: 0;
         right: 0;
 
-        width: ${leftSection?.width ?? getSizeValue(size, sizes)}px;
+        width: ${leftSection?.width ?? getSizeValue(size, inputSizes)}px;
 
         display: flex;
         align-items: center;

@@ -14,16 +14,20 @@ import AddButton from './components/AddButton';
 import BarChart from '../charts/BarChart';
 import { NAVBAR_HEIGHT } from '../../../../../core/entities/ui/ui.controller';
 import { onAddFiles } from './controller';
+import Icon from '../../../../components/icons';
+import { useAgileTheme } from '../../../../../styles/theme';
 
 const ChartWrapper: React.FC<Props> = (props) => {
   const { data } = props;
+  const theme = useAgileTheme();
 
+  // Selected NativeSelect State
   const [timeFormat, setTimeFormat] = useState<TimeFormat>('month');
   const [selectedDatasetIndex, setSelectedDatasetIndex] = useState(0);
   const [datasetFormat, setDatasetFormat] =
     useState<DatasetFormat>('creditDebitAmounts');
 
-  // Select Datasets
+  // NativeSelect Datasets
   const selectedDatasetSelectData = data
     .map((value, index) => {
       return {
@@ -43,8 +47,8 @@ const ChartWrapper: React.FC<Props> = (props) => {
     { label: 'End Amounts', value: 'endAmounts' },
   ];
 
+  // Chart Data
   const selectedDataset = data[selectedDatasetIndex];
-
   const chartData = useChartData(
     bank.getDataset(selectedDataset, timeFormat)?.dataset,
     datasetFormat
@@ -73,6 +77,14 @@ const ChartWrapper: React.FC<Props> = (props) => {
             value={selectedDatasetIndex}
             onChange={(e) => setSelectedDatasetIndex(e.target.value as any)}
             size={'sm'}
+            leftSection={{
+              component: (
+                <Icon.FileText
+                  color={theme.colors.layout.rHc}
+                  style={{ marginBottom: 2 }}
+                />
+              ),
+            }}
           />
           <AddButton onDrop={onAddFiles} />
         </RightHeaderContainer>
@@ -83,6 +95,16 @@ const ChartWrapper: React.FC<Props> = (props) => {
         value={datasetFormat}
         onChange={(e) => setDatasetFormat(e.target.value as any)}
         size={'md'}
+        leftSection={{
+          component: (
+            <Icon.DollarSign
+              width={20}
+              height={20}
+              color={theme.colors.layout.rHc}
+              style={{ marginBottom: 2 }}
+            />
+          ),
+        }}
       />
 
       <Divider />
@@ -94,6 +116,14 @@ const ChartWrapper: React.FC<Props> = (props) => {
         value={timeFormat}
         onChange={(e) => setTimeFormat(e.target.value as any)}
         size={'xs'}
+        leftSection={{
+          component: (
+            <Icon.Calendar
+              color={theme.colors.layout.rHc}
+              style={{ marginBottom: 2 }}
+            />
+          ),
+        }}
       />
       <BarChart data={chartData} />
     </Container>

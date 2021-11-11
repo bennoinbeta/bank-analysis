@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react';
 import Input, { InputBaseProps } from '../Input';
-import { DefaultProps } from '../../../../../styles/theme';
+import { DefaultProps, useAgileTheme } from '../../../../../styles/theme';
 import Icon from '../../../icons';
-import { css } from '@emotion/react';
-import { ExtractedStylesType } from '../Input/Input.styles';
+import { ExtractedStylesType, inputSizes } from '../Input/Input.styles';
+import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
 
 const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
   (props: NativeSelectProps, ref) => {
@@ -14,8 +14,10 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
       rightSection,
       value,
       styles,
+      size = 'md',
       ...others
     } = props;
+    const theme = useAgileTheme();
 
     const formattedData = data.map((item) =>
       typeof item === 'string' ? { label: item, value: item } : item
@@ -40,8 +42,20 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
         component="select"
         ref={ref}
         value={value === null ? '' : value}
+        size={size}
+        styles={{
+          ...styles,
+          // @ts-ignore
+          rightSection: { ...styles?.rightSection, pointerEvents: 'none' },
+        }}
         rightSection={{
-          component: <Icon.ChevronUpDown style={{ paddingRight: 10 }} />,
+          component: (
+            <Icon.ChevronUpDown
+              color={theme.colors.layout.rHc}
+              width={getSizeValue(size, inputSizes) / 2.5}
+              height={getSizeValue(size, inputSizes) / 2.5}
+            />
+          ),
         }}
         {...others}>
         {options}
