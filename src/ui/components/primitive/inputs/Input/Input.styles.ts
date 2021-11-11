@@ -83,8 +83,6 @@ export const useStyles = createStyles<InputStyles>()(
           multiline ? theme.lineHeight : `${getSizeValue(size, sizes) - 2}px`
         };
 
-        cursor: default;
-
         -webkit-tap-highlight-color: transparent;
 
         padding-left: ${getSizeValue(size, sizes) / 3}px;
@@ -169,7 +167,7 @@ export const useStyles = createStyles<InputStyles>()(
         bottom: 0;
         right: 0;
 
-        width: ${rightSection?.width ? rightSection?.width + 'px' : undefined};
+        width: ${leftSection?.width ?? getSizeValue(size, sizes)}px;
 
         display: flex;
         align-items: center;
