@@ -42,14 +42,6 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
         rightSection={{
           component: <Icon.ChevronUpDown style={{ paddingRight: 10 }} />,
         }}
-        styles={{
-          input: css`
-            cursor: pointer !important;
-          `,
-          root: css`
-            cursor: pointer;
-          `,
-        }}
         {...others}>
         {options}
       </Input>
