@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Input from './Input';
 import { DEFAULT_SIZES } from '../../../../../styles/theme';
-import { createStyles } from '../../../../../styles';
 import Icon from '../../../icons';
 import { storiesOf } from '@storybook/react';
+import { css } from '@emotion/react';
 
 function ValidInvalid() {
   const [valid, setValid] = useState(false);
@@ -25,18 +25,6 @@ function ValidInvalid() {
       </button>
     </div>
   );
-}
-
-const useStyles = createStyles()({
-  input: {
-    border: '4px solid green',
-  },
-});
-
-function WithStyles() {
-  const { classes } = useStyles();
-
-  return <Input className={classes.input} placeholder="Styled" />;
 }
 
 const actionIcon = <Icon.Plus />;
@@ -112,4 +100,17 @@ storiesOf('core/Input', module)
   .add('Sizes', () => <div style={{ maxWidth: 300, padding: 50 }}>{sizes}</div>)
   .add('Default variant', () => <>{getStates()}</>)
   .add('Invalid toggle', () => <ValidInvalid />)
-  .add('With classNames', () => <WithStyles />);
+  .add('With classNames', () => (
+    <Input
+      styles={{
+        root: css`
+          border: 4px solid green;
+        `,
+        input: css`
+          font-weight: bold;
+          color: blue;
+        `,
+      }}
+      placeholder="Styled"
+    />
+  ));

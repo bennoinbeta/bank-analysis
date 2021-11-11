@@ -24,6 +24,7 @@ const Input: InputComponent = React.forwardRef(
       radius = 'sm',
       size = 'sm',
       styles,
+      style,
       ...others
     } = props;
     const { classes, cx } = useStyles(
@@ -33,7 +34,10 @@ const Input: InputComponent = React.forwardRef(
     const Element: React.ElementType = component || 'input';
 
     return (
-      <div className={cx(classes.root, className)} {...wrapperProps}>
+      <div
+        className={cx(classes.root, className)}
+        style={style}
+        {...wrapperProps}>
         {leftSection && (
           <div className={classes.leftSection} {...leftSection?.props}>
             {leftSection.component}
