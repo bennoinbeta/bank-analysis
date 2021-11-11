@@ -1,10 +1,13 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import styled from '@emotion/styled';
-import { MAX_WIDTH } from '..';
 import Icon from '../../../icons';
 import { useAgileTheme } from '../../../../../styles/theme';
 import Text from '../../../primitive/text/Text';
+import {
+  MAX_WIDTH,
+  NAVBAR_HEIGHT,
+} from '../../../../../core/entities/ui/ui.controller';
 
 const Navbar: React.FC<Props> = (props) => {
   const { absolute } = props;
@@ -45,8 +48,9 @@ const Container = styled.div<{ absolute: boolean; maxWidth: number }>`
 
   max-width: ${({ maxWidth }) => maxWidth}px;
   width: 100%;
+  height: ${NAVBAR_HEIGHT}px;
 
-  padding: 20px;
+  padding: 20px 0;
   margin-left: auto;
   margin-right: auto;
 

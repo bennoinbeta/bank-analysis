@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { useStyles } from './Title.styles';
+import { ExtractedStylesType, useStyles } from './Title.styles';
 import { DefaultProps } from '../../../../../styles/theme';
 
 const Title = forwardRef<HTMLHeadingElement, TitleProps>((props, ref) => {
@@ -34,7 +34,7 @@ export default Title;
 export type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 export interface TitleProps
-  extends DefaultProps,
+  extends DefaultProps<ExtractedStylesType>,
     React.ComponentPropsWithoutRef<'h1'> {
   element?: HeadingElement;
   align?: 'right' | 'left' | 'center';

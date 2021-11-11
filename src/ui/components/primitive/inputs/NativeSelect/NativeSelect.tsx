@@ -3,6 +3,7 @@ import Input, { InputBaseProps } from '../Input';
 import { DefaultProps } from '../../../../../styles/theme';
 import Icon from '../../../icons';
 import { css } from '@emotion/react';
+import { ExtractedStylesType } from '../Input/Input.styles';
 
 const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
   (props: NativeSelectProps, ref) => {
@@ -53,7 +54,7 @@ export default NativeSelect;
 
 export interface NativeSelectProps
   extends InputBaseProps,
-    DefaultProps,
+    DefaultProps<ExtractedStylesType>,
     Omit<React.ComponentPropsWithoutRef<'select'>, 'size'> {
   placeholder?: string;
   data: (string | SelectItem)[];

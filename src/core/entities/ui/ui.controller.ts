@@ -11,3 +11,6 @@ export const THEME_TYPE = createState<ThemeTypes>('dark').persist({
   key: 'theme',
 });
 export const IS_LOADING = createState(false);
+
+export const MAX_WIDTH = 1100;
+export const NAVBAR_HEIGHT = 70;

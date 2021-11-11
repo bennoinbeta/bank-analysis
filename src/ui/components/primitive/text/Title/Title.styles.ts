@@ -1,4 +1,4 @@
-import { createStyles } from '../../../../../styles';
+import { createStyles, ExtractStylesType } from '../../../../../styles';
 import { HeadingElement } from './Title';
 
 export const useStyles = createStyles<TitleStyles>()((theme, { element }) => ({
@@ -15,3 +15,5 @@ export const useStyles = createStyles<TitleStyles>()((theme, { element }) => ({
 type TitleStyles = {
   element: HeadingElement;
 };
+
+export type ExtractedStylesType = ExtractStylesType<typeof useStyles>;

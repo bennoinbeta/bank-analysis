@@ -1,4 +1,4 @@
-import { createStyles } from '../../../../../styles';
+import { createStyles, ExtractStylesType } from '../../../../../styles';
 import { AgileNumberSize, AgileTheme } from '../../../../../styles/theme';
 import { css } from '@emotion/react';
 import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
@@ -186,3 +186,5 @@ interface InputStyles {
   rightSection?: InputBaseProps['rightSection'];
   leftSection?: InputBaseProps['leftSection'];
 }
+
+export type ExtractedStylesType = ExtractStylesType<typeof useStyles>;

@@ -1,9 +1,12 @@
 import { NullType } from '../../../../types/Utils';
-import { DatasetType } from '../../../../core/entities/bank/bank.types';
+import {
+  DatasetFormat,
+  DatasetType,
+} from '../../../../core/entities/bank/bank.types';
 
 export const useChartData = (
   dataset: DatasetType | NullType,
-  type: 'endAmounts' | 'creditDebitAmounts' = 'endAmounts'
+  type: DatasetFormat = 'endAmounts'
 ): any => {
   if (dataset != null) {
     if (type === 'endAmounts') {

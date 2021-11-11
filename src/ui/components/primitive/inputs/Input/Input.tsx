@@ -3,7 +3,7 @@ import {
   PolymorphicComponentProps,
   PolymorphicRef,
 } from '../../../../../styles';
-import { useStyles } from './Input.styles';
+import { useStyles, ExtractedStylesType } from './Input.styles';
 import { AgileNumberSize, DefaultProps } from '../../../../../styles/theme';
 
 const Input: InputComponent = React.forwardRef(
@@ -92,7 +92,7 @@ export type InputBaseProps = {
 
 export type InputProps<C extends React.ElementType> = PolymorphicComponentProps<
   C,
-  InputBaseProps & DefaultProps
+  InputBaseProps & DefaultProps<ExtractedStylesType>
 >;
 
 type InputComponent = <C extends React.ElementType = 'input'>(
