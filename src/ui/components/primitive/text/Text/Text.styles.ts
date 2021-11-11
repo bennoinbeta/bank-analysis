@@ -8,6 +8,7 @@ import {
 } from '../../../../../styles/theme';
 import React from 'react';
 import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
+import { getFontStyles } from '../../../../../styles/theme/utils/commonStyles';
 
 function getTextColor(config: GetTextColor): SerializedStyles {
   const color =
@@ -23,17 +24,10 @@ function getTextColor(config: GetTextColor): SerializedStyles {
 }
 
 export const useStyles = createStyles<TextStyles>()(
-  (
-    theme,
-    { color, variant, size, inherit, gradient, weight, transform, align }
-  ) => ({
+  (theme, { color, variant, size, gradient, weight, transform, align }) => ({
     root: css`
       ${getTextColor({ color, theme, variant })};
-      font-family: ${inherit ? 'inherit' : 'sans-serif'};
-      font-size: ${inherit
-        ? 'inherit'
-        : getSizeValue(size, theme.fontSizes) + 'px'};
-      line-height: ${inherit ? 'inherit' : undefined};
+      ${getFontStyles({ theme, size })}
       text-decoration: none;
       font-weight: ${weight};
       text-transform: ${transform};
@@ -45,6 +39,12 @@ export const useStyles = createStyles<TextStyles>()(
       :hover {
         text-decoration: ${variant === 'link' ? 'underline' : 'none'};
       }
+    `,
+
+    withInherit: css`
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
     `,
 
     gradient: css`
@@ -65,7 +65,6 @@ interface TextStyles {
   size: AgileNumberSize;
   lineClamp?: number;
   inline: boolean;
-  inherit: boolean;
   gradient: AgileGradient;
   weight: React.CSSProperties['fontWeight'];
   transform?: 'capitalize' | 'uppercase' | 'lowercase';

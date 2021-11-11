@@ -83,6 +83,8 @@ export const useStyles = createStyles<InputStyles>()(
           multiline ? theme.lineHeight : `${getSizeValue(size, sizes) - 2}px`
         };
 
+        cursor: default;
+
         -webkit-tap-highlight-color: transparent;
 
         padding-left: ${getSizeValue(size, sizes) / 3}px;

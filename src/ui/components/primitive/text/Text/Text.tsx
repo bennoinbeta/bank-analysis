@@ -39,7 +39,6 @@ const Text: TextComponent = React.forwardRef(
         size,
         lineClamp,
         inline,
-        inherit,
         gradient,
         weight,
         transform,
@@ -54,7 +53,10 @@ const Text: TextComponent = React.forwardRef(
         ref={ref}
         className={cx(
           classes.root,
-          { [classes.gradient]: variant === 'gradient' },
+          {
+            [classes.gradient]: variant === 'gradient',
+            [classes.withInherit]: inherit,
+          },
           className
         )}
         {...others}>

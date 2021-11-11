@@ -51,7 +51,6 @@ const ChartScreen: React.FC = () => {
       {!isLoading && (
         <Container>
           <ChartWrapper data={currentBankData} />
-          <p>{currentBankData.name}</p>
         </Container>
       )}
     </PageLayout>

@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react';
 import Input, { InputBaseProps } from '../Input';
 import { DefaultProps } from '../../../../../styles/theme';
 import Icon from '../../../icons';
+import { css } from '@emotion/react';
 
 const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
   (props: NativeSelectProps, ref) => {
@@ -40,6 +41,14 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
         value={value === null ? '' : value}
         rightSection={{
           component: <Icon.ChevronUpDown style={{ paddingRight: 10 }} />,
+        }}
+        styles={{
+          input: css`
+            cursor: pointer !important;
+          `,
+          root: css`
+            cursor: pointer;
+          `,
         }}
         {...others}>
         {options}
