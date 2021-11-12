@@ -9,12 +9,13 @@ const Title = forwardRef<HTMLHeadingElement, TitleProps>((props, ref) => {
     children,
     align,
     styles,
+    classNames,
     ...others
   } = props;
   const Element: React.ElementType = element;
   const { classes, cx } = useStyles(
     { element: Element },
-    { name: 'Title', styles }
+    { name: 'Title', styles, classNames }
   );
 
   // Check if specified order is valid

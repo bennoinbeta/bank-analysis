@@ -1,4 +1,5 @@
 import { AgileTheme, DefaultAgileTheme } from '../../../styles/theme';
+import { primitiveColors } from './themes/colors';
 
 export type ToastEventType = 'error' | 'success' | 'warn';
 
@@ -15,6 +16,8 @@ declare module '../../../styles/theme' {
         rHc2: string;
       };
     };
+    primitiveColors: DefaultAgileTheme['primitiveColors'] &
+      typeof primitiveColors;
   }
 }
 

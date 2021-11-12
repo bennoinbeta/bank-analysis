@@ -13,9 +13,11 @@ import styled from '@emotion/styled';
 import AddButton from './components/AddButton';
 import BarChart from '../charts/BarChart';
 import { NAVBAR_HEIGHT } from '../../../../../core/entities/ui/ui.controller';
-import { onAddFiles } from './controller';
+import { getTotalData, onAddFiles } from './controller';
 import Icon from '../../../../components/icons';
 import { useAgileTheme } from '../../../../../styles/theme';
+import Divider from '../../../../components/primitive/Divider';
+import TotalDataItem from './components/TotalDataItem';
 
 const ChartWrapper: React.FC<Props> = (props) => {
   const { data } = props;
@@ -23,12 +25,12 @@ const ChartWrapper: React.FC<Props> = (props) => {
 
   // Selected NativeSelect State
   const [timeFormat, setTimeFormat] = useState<TimeFormat>('month');
-  const [selectedDatasetIndex, setSelectedDatasetIndex] = useState(0);
+  const [selectedFileIndex, setSelectedFileIndex] = useState(0);
   const [datasetFormat, setDatasetFormat] =
     useState<DatasetFormat>('creditDebitAmounts');
 
   // NativeSelect Datasets
-  const selectedDatasetSelectData = data
+  const selectedFileSelectData = data
     .map((value, index) => {
       return {
         label: value.name,
@@ -48,15 +50,17 @@ const ChartWrapper: React.FC<Props> = (props) => {
   ];
 
   // Chart Data
-  const selectedDataset = data[selectedDatasetIndex];
+  const selectedFile = data[selectedFileIndex];
   const chartData = useChartData(
-    bank.getDataset(selectedDataset, timeFormat)?.dataset,
+    bank.getDataset(selectedFile, timeFormat)?.dataset,
     datasetFormat
   );
 
+  const totalData = getTotalData(selectedFile, 0);
+
   // When adding new data, select the latest added data
   useEffect(() => {
-    setSelectedDatasetIndex(data.length - 1);
+    setSelectedFileIndex(data.length - 1);
   }, [data.length]);
 
   return (
@@ -64,18 +68,15 @@ const ChartWrapper: React.FC<Props> = (props) => {
       <HeaderContainer>
         <LeftHeaderContainer>
           <SubTitle size={'lg'}>
-            {selectedDataset.name.substring(
-              0,
-              selectedDataset.name.lastIndexOf('.')
-            )}
+            {selectedFile.name.substring(0, selectedFile.name.lastIndexOf('.'))}
           </SubTitle>
           <Title>Dashboard</Title>
         </LeftHeaderContainer>
         <RightHeaderContainer>
           <FileSelect
-            data={selectedDatasetSelectData}
-            value={selectedDatasetIndex}
-            onChange={(e) => setSelectedDatasetIndex(e.target.value as any)}
+            data={selectedFileSelectData}
+            value={selectedFileIndex}
+            onChange={(e) => setSelectedFileIndex(e.target.value as any)}
             size={'sm'}
             leftSection={{
               component: (
@@ -107,24 +108,38 @@ const ChartWrapper: React.FC<Props> = (props) => {
         }}
       />
 
-      <Divider />
+      <ContentDivider color={theme.colors.layout.p} />
 
-      <div>todo</div>
+      <ContentHeaderContainer>
+        <TotalDataContainer>
+          <StyledTotalDataItem
+            label={'Credit'}
+            value={totalData.totalCredit.toString()}
+            color={'rgba(54, 162, 235, 1)'}
+          />
+          <StyledTotalDataItem
+            label={'Debit'}
+            value={totalData.totalDebit.toString()}
+            color={'rgba(255, 99, 132, 1)'}
+          />
+        </TotalDataContainer>
 
-      <TimeSelect
-        data={timeFormatSelectData}
-        value={timeFormat}
-        onChange={(e) => setTimeFormat(e.target.value as any)}
-        size={'xs'}
-        leftSection={{
-          component: (
-            <Icon.Calendar
-              color={theme.colors.layout.rHc}
-              style={{ marginBottom: 2 }}
-            />
-          ),
-        }}
-      />
+        <TimeSelect
+          data={timeFormatSelectData}
+          value={timeFormat}
+          onChange={(e) => setTimeFormat(e.target.value as any)}
+          size={'xs'}
+          leftSection={{
+            component: (
+              <Icon.Calendar
+                color={theme.colors.layout.rHc}
+                style={{ marginBottom: 2 }}
+              />
+            ),
+          }}
+        />
+      </ContentHeaderContainer>
+
       <BarChart data={chartData} />
     </Container>
   );
@@ -193,6 +208,26 @@ const TimeSelect = styled(NativeSelect)`
   min-width: 75px;
 `;
 
-const Divider = styled.div`
-  // todo
+const ContentDivider = styled(Divider)`
+  margin: 20px 0;
+`;
+
+const ContentHeaderContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  background-color: green;
+`;
+
+const TotalDataContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  background-color: chocolate;
+`;
+
+const StyledTotalDataItem = styled(TotalDataItem)`
+  margin-right: 15px;
 `;

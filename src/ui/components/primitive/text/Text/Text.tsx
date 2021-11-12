@@ -30,6 +30,7 @@ const Text: TextComponent = React.forwardRef(
       inherit = false,
       align,
       styles,
+      classNames,
       ...others
     } = props;
     const { cx, classes } = useStyles(
@@ -44,7 +45,7 @@ const Text: TextComponent = React.forwardRef(
         transform,
         align,
       },
-      { name: 'Text', styles }
+      { name: 'Text', classNames, styles }
     );
     const Element: React.ElementType = component || 'p';
 

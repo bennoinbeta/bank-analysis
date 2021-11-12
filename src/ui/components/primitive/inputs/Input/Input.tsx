@@ -25,12 +25,13 @@ const Input: InputComponent = React.forwardRef(
       size = 'sm',
       styles,
       style,
+      classNames,
       __staticSelector = 'Input',
       ...others
     } = props;
     const { classes, cx } = useStyles(
       { size, multiline, disabled, radius, invalid, rightSection, leftSection },
-      { name: __staticSelector, styles }
+      { name: __staticSelector, styles, classNames }
     );
     const Element: React.ElementType = component || 'input';
 

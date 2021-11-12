@@ -1,5 +1,6 @@
 import { ui, csv } from '../../../../../core';
 import bank from '../../../../../core/entities/bank';
+import { BankFileDataType } from '../../../../../core/entities/bank/bank.types';
 
 export const onAddFiles = async (acceptedFiles: File[]) => {
   ui.setIsLoading(true);
@@ -17,4 +18,19 @@ export const onAddFiles = async (acceptedFiles: File[]) => {
   }
 
   ui.setIsLoading(false);
+};
+
+export const getTotalData = (file: BankFileDataType, fixed = 2) => {
+  let totalDebit = 0;
+  let totalCredit = 0;
+
+  file.data.forEach((item) => {
+    if (item['debit/credit'] === 'D') totalDebit += item.amount;
+    else if (item['debit/credit'] === 'C') totalCredit += item.amount;
+  });
+
+  return {
+    totalCredit: totalCredit.toFixed(fixed),
+    totalDebit: totalDebit.toFixed(fixed),
+  };
 };
