@@ -2,46 +2,13 @@ import React from 'react';
 import {
   PolymorphicComponentProps,
   PolymorphicRef,
-} from '../../../../../types/Polymorphic';
-import useStyles from './Text.styles';
-
-export interface SharedTextProps {
-  /** Predefined font-size from theme.fontSizes */
-  size?: number;
-
-  /** Text color */
-  color?: string;
-
-  /** Sets font-weight css property */
-  weight?: React.CSSProperties['fontWeight'];
-
-  /** Sets text-transform css property */
-  transform?: 'capitalize' | 'uppercase' | 'lowercase';
-
-  /** Sets text-align css property */
-  align?: 'left' | 'center' | 'right';
-
-  /** Link or text variant */
-  variant?: 'text' | 'link' | 'gradient';
-
-  /** CSS -webkit-line-clamp property */
-  lineClamp?: number;
-
-  /** Sets line-height to 1 for centering */
-  inline?: boolean;
-
-  /** Inherit font properties from parent element */
-  inherit?: boolean;
-}
-
-export type TextProps<C extends React.ElementType> = PolymorphicComponentProps<
-  C,
-  SharedTextProps
->;
-
-type TextComponent = <C extends React.ElementType = 'p'>(
-  props: TextProps<C>
-) => React.ReactElement;
+} from '../../../../../styles';
+import { ExtractedStylesType, useStyles } from './Text.styles';
+import {
+  DefaultProps,
+  AgileGradient,
+  AgileNumberSize,
+} from '../../../../../styles/theme';
 
 const Text: TextComponent = React.forwardRef(
   <C extends React.ElementType = 'p'>(
@@ -52,51 +19,75 @@ const Text: TextComponent = React.forwardRef(
       className,
       component,
       children,
-      size = 18,
+      size = 'sm',
       weight,
       transform,
-      style,
       color,
-      align,
       variant = 'text',
       lineClamp,
+      gradient = { from: 'blue', to: 'red', deg: 45 },
       inline = false,
       inherit = false,
+      align,
+      styles,
+      classNames,
       ...others
     } = props;
-    const styles = useStyles(
+    const { cx, classes } = useStyles(
       {
         variant,
         color,
         size,
         lineClamp,
         inline,
-        inherit,
+        gradient,
+        weight,
+        transform,
+        align,
       },
-      null,
-      'text'
+      { name: 'Text', classNames, styles }
     );
-    const Text = component || 'p';
+    const Element: React.ElementType = component || 'p';
 
-    return React.createElement(
-      Text,
-      {
-        ...others,
-        ref,
-        className: null, // cx(classes.root, className),
-        // style: {
-        //   fontWeight: inherit ? 'inherit' : weight,
-        //   textTransform: transform,
-        //   textAlign: align,
-        //   color: color,
-        //   size: size,
-        //   fontSize: size,
-        //   ...style,
-        // },
-      },
-      children
+    return (
+      <Element
+        ref={ref}
+        className={cx(
+          classes.root,
+          {
+            [classes.gradient]: variant === 'gradient',
+            [classes.withInherit]: inherit,
+          },
+          className
+        )}
+        {...others}>
+        {children}
+      </Element>
     );
   }
 ) as any;
 
 export default Text;
+
+export type BaseTextProps = {
+  size?: AgileNumberSize;
+  color?: string;
+  weight?: React.CSSProperties['fontWeight'];
+  transform?: 'capitalize' | 'uppercase' | 'lowercase';
+  align?: 'left' | 'center' | 'right';
+  variant?: 'text' | 'link' | 'gradient';
+  lineClamp?: number;
+  inline?: boolean;
+  inherit?: boolean;
+  gradient?: AgileGradient;
+};
+
+export type TextProps<C extends React.ElementType = 'p'> =
+  PolymorphicComponentProps<
+    C,
+    BaseTextProps & DefaultProps<ExtractedStylesType>
+  >;
+
+type TextComponent = <C extends React.ElementType = 'p'>(
+  props: TextProps<C>
+) => React.ReactElement;

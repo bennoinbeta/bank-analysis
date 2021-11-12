@@ -1,17 +1,25 @@
-import { NullType } from '../../../../types/General';
-import { DatasetType } from './../../../../core/entities/bank/bank.types';
+import { NullType } from '../../../../types/Utils';
+import {
+  DatasetFormat,
+  DatasetType,
+} from '../../../../core/entities/bank/bank.types';
+import { AgileTheme } from '../../../../styles/theme';
+import { hexToRgba } from '../../../../styles/theme/utils/hexToRgba';
 
 export const useChartData = (
   dataset: DatasetType | NullType,
-  type: 'endAmounts' | 'creditDebitAmounts' = 'endAmounts'
+  type: DatasetFormat = 'endAmounts',
+  theme: AgileTheme
 ): any => {
   if (dataset != null) {
     if (type === 'endAmounts') {
       const backgroundColors = dataset.endAmounts.map((val: any) =>
-        val > 0 ? 'rgba(54, 162, 235, 0.2)' : 'rgba(255, 99, 132, 0.2)'
+        val > 0
+          ? hexToRgba(theme.primitiveColors.blue, 0.2)
+          : hexToRgba(theme.primitiveColors.red2, 0.2)
       );
       const borderColors = dataset.endAmounts.map((val: any) =>
-        val > 0 ? 'rgba(54, 162, 235, 1)' : 'rgba(255, 99, 132, 1)'
+        val > 0 ? theme.primitiveColors.blue : theme.primitiveColors.red2
       );
 
       return {

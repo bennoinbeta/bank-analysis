@@ -1,10 +1,10 @@
-import { useAgile } from '@agile-ts/react';
 import React from 'react';
-import styled from 'styled-components';
+import { useAgile } from '@agile-ts/react';
 import { ui } from '../../../core';
 import PageLayout from '../../components/layout/PageLayout';
 import DropZone from './components/DropZone';
 import { onDrop } from './controller';
+import styled from '@emotion/styled';
 
 const HomeScreen: React.FC = () => {
   const isLoading = useAgile(ui.IS_LOADING);

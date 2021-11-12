@@ -24,3 +24,6 @@ export type BankDataPaths<T> = {
   [K in keyof T]: T[K] extends any ? K : never;
 }[keyof T] &
   string;
+
+export type TimeFormat = 'month' | 'day' | 'year';
+export type DatasetFormat = 'endAmounts' | 'creditDebitAmounts';

@@ -1,6 +1,5 @@
 import { ui, csv } from '../../../core';
 import bank from '../../../core/entities/bank';
-import { BankFileDataType } from '../../../core/entities/bank/bank.types';
 import routingHistory from '../../../routing/history';
 
 export const onDrop = async (acceptedFiles: File[]) => {
@@ -26,8 +25,4 @@ export const onDrop = async (acceptedFiles: File[]) => {
   if (successfullyProcessedFile) routingHistory.push('/chart');
 
   ui.setIsLoading(false);
-};
-
-export const formatBankDataByMonth = (bankData: BankFileDataType) => {
-  // TODO
 };

@@ -1,42 +1,36 @@
 import { css, SerializedStyles } from '@emotion/react';
-import { ThemeInterface } from '../../../../../core/entities/ui/ui.types';
-import { useTheme } from '../../../../hooks/useTheme';
+import { createStyles, ExtractStylesType } from '../../../../../styles';
+import {
+  AgileGradient,
+  AgileNumberSize,
+  AgileTheme,
+} from '../../../../../styles/theme';
+import React from 'react';
+import { getFontStyles } from '../../../../../styles/theme/utils/commonStyles';
 
-function createStyles<Params = void>(
-  serializedStyles: (
-    theme: ThemeInterface,
-    params: Params
-  ) => Record<string, SerializedStyles> | Record<string, SerializedStyles>
-) {
-  const getSerializedStyles =
-    typeof serializedStyles === 'function'
-      ? serializedStyles
-      : () => serializedStyles;
+function getTextColor(config: GetTextColor): SerializedStyles {
+  const color =
+    config.color != null
+      ? config.color
+      : config.variant === 'link'
+      ? config.theme.colors.layout.p
+      : config.theme.colors.layout.hc;
 
-  function useStyles(
-    params: Params,
-    classNames: Partial<Record<string, string>> | null = null,
-    name?: string
-  ) {
-    const theme = useTheme();
-    const _serializedStyles = getSerializedStyles(theme, params);
-
-    console.log(_serializedStyles);
-
-    // TODO
-  }
-
-  return useStyles;
+  return css`
+    color: ${color};
+  `;
 }
 
-export default createStyles<any>((theme, { color, variant, size, inherit }) => {
-  return {
+export const useStyles = createStyles<TextStyles>()(
+  (theme, { color, variant, size, gradient, weight, transform, align }) => ({
     root: css`
-      color: ${color != null ? color : theme.colors.on_background};
-      font-family: ${inherit ? 'inherit' : 'roboto'};
-      font-size: ${inherit ? 'inherit' : size};
-      line-height: ${inherit ? 'inherit' : size * 1.2};
+      ${getTextColor({ color, theme, variant })};
+      ${getFontStyles({ theme, size })}
       text-decoration: none;
+      font-weight: ${weight};
+      text-transform: ${transform};
+      text-align: ${align};
+      margin: 0;
 
       -webkit-tap-highlight-color: transparent;
 
@@ -45,6 +39,40 @@ export default createStyles<any>((theme, { color, variant, size, inherit }) => {
       }
     `,
 
-    gradient: css``,
-  };
-});
+    withInherit: css`
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+    `,
+
+    gradient: css`
+      background: linear-gradient(
+        ${gradient?.deg}deg,
+        ${gradient?.from} 0%,
+        ${gradient?.to} 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    `,
+  })
+);
+
+interface TextStyles {
+  color?: string;
+  variant: 'text' | 'link' | 'gradient';
+  size: AgileNumberSize;
+  lineClamp?: number;
+  inline: boolean;
+  gradient: AgileGradient;
+  weight: React.CSSProperties['fontWeight'];
+  transform?: 'capitalize' | 'uppercase' | 'lowercase';
+  align?: 'left' | 'center' | 'right';
+}
+
+type GetTextColor = {
+  theme: AgileTheme;
+  color?: string;
+  variant: TextStyles['variant'];
+};
+
+export type ExtractedStylesType = ExtractStylesType<typeof useStyles>;

@@ -1,7 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-import { MAX_WIDTH } from '..';
+import styled from '@emotion/styled';
 import routingHistory from '../../../../../routing/history';
+import Text from '../../../primitive/text/Text';
+import { MAX_WIDTH } from '../../../../../core/entities/ui/ui.controller';
 
 type Props = {
   absolute?: boolean;
@@ -13,10 +14,12 @@ const Footer: React.FC<Props> = (props) => {
 
   return (
     <Container absolute={absolute as any} maxWidth={MAX_WIDTH}>
-      <RightsReservedText>
-        ©2021 BENNODEV ALL RIGHTS RESERVED.
+      <RightsReservedText transform={'uppercase'} size={'xs'}>
+        ©2021 BennoDev all rights reserved.
       </RightsReservedText>
-      <LegalButton onClick={goToLegalPage}>LEGAL</LegalButton>
+      <LegalButton onClick={goToLegalPage} size={'xs'}>
+        LEGAL
+      </LegalButton>
     </Container>
   );
 };
@@ -43,19 +46,21 @@ const Container = styled.div<{ absolute: boolean; maxWidth: number }>`
   margin-right: auto;
 
   background-color: ${({ theme, absolute }) =>
-    !absolute ? theme.colors.background : 'transparent'};
+    !absolute ? theme.colors.layout.p : 'transparent'};
 `;
 
-const RightsReservedText = styled.p`
+const RightsReservedText = styled(Text)`
   margin: 0 10px 0 0;
-  color: ${({ theme }) => theme.colors.on_background_2};
-  font-size: 12px;
+  color: ${({ theme }) => theme.colors.layout.rHc};
 `;
 
-const LegalButton = styled.p`
+const LegalButton = styled(Text)`
   margin: 0 10px 0 0;
-  color: ${({ theme }) => theme.colors.on_background};
-  font-size: 12px;
+  color: ${({ theme }) => theme.colors.layout.hc};
 
   cursor: pointer;
+
+  :hover {
+    color: ${({ theme }) => theme.colors.interactive.primary.pM2};
+  }
 `;

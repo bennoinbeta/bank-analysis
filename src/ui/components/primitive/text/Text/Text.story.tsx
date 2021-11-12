@@ -1,7 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Text from './Text';
-import styled from '@emotion/styled-base';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
+import { createStyles } from '../../../../../styles';
 
 const CustomComponent = ({
   emoji,
@@ -21,6 +23,13 @@ const StyledText = styled(Text)`
   font-weight: bold;
 `;
 
+const useStylesText = createStyles()({
+  root: css`
+    color: #61dafb;
+    font-weight: bold;
+  `,
+});
+
 storiesOf('core/Text', module)
   .add('General usage', () => (
     <>
@@ -37,7 +46,53 @@ storiesOf('core/Text', module)
       Custom component
     </Text>
   ))
-  .add('Styled component', () => <StyledText>Custom component</StyledText>)
+  .add('Styled component', () => {
+    const { classes } = useStylesText();
+
+    return (
+      <div>
+        <StyledText>Styled with styled components</StyledText>
+
+        <Text
+          css={css`
+            color: chocolate;
+            font-weight: bold;
+          `}>
+          Styled with emotion
+        </Text>
+
+        <Text style={{ color: 'blue', fontWeight: 'bold' }}>
+          Styled with style property
+        </Text>
+
+        <Text
+          styles={(theme) => {
+            return {
+              root: { color: theme.primitiveColors.red, fontWeight: 'bold' },
+            };
+          }}>
+          Styled root with styles property
+        </Text>
+
+        <Text
+          styles={(theme) => ({
+            root: css`
+              color: ${theme.primitiveColors.green};
+              font-weight: bold;
+            `,
+          })}>
+          Styled root with emotion
+        </Text>
+
+        <Text styles={{ root: classes.root }}>Styled root with class name</Text>
+      </div>
+    );
+  })
+  .add('Gradient', () => (
+    <Text variant="gradient" align={'center'}>
+      Gradient component
+    </Text>
+  ))
   .add('Multiline', () => (
     <Text
       style={{
@@ -46,6 +101,7 @@ storiesOf('core/Text', module)
         marginRight: 'auto',
         marginTop: 20,
       }}
+      component={'div'}
       lineClamp={7}>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui cum optio
@@ -91,8 +147,8 @@ storiesOf('core/Text', module)
   ))
   .add('Sizes', () => (
     <div style={{ padding: 20 }}>
-      {([10, 20, 30] as const).map((size) => (
-        <Text size={size} key={size}>
+      {['xs', 'sm', 'md', 'lg', 'xl', 10, 20, 30].map((size) => (
+        <Text size={size as any} key={size}>
           {size} text
         </Text>
       ))}
@@ -100,7 +156,7 @@ storiesOf('core/Text', module)
   ))
   .add('Link', () => (
     <div style={{ padding: 20 }}>
-      <Text component="a" href="https://mantine.dev" variant="link">
+      <Text component="a" href="https://google.com" variant="link">
         Link
       </Text>
     </div>

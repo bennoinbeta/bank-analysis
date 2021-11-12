@@ -1,11 +1,8 @@
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import PlusIcon from './components/PlusIcon';
-
-type Props = {
-  onDrop: (acceptedFiles: File[]) => void;
-};
+import Text from '../../../../components/primitive/text/Text';
 
 const DropZone: React.FC<Props> = (props) => {
   const { onDrop } = props;
@@ -16,13 +13,19 @@ const DropZone: React.FC<Props> = (props) => {
       <DropField {...getInputProps()} />
       <ContentContainer>
         <PlusIcon />
-        <Text>Add your bank CSV file to start analysing.</Text>
+        <InfoText size={'md'}>
+          Add your bank CSV file to start analysing.
+        </InfoText>
       </ContentContainer>
     </Container>
   );
 };
 
 export default DropZone;
+
+type Props = {
+  onDrop: (acceptedFiles: File[]) => void;
+};
 
 const Container = styled.div<{ isDragActive: boolean }>`
   display: flex;
@@ -31,12 +34,10 @@ const Container = styled.div<{ isDragActive: boolean }>`
   padding: 25px;
 
   background: ${({ theme, isDragActive }) =>
-    isDragActive ? theme.colors.surface_2 : theme.colors.surface};
+    isDragActive ? theme.colors.layout.bg : theme.colors.layout.lc};
   border: 2px solid
     ${({ theme, isDragActive }) =>
-      isDragActive
-        ? theme.colors.surface_border_2
-        : theme.colors.surface_border};
+      isDragActive ? theme.colors.layout.p : theme.colors.layout.rHc2};
   border-radius: 5px;
 
   cursor: pointer;
@@ -49,8 +50,8 @@ const Container = styled.div<{ isDragActive: boolean }>`
   transition: all 200ms ease;
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.surface_border_2};
-    background: ${({ theme }) => theme.colors.surface_2};
+    border-color: ${({ theme }) => theme.colors.layout.p};
+    background: ${({ theme }) => theme.colors.layout.lc};
 
     filter: drop-shadow(0px 8px 14px rgba(0, 0, 0, 0.25));
   }
@@ -67,7 +68,7 @@ const DropField = styled.input`
   flex: 1;
 `;
 
-const Text = styled.p`
-  color: ${({ theme }) => theme.colors.on_surface_2};
+const InfoText = styled(Text)`
+  color: ${({ theme }) => theme.colors.layout.rHc};
   margin-left: 10px;
 `;

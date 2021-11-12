@@ -6,10 +6,10 @@ type Props = {
   height?: number | string;
   strokeWidth?: number;
   className?: string; // Required to apply styling via Styled-Components
-};
+} & React.SVGProps<SVGSVGElement>;
 
-const DollarSign: React.FC<Props> = (props) => {
-  const { width, height, color, strokeWidth } = props;
+const DollarSign = React.forwardRef<SVGSVGElement, Props>((props, ref) => {
+  const { width, height, color, strokeWidth, ...others } = props;
 
   return (
     <svg
@@ -18,7 +18,8 @@ const DollarSign: React.FC<Props> = (props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      {...props}>
+      ref={ref}
+      {...others}>
       <path
         d="M12 1v22M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"
         stroke={color}
@@ -28,12 +29,12 @@ const DollarSign: React.FC<Props> = (props) => {
       />
     </svg>
   );
-};
+});
 
 DollarSign.defaultProps = {
   color: '#000000',
-  width: 24,
-  height: 24,
+  width: 15,
+  height: 15,
   strokeWidth: 2,
 };
 

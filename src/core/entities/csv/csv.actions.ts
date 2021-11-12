@@ -78,5 +78,7 @@ const processCSVFileContent = (fileContentAsText: string, separator = ';') => {
     return rowObject;
   });
 
+  console.log('CSV-Array', csvArray);
+
   return csvArray;
 };

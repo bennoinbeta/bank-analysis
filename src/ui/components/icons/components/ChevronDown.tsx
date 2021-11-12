@@ -6,10 +6,10 @@ type Props = {
   height?: number | string;
   strokeWidth?: number;
   className?: string; // Required to apply styling via Styled-Components
-};
+} & React.SVGProps<SVGSVGElement>;
 
-const ChevronDown: React.FC<Props> = (props) => {
-  const { width, height, color, strokeWidth } = props;
+const ChevronDown = React.forwardRef<SVGSVGElement, Props>((props, ref) => {
+  const { width, height, color, strokeWidth, ...others } = props;
 
   return (
     <svg
@@ -18,7 +18,8 @@ const ChevronDown: React.FC<Props> = (props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      {...props}>
+      ref={ref}
+      {...others}>
       <path
         d="M6 9l6 6 6-6"
         stroke={color}
@@ -28,12 +29,12 @@ const ChevronDown: React.FC<Props> = (props) => {
       />
     </svg>
   );
-};
+});
 
 ChevronDown.defaultProps = {
   color: '#000000',
-  width: 24,
-  height: 24,
+  width: 15,
+  height: 15,
   strokeWidth: 2,
 };
 

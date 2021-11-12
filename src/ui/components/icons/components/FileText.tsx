@@ -6,10 +6,10 @@ type Props = {
   height?: number | string;
   strokeWidth?: number;
   className?: string; // Required to apply styling via Styled-Components
-};
+} & React.SVGProps<SVGSVGElement>;
 
-const FileText: React.FC<Props> = (props) => {
-  const { width, height, color, strokeWidth } = props;
+const FileText = React.forwardRef<SVGSVGElement, Props>((props, ref) => {
+  const { width, height, color, strokeWidth, ...others } = props;
 
   return (
     <svg
@@ -18,7 +18,8 @@ const FileText: React.FC<Props> = (props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      {...props}>
+      ref={ref}
+      {...others}>
       <path
         d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"
         stroke={color}
@@ -35,12 +36,12 @@ const FileText: React.FC<Props> = (props) => {
       />
     </svg>
   );
-};
+});
 
 FileText.defaultProps = {
   color: '#000000',
-  width: 24,
-  height: 24,
+  width: 15,
+  height: 15,
   strokeWidth: 2,
 };
 

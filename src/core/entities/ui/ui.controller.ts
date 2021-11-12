@@ -1,20 +1,16 @@
-import { BANK_DATA } from './../bank/bank.controller';
-import themes from './themes';
-import { createComputed, createState } from '@agile-ts/core';
+import { createState } from '@agile-ts/core';
 import { createEvent } from '@agile-ts/event';
-import { ThemeInterface, ThemePaths, ToastEventPayload } from './ui.types';
+import { ToastEventPayload } from './ui.types';
+import { ThemeTypes } from './themes';
 
 export const TOAST_EVENT = createEvent<ToastEventPayload>();
 TOAST_EVENT.on((payload) => {
   console.log('Event: ', payload);
 });
-export const THEME_TYPE = createState<ThemePaths>('dark').persist({
+export const THEME_TYPE = createState<ThemeTypes>('dark').persist({
   key: 'theme',
 });
-export const THEME = createComputed<ThemeInterface>(() => {
-  return themes[THEME_TYPE.value];
-});
 export const IS_LOADING = createState(false);
-export const SHOW_GRAP = createComputed(() => {
-  return BANK_DATA.value.length > 0;
-});
+
+export const MAX_WIDTH = 1100;
+export const NAVBAR_HEIGHT = 70;

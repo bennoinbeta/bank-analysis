@@ -1,17 +1,17 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import styled from 'styled-components';
-import { MAX_WIDTH } from '..';
-import { useTheme } from '../../../../hooks/useTheme';
+import styled from '@emotion/styled';
 import Icon from '../../../icons';
-
-type Props = {
-  absolute?: boolean;
-};
+import { useAgileTheme } from '../../../../../styles/theme';
+import Text from '../../../primitive/text/Text';
+import {
+  MAX_WIDTH,
+  NAVBAR_HEIGHT,
+} from '../../../../../core/entities/ui/ui.controller';
 
 const Navbar: React.FC<Props> = (props) => {
   const { absolute } = props;
-  const theme = useTheme();
+  const theme = useAgileTheme();
   const history = useHistory();
 
   return (
@@ -20,8 +20,8 @@ const Navbar: React.FC<Props> = (props) => {
         onClick={() => {
           history.push('/');
         }}>
-        <Icon.Logo color={theme.colors.on_background} width={30} height={30} />
-        <AppName>Bank Analysis</AppName>
+        <Icon.Logo color={theme.colors.layout.hc} width={30} height={30} />
+        <AppName size={'md'}>Bank Analysis</AppName>
       </LogoContainer>
     </Container>
   );
@@ -32,6 +32,10 @@ Navbar.defaultProps = {
 };
 
 export default Navbar;
+
+type Props = {
+  absolute?: boolean;
+};
 
 const Container = styled.div<{ absolute: boolean; maxWidth: number }>`
   position: ${({ absolute }) => (absolute ? 'absolute' : 'relative')};
@@ -44,13 +48,14 @@ const Container = styled.div<{ absolute: boolean; maxWidth: number }>`
 
   max-width: ${({ maxWidth }) => maxWidth}px;
   width: 100%;
+  height: ${NAVBAR_HEIGHT}px;
 
-  padding: 20px;
+  padding: 20px 0;
   margin-left: auto;
   margin-right: auto;
 
   background-color: ${({ theme, absolute }) =>
-    !absolute ? theme.colors.background : 'transparent'};
+    !absolute ? theme.colors.layout.bg : 'transparent'};
 `;
 
 const LogoContainer = styled.div`
@@ -62,10 +67,8 @@ const LogoContainer = styled.div`
   cursor: pointer;
 `;
 
-const AppName = styled.p`
+const AppName = styled(Text)`
   margin: 0 0 0 10px;
 
-  font-size: 14px;
-
-  color: ${({ theme }) => theme.colors.on_background};
+  color: ${({ theme }) => theme.colors.layout.hc};
 `;
