@@ -1,7 +1,7 @@
 import { AgileOverwriteTheme } from '../../../../styles/theme';
 import { primitiveColors } from './colors';
 
-// TODO add white theme
+// TODO add light theme
 const theme: AgileOverwriteTheme = {
   primitiveColors,
   colors: {
