@@ -11,8 +11,7 @@ import Text from '../../../../components/primitive/text/Text';
 import NativeSelect from '../../../../components/primitive/inputs/NativeSelect';
 import styled from '@emotion/styled';
 import AddButton from './components/AddButton';
-import BarChart from '../charts/BarChart';
-import { NAVBAR_HEIGHT } from '../../../../../core/entities/ui/ui.controller';
+import Chart, { ChartTypes } from '../Chart';
 import { getTotalData, onAddFiles } from './controller';
 import Icon from '../../../../components/icons';
 import { useAgileTheme } from '../../../../../styles/theme';
@@ -28,6 +27,7 @@ const ChartWrapper: React.FC<Props> = (props) => {
   const [selectedFileIndex, setSelectedFileIndex] = useState(0);
   const [datasetFormat, setDatasetFormat] =
     useState<DatasetFormat>('creditDebitAmounts');
+  const [chartType, setChartType] = useState<ChartTypes>('line');
 
   // NativeSelect Datasets
   const selectedFileSelectData = data
@@ -48,12 +48,17 @@ const ChartWrapper: React.FC<Props> = (props) => {
     { label: 'Credit/Debit Amounts', value: 'creditDebitAmounts' },
     { label: 'End Amounts', value: 'endAmounts' },
   ];
+  const chartTypeSelectData = [
+    { label: 'Line', value: 'line' },
+    { label: 'Bar', value: 'bar' },
+  ];
 
   // Chart Data
   const selectedFile = data[selectedFileIndex];
   const chartData = useChartData(
     bank.getDataset(selectedFile, timeFormat)?.dataset,
-    datasetFormat
+    datasetFormat,
+    theme
   );
 
   const totalData = getTotalData(selectedFile, 0);
@@ -108,39 +113,55 @@ const ChartWrapper: React.FC<Props> = (props) => {
         }}
       />
 
-      <ContentDivider color={theme.colors.layout.p} />
+      <ContentDivider color={theme.colors.layout.rHc2} />
 
       <ContentHeaderContainer>
         <TotalDataContainer>
           <StyledTotalDataItem
             label={'Credit'}
             value={totalData.totalCredit.toString()}
-            color={'rgba(54, 162, 235, 1)'}
+            color={theme.primitiveColors.blue}
           />
           <StyledTotalDataItem
             label={'Debit'}
             value={totalData.totalDebit.toString()}
-            color={'rgba(255, 99, 132, 1)'}
+            color={theme.primitiveColors.red2}
           />
         </TotalDataContainer>
 
-        <TimeSelect
-          data={timeFormatSelectData}
-          value={timeFormat}
-          onChange={(e) => setTimeFormat(e.target.value as any)}
-          size={'xs'}
-          leftSection={{
-            component: (
-              <Icon.Calendar
-                color={theme.colors.layout.rHc}
-                style={{ marginBottom: 2 }}
-              />
-            ),
-          }}
-        />
+        <ContentOptionsContainer>
+          <ChartSelect
+            data={chartTypeSelectData}
+            value={chartType}
+            onChange={(e) => setChartType(e.target.value as any)}
+            size={'xs'}
+            leftSection={{
+              component: (
+                <Icon.BarChart
+                  color={theme.colors.layout.rHc}
+                  style={{ marginBottom: 2 }}
+                />
+              ),
+            }}
+          />
+          <TimeSelect
+            data={timeFormatSelectData}
+            value={timeFormat}
+            onChange={(e) => setTimeFormat(e.target.value as any)}
+            size={'xs'}
+            leftSection={{
+              component: (
+                <Icon.Calendar
+                  color={theme.colors.layout.rHc}
+                  style={{ marginBottom: 2 }}
+                />
+              ),
+            }}
+          />
+        </ContentOptionsContainer>
       </ContentHeaderContainer>
 
-      <BarChart data={chartData} />
+      <Chart data={chartData} type={chartType} />
     </Container>
   );
 };
@@ -157,9 +178,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 
-  margin-top: ${NAVBAR_HEIGHT}px;
-
-  background-color: rebeccapurple;
+  margin-top: 20px;
 `;
 
 const HeaderContainer = styled.div`
@@ -167,16 +186,12 @@ const HeaderContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 0 0 20px 0;
-
-  background-color: blue;
 `;
 
 const LeftHeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  background-color: red;
 `;
 
 const SubTitle = styled(Text)`
@@ -187,8 +202,6 @@ const RightHeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  background-color: #61dafb;
 `;
 
 const FileSelect = styled(NativeSelect)`
@@ -208,6 +221,13 @@ const TimeSelect = styled(NativeSelect)`
   min-width: 75px;
 `;
 
+const ChartSelect = styled(NativeSelect)`
+  max-width: 100px;
+  min-width: 75px;
+
+  margin-right: 10px;
+`;
+
 const ContentDivider = styled(Divider)`
   margin: 20px 0;
 `;
@@ -217,15 +237,16 @@ const ContentHeaderContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+`;
 
-  background-color: green;
+const ContentOptionsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 const TotalDataContainer = styled.div`
   display: flex;
   flex-direction: row;
-
-  background-color: chocolate;
 `;
 
 const StyledTotalDataItem = styled(TotalDataItem)`

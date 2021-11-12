@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Title from '../../../../../components/primitive/text/Title';
 import { useAgileTheme } from '../../../../../../styles/theme';
 import Text from '../../../../../components/primitive/text/Text';
+import { hexToRgba } from '../../../../../../styles/theme/utils/hexToRgba';
 
 const TotalDataItem: React.FC<Props> = (props) => {
   const theme = useAgileTheme();
@@ -32,11 +33,11 @@ type Props = {
 };
 
 const Container = styled.div<{ color: string }>`
-  padding: 10px 20px;
+  padding: 5px 20px;
 
-  background-color: ${({ color }) => color};
+  background-color: ${({ color }) => hexToRgba(color, 0.2)};
   border-color: ${({ color }) => color};
   border-style: solid;
-  border-width: 2px;
-  border-radius: 10px;
+  border-width: 1px;
+  border-radius: ${({ theme }) => theme.radius['md']}px;
 `;

@@ -1,5 +1,5 @@
-import { mergeTheme } from './mergeTheme';
-import { DEFAULT_THEME } from '../default-theme';
+import { mergeTheme } from './index';
+import { DEFAULT_THEME } from '../../default-theme';
 
 describe('@agile/mergeTheme', () => {
   it('shallow merges non-object properties', () => {
@@ -15,7 +15,7 @@ describe('@agile/mergeTheme', () => {
   it('shallow merges theme object properties', () => {
     expect(
       mergeTheme(DEFAULT_THEME, {
-        primitiveColors: { stone: ['#ccc', '#ddd', '#eee'], red: ['red'] },
+        primitiveColors: { stone: ['#ccc', '#ddd', '#eee'], red: 'red' },
         spacing: { xl: 900 },
       })
     ).toEqual({
@@ -23,7 +23,7 @@ describe('@agile/mergeTheme', () => {
       primitiveColors: {
         ...DEFAULT_THEME.primitiveColors,
         stone: ['#ccc', '#ddd', '#eee'],
-        red: ['red'],
+        red: 'red',
       },
       spacing: {
         ...DEFAULT_THEME.spacing,

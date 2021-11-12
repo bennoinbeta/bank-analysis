@@ -22,7 +22,7 @@ const ChartScreen: React.FC = () => {
   if (!loadedBankData) return <PageLayout isLoading={true} />;
 
   return (
-    <PageLayout isLoading={isLoading}>
+    <PageLayout isLoading={isLoading} shouldRenderNavbar={false}>
       {!isLoading && <ChartWrapper data={bankData} />}
     </PageLayout>
   );

@@ -1,5 +1,5 @@
-import { AgileTheme } from '../types';
-import { DeepPartial } from '../../types';
+import { AgileTheme } from '../../types';
+import { DeepPartial } from '../../../types';
 import { isValidObject } from '@agile-ts/utils';
 
 /**

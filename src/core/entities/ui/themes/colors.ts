@@ -16,8 +16,11 @@ export const primitiveColors = {
   purple_darkest: '#804689',
 
   red: '#FF8989',
+  red2: '#FF6384',
   red_dark: '#4B2C32',
 
   green: '#83D7A5',
   green_dark: '#304B2C',
+
+  blue: '#36A2EB',
 };

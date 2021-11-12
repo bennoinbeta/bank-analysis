@@ -15,7 +15,11 @@ const AddButton: React.FC<Props> = (props) => {
     <Container {...getRootProps()} isDragActive={isDragActive}>
       <DropField {...getInputProps()} />
       <Icon.Plus
-        color={isDragActive ? theme.colors.layout.p : theme.colors.layout.rHc}
+        color={
+          isDragActive
+            ? theme.colors.interactive.primary.pM1
+            : theme.colors.interactive.primary.pP1
+        }
         width={24}
         height={24}
       />
@@ -42,13 +46,15 @@ const Container = styled.div<{ isDragActive: boolean }>`
 
   border: 2px solid
     ${({ theme, isDragActive }) =>
-      isDragActive ? theme.colors.layout.p : theme.colors.layout.rHc};
+      isDragActive
+        ? theme.colors.interactive.primary.pM1
+        : theme.colors.interactive.primary.pP1};
   border-radius: 5px;
 
   transition: all 200ms ease;
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.layout.p};
+    border-color: ${({ theme }) => theme.colors.interactive.primary.pM1};
   }
 `;
 
