@@ -7,7 +7,7 @@ import { onDrop } from './controller';
 import styled from '@emotion/styled';
 
 const HomeScreen: React.FC = () => {
-  const isLoading = useAgile(ui.IS_LOADING);
+  const isLoading = useAgile(ui.IS_LOADING, { key: 'HomeScreen' });
 
   return (
     <PageLayout isLoading={isLoading}>
