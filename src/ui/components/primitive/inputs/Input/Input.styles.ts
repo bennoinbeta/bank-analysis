@@ -1,8 +1,8 @@
-import { createStyles, ExtractStylesType } from '../../../../../styles';
+import { createStyles } from '../../../../../styles';
+import { ExtractStylesType } from 'create-styles';
 import { AgileNumberSize, AgileTheme } from '../../../../../styles/theme';
 import { css } from '@emotion/react';
 import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
-import { InputBaseProps } from './Input';
 import React from 'react';
 
 export const inputSizes = {
@@ -180,7 +180,7 @@ export const useStyles = createStyles<InputStyles>()(
   }
 );
 
-interface InputStyles {
+type InputStyles = {
   radius: AgileNumberSize;
   size: AgileNumberSize;
   multiline: boolean;
@@ -196,6 +196,6 @@ interface InputStyles {
     props?: React.ComponentPropsWithoutRef<'div'>;
     width?: number;
   };
-}
+};
 
 export type ExtractedStylesType = ExtractStylesType<typeof useStyles>;

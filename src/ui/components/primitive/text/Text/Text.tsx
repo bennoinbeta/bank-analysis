@@ -29,8 +29,8 @@ const Text: TextComponent = React.forwardRef(
       inline = false,
       inherit = false,
       align,
-      styles,
-      classNames,
+      styles = {},
+      classNames = {},
       ...others
     } = props;
     const { cx, classes } = useStyles(

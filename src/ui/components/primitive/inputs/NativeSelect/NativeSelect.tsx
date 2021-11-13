@@ -13,7 +13,7 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
       wrapperProps,
       rightSection,
       value,
-      styles,
+      styles = {},
       size = 'md',
       ...others
     } = props;

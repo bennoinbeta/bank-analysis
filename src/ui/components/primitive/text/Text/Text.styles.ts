@@ -1,5 +1,6 @@
+import { createStyles } from '../../../../../styles';
+import { ExtractStylesType } from 'create-styles';
 import { css, SerializedStyles } from '@emotion/react';
-import { createStyles, ExtractStylesType } from '../../../../../styles';
 import {
   AgileGradient,
   AgileNumberSize,
@@ -54,10 +55,11 @@ export const useStyles = createStyles<TextStyles>()(
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     `,
+    test: { backgroundColor: 'red' },
   })
 );
 
-interface TextStyles {
+type TextStyles = {
   color?: string;
   variant: 'text' | 'link' | 'gradient';
   size: AgileNumberSize;
@@ -67,7 +69,7 @@ interface TextStyles {
   weight: React.CSSProperties['fontWeight'];
   transform?: 'capitalize' | 'uppercase' | 'lowercase';
   align?: 'left' | 'center' | 'right';
-}
+};
 
 type GetTextColor = {
   theme: AgileTheme;
