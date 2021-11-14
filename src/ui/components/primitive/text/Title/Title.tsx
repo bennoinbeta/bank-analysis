@@ -8,8 +8,8 @@ const Title = forwardRef<HTMLHeadingElement, TitleProps>((props, ref) => {
     element = 'h1',
     children,
     align,
-    styles,
-    classNames,
+    styles = {},
+    classNames = {},
     ...others
   } = props;
   const Element: React.ElementType = element;

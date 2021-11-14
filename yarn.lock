@@ -6206,6 +6206,13 @@ create-react-context@0.3.0:
     gud "^1.0.0"
     warning "^4.0.3"
 
+create-styles@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/create-styles/-/create-styles-0.0.2.tgz#990209776eaa114b0987b375994107c1f983497b"
+  integrity sha512-ucRtZEaw2X7w5sS2ceBIbyBm/n2G22jOzEvGS7T0O2OoEzrwxBDU+2w5Y42af5+PDOn46zDuO3n6/H4F6MiyxQ==
+  dependencies:
+    clsx "^1.1.1"
+
 cross-env@7.0.3:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-7.0.3.tgz#865264b29677dc015ba8418918965dd232fc54cf"

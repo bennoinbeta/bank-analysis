@@ -23,9 +23,9 @@ const Input: InputComponent = React.forwardRef(
       multiline = false,
       radius = 'sm',
       size = 'sm',
-      styles,
+      styles = {},
+      classNames = {},
       style,
-      classNames,
       __staticSelector = 'Input',
       ...others
     } = props;

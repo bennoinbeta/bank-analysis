@@ -1,3 +1,3 @@
-export * from './emotion';
+export * from './createStyles';
 export * from './config';
-export * from './types'
+export * from './types';

@@ -13,8 +13,8 @@ const Divder = React.forwardRef<HTMLDivElement, DividerProps>((props, ref) => {
     orientation = 'horizontal',
     size = 'xs',
     variant = 'solid',
-    styles,
-    classNames,
+    styles = {},
+    classNames = {},
     ...others
   } = props;
   const theme = useAgileTheme();

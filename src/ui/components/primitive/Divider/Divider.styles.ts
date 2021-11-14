@@ -31,8 +31,8 @@ export const useStyles = createStyles<DividerStyles>()(
   })
 );
 
-interface DividerStyles {
+type DividerStyles = {
   size: AgileNumberSize;
   variant: string;
   color: string;
-}
+};
