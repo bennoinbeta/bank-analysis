@@ -6201,10 +6201,10 @@ create-react-context@0.3.0:
     gud "^1.0.0"
     warning "^4.0.3"
 
-create-styles@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/create-styles/-/create-styles-0.0.4.tgz#e9c58877f902fcfa46713157fbff86d8a3d12648"
-  integrity sha512-hzYxN33t2Fo9uqzMH45UD+XqVHVhsy6Jo0QWgJqor8zCetv/HsWSUPdd4i/YehPtVRJwsXq9bBSc0eMUsGccRQ==
+create-styles@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/create-styles/-/create-styles-0.0.5.tgz#3d1dc69c4c3049ba831743a1e5fce2e45c6da8d0"
+  integrity sha512-1SeVtABPBsVML5m+ychRNodMRxru1tZQxiUnTmepjYeCZzB4NkU35925sJcCiGqc/5CcUUYycT4rbiW8xtmCSQ==
   dependencies:
     clsx "^1.1.1"
 

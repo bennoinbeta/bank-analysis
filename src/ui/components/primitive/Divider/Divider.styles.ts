@@ -12,7 +12,7 @@ export const dividerSizes = {
 };
 
 export const useStyles = createStyles<DividerStyles>()(
-  (theme, { size, variant, color }) => ({
+  ({ theme, params: { size, variant, color } }) => ({
     horizontal: css`
       border: 0;
       border-top-width: ${getSizeValue(size, dividerSizes)}px;
