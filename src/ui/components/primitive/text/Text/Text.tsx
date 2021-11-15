@@ -51,6 +51,7 @@ const Text: TextComponent = React.forwardRef(
 
     return (
       <Element
+        {...others}
         ref={ref}
         className={cx(
           classes.root,
@@ -59,8 +60,7 @@ const Text: TextComponent = React.forwardRef(
             [classes.withInherit]: inherit,
           },
           className
-        )}
-        {...others}>
+        )}>
         {children}
       </Element>
     );

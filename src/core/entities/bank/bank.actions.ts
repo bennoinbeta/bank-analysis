@@ -270,3 +270,39 @@ class ChartDataFormatter {
     return dataset;
   }
 }
+
+export async function persistBankData() {
+  if (BANK_DATA.persistent != null) {
+    await BANK_DATA.persistent.persistValue();
+  } else {
+    BANK_DATA.persist({
+      key: 'bank-data',
+      onSave: (value: BankFileDataType[]) => {
+        return copy(value).map((bankFileData) => {
+          const newBankFileData = bankFileData;
+          newBankFileData.data = newBankFileData.data.map((data) => {
+            data.date = data.date.getTime() as any;
+            return data;
+          });
+          return newBankFileData;
+        });
+      },
+      onMigrate: (value) => {
+        return value.map((bankFileData: any) => {
+          const newBankFileData = bankFileData as BankFileDataType;
+          newBankFileData.data = newBankFileData.data.map((data) => {
+            data.date = new Date(data.date);
+            return data;
+          });
+          return newBankFileData;
+        });
+      },
+    });
+  }
+}
+
+export async function unpersistBankData() {
+  if (BANK_DATA.persistent != null) {
+    await BANK_DATA.persistent.removePersistedValue();
+  }
+}

@@ -9,6 +9,7 @@ export interface DefaultAgileTheme {
   primitiveColors: Record<string, string | string[]>;
   fontFamily: React.CSSProperties['fontFamily'];
   lineHeight: React.CSSProperties['lineHeight'];
+  transitionTimingFunction: React.CSSProperties['transitionTimingFunction'];
 
   fontSizes: AgileSizes<number>;
   radius: AgileSizes<number>;

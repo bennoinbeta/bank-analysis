@@ -1,7 +1,7 @@
 import Divider from './Divider';
-import { DEFAULT_THEME } from '../../../../styles/theme';
+import { DEFAULT_THEME } from '../../../../../styles/theme';
 import { storiesOf } from '@storybook/react';
-import Text from '../text/Text';
+import Text from '../../text/Text';
 
 const getSizes = (props?: any) => {
   return ['xs', 'sm', 'md', 'lg', 'xl', 10].map((size) => (
