@@ -37,9 +37,9 @@ const Input: InputComponent = React.forwardRef(
 
     return (
       <div
+        {...wrapperProps}
         className={cx(classes.root, className)}
-        style={style}
-        {...wrapperProps}>
+        style={style}>
         {leftSection && (
           <div className={classes.leftSection} {...leftSection?.props}>
             {leftSection.component}
@@ -47,6 +47,7 @@ const Input: InputComponent = React.forwardRef(
         )}
 
         <Element
+          {...others}
           ref={ref}
           aria-required={required}
           aria-invalid={invalid}
@@ -58,7 +59,6 @@ const Input: InputComponent = React.forwardRef(
             },
             classes.input
           )}
-          {...others}
         />
 
         {rightSection && (

@@ -15,7 +15,7 @@ import Chart, { ChartTypes } from '../Chart';
 import { getTotalData, onAddFiles } from './controller';
 import Icon from '../../../../components/icons';
 import { useAgileTheme } from '../../../../../styles/theme';
-import Divider from '../../../../components/primitive/Divider';
+import Divider from '../../../../components/primitive/other/Divider';
 import TotalDataItem from './components/TotalDataItem';
 
 const ChartWrapper: React.FC<Props> = (props) => {

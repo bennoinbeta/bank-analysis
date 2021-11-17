@@ -24,7 +24,7 @@ const Title = forwardRef<HTMLHeadingElement, TitleProps>((props, ref) => {
   }
 
   return (
-    <Element ref={ref} className={cx(classes.root, className)} {...others}>
+    <Element {...others} ref={ref} className={cx(classes.root, className)}>
       {children}
     </Element>
   );

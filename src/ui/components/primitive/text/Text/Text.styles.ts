@@ -23,7 +23,10 @@ function getTextColor(config: GetTextColor): SerializedStyles {
 }
 
 export const useStyles = createStyles<TextStyles>()(
-  (theme, { color, variant, size, gradient, weight, transform, align }) => ({
+  ({
+    theme,
+    params: { color, variant, size, gradient, weight, transform, align },
+  }) => ({
     root: css`
       ${getTextColor({ color, theme, variant })};
       ${getFontStyles({ theme, size })}

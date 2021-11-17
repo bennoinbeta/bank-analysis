@@ -39,6 +39,7 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
 
     return (
       <Input<'select'>
+        {...others}
         component="select"
         ref={ref}
         value={value === null ? '' : value}
@@ -57,8 +58,7 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
             />
           ),
         }}
-        __staticSelector="NativeSelect"
-        {...others}>
+        __staticSelector="NativeSelect">
         {options}
       </Input>
     );

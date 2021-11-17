@@ -47,7 +47,7 @@ storiesOf('core/Text', module)
     </Text>
   ))
   .add('Styled component', () => {
-    const { classes } = useStylesText();
+    const { classes } = useStylesText(undefined);
 
     return (
       <div>

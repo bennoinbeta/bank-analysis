@@ -59,10 +59,18 @@ function getDisabledStyles({
 }
 
 export const useStyles = createStyles<InputStyles>()(
-  (
+  ({
     theme,
-    { size, multiline, radius, invalid, disabled, rightSection, leftSection }
-  ) => {
+    params: {
+      size,
+      multiline,
+      radius,
+      invalid,
+      disabled,
+      rightSection,
+      leftSection,
+    },
+  }) => {
     return {
       root: css`
         position: relative;

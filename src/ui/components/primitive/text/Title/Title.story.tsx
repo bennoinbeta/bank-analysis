@@ -29,7 +29,7 @@ storiesOf('core/Title', module)
     </div>
   ))
   .add('Styled component', () => {
-    const { classes } = useStylesTitle();
+    const { classes } = useStylesTitle(undefined);
 
     return (
       <div>

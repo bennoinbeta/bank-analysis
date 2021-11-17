@@ -1,6 +1,6 @@
-import { createStyles } from '../../../../styles';
-import { getSizeValue } from '../../../../styles/theme/utils/getSizeValue';
-import { AgileNumberSize } from '../../../../styles/theme';
+import { createStyles } from '../../../../../styles';
+import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
+import { AgileNumberSize } from '../../../../../styles/theme';
 import { css } from '@emotion/react';
 
 export const dividerSizes = {
@@ -12,7 +12,7 @@ export const dividerSizes = {
 };
 
 export const useStyles = createStyles<DividerStyles>()(
-  (theme, { size, variant, color }) => ({
+  ({ theme, params: { size, variant, color } }) => ({
     horizontal: css`
       border: 0;
       border-top-width: ${getSizeValue(size, dividerSizes)}px;

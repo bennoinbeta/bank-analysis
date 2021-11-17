@@ -3,7 +3,7 @@ import {
   AgileNumberSize,
   DefaultProps,
   useAgileTheme,
-} from '../../../../styles/theme';
+} from '../../../../../styles/theme';
 import { useStyles } from './Divider.styles';
 
 const Divder = React.forwardRef<HTMLDivElement, DividerProps>((props, ref) => {
