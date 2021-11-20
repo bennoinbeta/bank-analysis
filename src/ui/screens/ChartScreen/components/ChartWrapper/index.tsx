@@ -8,6 +8,7 @@ import {
   DatasetFormat,
   TimeFormat,
 } from '../../../../../core/entities/bank/bank.types';
+import routingHistory from '../../../../../routing/history';
 import { useAgileTheme } from '../../../../../styles/theme';
 import Icon from '../../../../components/icons';
 import NativeSelect from '../../../../components/primitive/inputs/NativeSelect';
@@ -80,6 +81,13 @@ const ChartWrapper: React.FC<Props> = (props) => {
           <Title>Dashboard</Title>
         </LeftHeaderContainer>
         <RightHeaderContainer>
+          <ClearButton
+            onClick={() => {
+              routingHistory.push('/');
+              bank.clear();
+            }}>
+            Clear
+          </ClearButton>
           <FileSelect
             data={selectedFileSelectData}
             value={selectedFileIndex}
@@ -204,6 +212,15 @@ const RightHeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+`;
+
+const ClearButton = styled(Text)`
+  cursor: pointer;
+  margin: 0 10px;
+
+  :hover {
+    color: ${({ theme }) => theme.colors.layout.rHc};
+  }
 `;
 
 const FileSelect = styled(NativeSelect)`

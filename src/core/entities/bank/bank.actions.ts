@@ -1,11 +1,12 @@
 import { copy } from '@agile-ts/utils';
 
+import { PARSED_CSV_FILES } from '../csv/csv.controller';
 import { ParsedCSVDataType } from '../csv/csv.types';
 import { getDecimal, unformatMoney } from '../money/money.actions';
 import ui from '../ui';
 import { dateToString, getDatesBetween } from '../utils/utils.actions';
 import { parseGermanDate } from '../utils/utils.actions';
-import { BANK_DATA } from './bank.controller';
+import { BANK_DATA, IS_PERSISTED } from './bank.controller';
 import {
   BankDataPaths,
   BankDataType,
@@ -306,4 +307,10 @@ export async function unpersistBankData() {
   if (BANK_DATA.persistent != null) {
     await BANK_DATA.persistent.removePersistedValue();
   }
+}
+
+export function clear() {
+  BANK_DATA.set([]);
+  PARSED_CSV_FILES.set([]);
+  IS_PERSISTED.set(false);
 }
