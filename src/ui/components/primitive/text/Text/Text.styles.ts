@@ -1,12 +1,14 @@
-import { styleSheet } from '../../../../../styles';
+import React from 'react';
+
+import { SerializedStyles, css } from '@emotion/react';
 import { UseStylesExtractStylesType } from 'dynamic-styles';
-import { css, SerializedStyles } from '@emotion/react';
+
+import { styleSheet } from '../../../../../styles';
 import {
   AgileGradient,
   AgileNumberSize,
   AgileTheme,
 } from '../../../../../styles/theme';
-import React from 'react';
 import { getFontStyles } from '../../../../../styles/theme/utils/commonStyles';
 
 function getTextColor(config: GetTextColor): SerializedStyles {

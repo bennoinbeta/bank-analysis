@@ -1,5 +1,6 @@
-import { styleSheet } from '../../../../../styles';
 import { UseStylesExtractStylesType } from 'dynamic-styles';
+
+import { styleSheet } from '../../../../../styles';
 import { HeadingElement } from './Title';
 
 export const useStyles = styleSheet

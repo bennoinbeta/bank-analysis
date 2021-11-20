@@ -1,13 +1,15 @@
 import React from 'react';
 import { useHistory } from 'react-router';
+
 import styled from '@emotion/styled';
-import Icon from '../../../icons';
-import { useAgileTheme } from '../../../../../styles/theme';
-import Text from '../../../primitive/text/Text';
+
 import {
   MAX_WIDTH,
   NAVBAR_HEIGHT,
 } from '../../../../../core/entities/ui/ui.controller';
+import { useAgileTheme } from '../../../../../styles/theme';
+import Icon from '../../../icons';
+import Text from '../../../primitive/text/Text';
 
 const Navbar: React.FC<Props> = (props) => {
   const { absolute } = props;
@@ -19,7 +21,8 @@ const Navbar: React.FC<Props> = (props) => {
       <LogoContainer
         onClick={() => {
           history.push('/');
-        }}>
+        }}
+      >
         <Icon.Logo color={theme.colors.layout.hc} width={30} height={30} />
         <AppName size={'md'}>Bank Analysis</AppName>
       </LogoContainer>

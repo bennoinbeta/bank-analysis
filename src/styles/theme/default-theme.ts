@@ -1,5 +1,5 @@
-import { Colors, AgileTheme } from './types';
 import { DEFAULT_PRIMITIVE_COLORS } from './default-primitive-colors';
+import { AgileTheme, Colors } from './types';
 
 export const DEFAULT_SIZES = ['xs', 'sm', 'md', 'lg', 'xl'];
 

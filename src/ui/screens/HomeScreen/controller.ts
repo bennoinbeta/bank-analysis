@@ -1,4 +1,4 @@
-import { ui, csv } from '../../../core';
+import { csv, ui } from '../../../core';
 import bank from '../../../core/entities/bank';
 import routingHistory from '../../../routing/history';
 

@@ -19,7 +19,8 @@ const PieChart = React.forwardRef<SVGSVGElement, Props>((props, ref) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       ref={ref}
-      {...others}>
+      {...others}
+    >
       <path
         d="M21.21 15.89A10 10 0 118 2.83M22 12A10 10 0 0012 2v10h10z"
         stroke={color}

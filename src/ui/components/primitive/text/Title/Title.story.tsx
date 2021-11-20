@@ -1,9 +1,11 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import Title from './Title';
+
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { storiesOf } from '@storybook/react';
+
 import { styleSheet } from '../../../../../styles';
+import Title from './Title';
 
 const StyledTitle = styled(Title)`
   color: red;
@@ -39,7 +41,8 @@ storiesOf('core/Title', module)
           css={css`
             color: chocolate;
             font-weight: bold;
-          `}>
+          `}
+        >
           Styled with emotion
         </Title>
 
@@ -52,7 +55,8 @@ storiesOf('core/Title', module)
             return {
               root: { color: theme.primitiveColors.red, fontWeight: 'bold' },
             };
-          }}>
+          }}
+        >
           Styled root with styles property
         </Title>
 
@@ -62,7 +66,8 @@ storiesOf('core/Title', module)
               color: ${theme.primitiveColors.green};
               font-weight: bold;
             `,
-          })}>
+          })}
+        >
           Styled root with emotion
         </Title>
 

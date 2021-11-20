@@ -1,7 +1,8 @@
-import { styleSheet } from '../../../../../styles';
-import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
-import { AgileNumberSize } from '../../../../../styles/theme';
 import { css } from '@emotion/react';
+
+import { styleSheet } from '../../../../../styles';
+import { AgileNumberSize } from '../../../../../styles/theme';
+import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
 
 export const dividerSizes = {
   xs: 1,

@@ -1,7 +1,8 @@
 import React from 'react';
+
+import { DeepPartial } from '../../types';
 import { Colors } from './AgileColors';
 import { AgileSizes } from './AgileSize';
-import { DeepPartial } from '../../types';
 
 export interface DefaultAgileTheme {
   type: string;

@@ -1,7 +1,9 @@
-import { dateToString, getDatesBetween } from '../utils/utils.actions';
+import { copy } from '@agile-ts/utils';
+
 import { ParsedCSVDataType } from '../csv/csv.types';
 import { getDecimal, unformatMoney } from '../money/money.actions';
 import ui from '../ui';
+import { dateToString, getDatesBetween } from '../utils/utils.actions';
 import { parseGermanDate } from '../utils/utils.actions';
 import { BANK_DATA } from './bank.controller';
 import {
@@ -10,7 +12,6 @@ import {
   BankFileDataType,
   DatasetType,
 } from './bank.types';
-import { copy } from '@agile-ts/utils';
 
 export const parseCSVData = (
   csvData: ParsedCSVDataType,

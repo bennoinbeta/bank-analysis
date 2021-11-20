@@ -13,7 +13,7 @@
     "tauri": "tauri",
     "dev": "yarn run tauri dev",
     "bundle": "yarn run tauri build",
-    "prettier": "prettier --config .prettierrc --write \"**/*.{js,ts}\"",
+    "prettier": "prettier --config .prettierrc --write \"**/*.{ts,tsx}\"",
     "lint": "eslint --cache \"**/*.{js,jsx,ts,tsx}\"",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
@@ -51,6 +51,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@trivago/prettier-plugin-sort-imports": "^3.1.1",
     "@types/jest": "^27.0.2",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",

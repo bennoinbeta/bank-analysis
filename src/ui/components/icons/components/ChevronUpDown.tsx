@@ -19,7 +19,8 @@ const ChevronUpDown = React.forwardRef<SVGSVGElement, Props>((props, ref) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       ref={ref}
-      {...others}>
+      {...others}
+    >
       <path
         d="M8 15l4 4 4-4M16 9l-4-4-4 4"
         stroke={color}

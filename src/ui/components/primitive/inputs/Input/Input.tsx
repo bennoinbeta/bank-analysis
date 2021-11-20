@@ -1,10 +1,11 @@
 import React from 'react';
+
 import {
   PolymorphicComponentProps,
   PolymorphicRef,
 } from '../../../../../styles';
-import { useStyles, ExtractedStylesType } from './Input.styles';
 import { AgileNumberSize, DefaultProps } from '../../../../../styles/theme';
+import { ExtractedStylesType, useStyles } from './Input.styles';
 
 const Input: InputComponent = React.forwardRef(
   <C extends React.ElementType = 'input'>(
@@ -39,7 +40,8 @@ const Input: InputComponent = React.forwardRef(
       <div
         {...wrapperProps}
         className={cx(classes.root, className)}
-        style={style}>
+        style={style}
+      >
         {leftSection && (
           <div className={classes.leftSection} {...leftSection?.props}>
             {leftSection.component}

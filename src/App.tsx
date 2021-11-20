@@ -1,14 +1,15 @@
 import React from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+// Apply styles to toasts
+import 'react-toastify/dist/ReactToastify.css';
+
 import { useAgile, useEvent } from '@agile-ts/react';
 import { ThemeProvider } from '@emotion/react';
+import { NormalizeCSS } from 'dynamic-styles';
+
 import core, { ui } from './core';
 import AppRouter from './routing/AppRouter';
 import AgileThemeProvider from './styles/theme/AgileThemeProvider';
-import { NormalizeCSS } from 'dynamic-styles';
-
-// Apply styles to toasts
-import 'react-toastify/dist/ReactToastify.css';
 
 // UI-Themes
 const themes = {

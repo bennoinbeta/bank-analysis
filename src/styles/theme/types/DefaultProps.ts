@@ -1,6 +1,8 @@
 import React from 'react';
-import { MapToX } from '../../types';
+
 import { ExpandedStylesType, StylesData } from 'dynamic-styles';
+
+import { MapToX } from '../../types';
 import { AgileTheme } from './AgileTheme';
 
 export interface DefaultProps<

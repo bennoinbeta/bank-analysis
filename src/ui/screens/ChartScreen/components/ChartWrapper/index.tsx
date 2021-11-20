@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
+
+import styled from '@emotion/styled';
+
+import { bank } from '../../../../../core';
 import {
   BankFileDataType,
   DatasetFormat,
   TimeFormat,
 } from '../../../../../core/entities/bank/bank.types';
-import { bank } from '../../../../../core';
-import { useChartData } from '../../hooks/useChartData';
-import Title from '../../../../components/primitive/text/Title';
-import Text from '../../../../components/primitive/text/Text';
-import NativeSelect from '../../../../components/primitive/inputs/NativeSelect';
-import styled from '@emotion/styled';
-import AddButton from './components/AddButton';
-import Chart, { ChartTypes } from '../Chart';
-import { getTotalData, onAddFiles } from './controller';
-import Icon from '../../../../components/icons';
 import { useAgileTheme } from '../../../../../styles/theme';
+import Icon from '../../../../components/icons';
+import NativeSelect from '../../../../components/primitive/inputs/NativeSelect';
 import Divider from '../../../../components/primitive/other/Divider';
+import Text from '../../../../components/primitive/text/Text';
+import Title from '../../../../components/primitive/text/Title';
+import { useChartData } from '../../hooks/useChartData';
+import Chart, { ChartTypes } from '../Chart';
+import AddButton from './components/AddButton';
 import TotalDataItem from './components/TotalDataItem';
+import { getTotalData, onAddFiles } from './controller';
 
 const ChartWrapper: React.FC<Props> = (props) => {
   const { data } = props;

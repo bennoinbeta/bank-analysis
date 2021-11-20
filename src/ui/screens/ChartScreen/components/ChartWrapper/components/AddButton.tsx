@@ -1,8 +1,10 @@
 import React from 'react';
+import { useDropzone } from 'react-dropzone';
+
 import styled from '@emotion/styled';
+
 import { useAgileTheme } from '../../../../../../styles/theme';
 import Icon from '../../../../../components/icons';
-import { useDropzone } from 'react-dropzone';
 
 const AddButton: React.FC<Props> = (props) => {
   const { onDrop } = props;

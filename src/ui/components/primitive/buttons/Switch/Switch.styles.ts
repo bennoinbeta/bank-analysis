@@ -1,8 +1,9 @@
-import { styleSheet } from '../../../../../styles';
+import { css } from '@emotion/react';
 import { UseStylesExtractStylesType } from 'dynamic-styles';
+
+import { styleSheet } from '../../../../../styles';
 import { AgileNumberSize } from '../../../../../styles/theme';
 import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
-import { css } from '@emotion/react';
 
 const switchHeight = {
   xs: 14,

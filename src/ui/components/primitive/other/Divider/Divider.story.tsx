@@ -1,7 +1,8 @@
-import Divider from './Divider';
-import { DEFAULT_THEME } from '../../../../../styles/theme';
 import { storiesOf } from '@storybook/react';
+
+import { DEFAULT_THEME } from '../../../../../styles/theme';
 import Text from '../../text/Text';
+import Divider from './Divider';
 
 const getSizes = (props?: any) => {
   return ['xs', 'sm', 'md', 'lg', 'xl', 10].map((size) => (
@@ -37,7 +38,8 @@ storiesOf('core/Divider', module)
         maxWidth: 400,
         justifyContent: 'space-evenly',
         marginTop: 15,
-      }}>
+      }}
+    >
       <Text>Light</Text>
       <Divider orientation="vertical" />
       <Text>Outline</Text>

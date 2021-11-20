@@ -1,7 +1,9 @@
 import React from 'react';
+
 import styled from '@emotion/styled';
-import Icon from '../../../../../components/icons';
+
 import { useAgileTheme } from '../../../../../../styles/theme';
+import Icon from '../../../../../components/icons';
 
 const PlusIcon: React.FC = () => {
   const theme = useAgileTheme();

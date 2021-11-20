@@ -1,9 +1,11 @@
 import React from 'react';
+
 import styled from '@emotion/styled';
-import Icon from '../icons';
-import { useSpring, animated } from '@react-spring/web';
-import { useWindowSize } from '../../hooks/useWindowSize';
+import { animated, useSpring } from '@react-spring/web';
+
 import { useAgileTheme } from '../../../styles/theme';
+import { useWindowSize } from '../../hooks/useWindowSize';
+import Icon from '../icons';
 
 type Props = {
   isLoading?: boolean;
@@ -44,7 +46,8 @@ const DollarBackground: React.FC<Props> = (props) => {
             ? rotateAnimationProps.rotate.to((r) => `rotate(${r}deg)`)
             : undefined,
           position: 'absolute',
-        }}>
+        }}
+      >
         <BackgroundShape
           strokeWidth={1.1}
           color={theme.colors.layout.hc}

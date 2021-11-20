@@ -1,9 +1,11 @@
-import { styleSheet } from '../../../../../styles';
-import { UseStylesExtractStylesType } from 'dynamic-styles';
-import { AgileNumberSize, AgileTheme } from '../../../../../styles/theme';
-import { css } from '@emotion/react';
-import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
 import React from 'react';
+
+import { css } from '@emotion/react';
+import { UseStylesExtractStylesType } from 'dynamic-styles';
+
+import { styleSheet } from '../../../../../styles';
+import { AgileNumberSize, AgileTheme } from '../../../../../styles/theme';
+import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
 
 export const inputSizes = {
   xs: 30,

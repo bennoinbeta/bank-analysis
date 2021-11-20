@@ -8,5 +8,8 @@
     "singleQuote": true,
     "trailingComma": "es5",
     "endOfLine": "lf",
-    "semi": true
-  }
+    "semi": true,
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true,
+    "importOrder": ["^react(.*)$", "<THIRD_PARTY_MODULES>", "^[./]"]
+}

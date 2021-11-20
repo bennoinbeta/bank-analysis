@@ -1,8 +1,10 @@
 import React from 'react';
+
 import styled from '@emotion/styled';
+
+import { MAX_WIDTH } from '../../../../../core/entities/ui/ui.controller';
 import routingHistory from '../../../../../routing/history';
 import Text from '../../../primitive/text/Text';
-import { MAX_WIDTH } from '../../../../../core/entities/ui/ui.controller';
 
 type Props = {
   absolute?: boolean;
