@@ -1,5 +1,5 @@
-import { createStyles } from '../../../../../styles';
-import { ExtractStylesType } from 'create-styles';
+import { styleSheet } from '../../../../../styles';
+import { UseStylesExtractStylesType } from 'dynamic-styles';
 import { css, SerializedStyles } from '@emotion/react';
 import {
   AgileGradient,
@@ -22,45 +22,47 @@ function getTextColor(config: GetTextColor): SerializedStyles {
   `;
 }
 
-export const useStyles = createStyles<TextStyles>()(
-  ({
-    theme,
-    params: { color, variant, size, gradient, weight, transform, align },
-  }) => ({
-    root: css`
-      ${getTextColor({ color, theme, variant })};
-      ${getFontStyles({ theme, size })}
-      text-decoration: none;
-      font-weight: ${weight};
-      text-transform: ${transform};
-      text-align: ${align};
-      margin: 0;
+export const useStyles = styleSheet
+  .withParams<TextStyles>()
+  .create(
+    ({
+      theme,
+      params: { color, variant, size, gradient, weight, transform, align },
+    }) => ({
+      root: css`
+        ${getTextColor({ color, theme, variant })};
+        ${getFontStyles({ theme, size })}
+        text-decoration: none;
+        font-weight: ${weight};
+        text-transform: ${transform};
+        text-align: ${align};
+        margin: 0;
 
-      -webkit-tap-highlight-color: transparent;
+        -webkit-tap-highlight-color: transparent;
 
-      :hover {
-        text-decoration: ${variant === 'link' ? 'underline' : 'none'};
-      }
-    `,
+        :hover {
+          text-decoration: ${variant === 'link' ? 'underline' : 'none'};
+        }
+      `,
 
-    withInherit: css`
-      font-family: inherit;
-      font-size: inherit;
-      line-height: inherit;
-    `,
+      withInherit: css`
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+      `,
 
-    gradient: css`
-      background: linear-gradient(
-        ${gradient?.deg}deg,
-        ${gradient?.from} 0%,
-        ${gradient?.to} 100%
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    `,
-    test: { backgroundColor: 'red' },
-  })
-);
+      gradient: css`
+        background: linear-gradient(
+          ${gradient?.deg}deg,
+          ${gradient?.from} 0%,
+          ${gradient?.to} 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      `,
+      test: { backgroundColor: 'red' },
+    })
+  );
 
 type TextStyles = {
   color?: string;
@@ -80,4 +82,4 @@ type GetTextColor = {
   variant: TextStyles['variant'];
 };
 
-export type ExtractedStylesType = ExtractStylesType<typeof useStyles>;
+export type ExtractedStylesType = UseStylesExtractStylesType<typeof useStyles>;

@@ -1,9 +1,10 @@
-import { createStyles } from '../../../../../styles';
-import { ExtractStylesType } from 'create-styles';
+import { styleSheet } from '../../../../../styles';
+import { UseStylesExtractStylesType } from 'dynamic-styles';
 import { HeadingElement } from './Title';
 
-export const useStyles = createStyles<TitleStyles>()(
-  ({ theme, params: { element } }) => ({
+export const useStyles = styleSheet
+  .withParams<TitleStyles>()
+  .create(({ theme, params: { element } }) => ({
     root: {
       fontFamily: theme.headings.fontFamily,
       fontWeight: theme.headings.fontWeight,
@@ -12,11 +13,10 @@ export const useStyles = createStyles<TitleStyles>()(
       margin: 0,
       color: theme.colors.layout.hc,
     },
-  })
-);
+  }));
 
 type TitleStyles = {
   element: HeadingElement;
 };
 
-export type ExtractedStylesType = ExtractStylesType<typeof useStyles>;
+export type ExtractedStylesType = UseStylesExtractStylesType<typeof useStyles>;

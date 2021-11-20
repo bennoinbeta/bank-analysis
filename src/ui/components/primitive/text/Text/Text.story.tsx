@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import Text from './Text';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { createStyles } from '../../../../../styles';
+import { styleSheet } from '../../../../../styles';
 
 const CustomComponent = ({
   emoji,
@@ -23,7 +23,7 @@ const StyledText = styled(Text)`
   font-weight: bold;
 `;
 
-const useStylesText = createStyles()({
+const useStylesText = styleSheet.withoutParams().create({
   root: css`
     color: #61dafb;
     font-weight: bold;
@@ -47,7 +47,7 @@ storiesOf('core/Text', module)
     </Text>
   ))
   .add('Styled component', () => {
-    const { classes } = useStylesText(undefined);
+    const { classes } = useStylesText();
 
     return (
       <div>

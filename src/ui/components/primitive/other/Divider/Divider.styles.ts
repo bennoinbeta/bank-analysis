@@ -1,4 +1,4 @@
-import { createStyles } from '../../../../../styles';
+import { styleSheet } from '../../../../../styles';
 import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
 import { AgileNumberSize } from '../../../../../styles/theme';
 import { css } from '@emotion/react';
@@ -11,8 +11,9 @@ export const dividerSizes = {
   xl: 5,
 };
 
-export const useStyles = createStyles<DividerStyles>()(
-  ({ theme, params: { size, variant, color } }) => ({
+export const useStyles = styleSheet
+  .withParams<DividerStyles>()
+  .create(({ theme, params: { size, variant, color } }) => ({
     horizontal: css`
       border: 0;
       border-top-width: ${getSizeValue(size, dividerSizes)}px;
@@ -28,8 +29,7 @@ export const useStyles = createStyles<DividerStyles>()(
       border-left-style: ${variant};
       margin: 0;
     `,
-  })
-);
+  }));
 
 type DividerStyles = {
   size: AgileNumberSize;

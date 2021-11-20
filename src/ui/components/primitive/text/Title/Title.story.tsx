@@ -3,14 +3,14 @@ import { storiesOf } from '@storybook/react';
 import Title from './Title';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { createStyles } from '../../../../../styles';
+import { styleSheet } from '../../../../../styles';
 
 const StyledTitle = styled(Title)`
   color: red;
   font-weight: bold;
 `;
 
-const useStylesTitle = createStyles()({
+const useStylesTitle = styleSheet.withoutParams().create({
   root: css`
     color: #61dafb;
     font-weight: bold;
@@ -29,7 +29,7 @@ storiesOf('core/Title', module)
     </div>
   ))
   .add('Styled component', () => {
-    const { classes } = useStylesTitle(undefined);
+    const { classes } = useStylesTitle();
 
     return (
       <div>

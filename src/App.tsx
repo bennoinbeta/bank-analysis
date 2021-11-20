@@ -5,7 +5,7 @@ import { ThemeProvider } from '@emotion/react';
 import core, { ui } from './core';
 import AppRouter from './routing/AppRouter';
 import AgileThemeProvider from './styles/theme/AgileThemeProvider';
-import { NormalizeCSS } from 'create-styles';
+import { NormalizeCSS } from 'dynamic-styles';
 
 // Apply styles to toasts
 import 'react-toastify/dist/ReactToastify.css';

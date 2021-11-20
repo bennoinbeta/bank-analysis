@@ -1,6 +1,6 @@
-import { ExtractStylesType } from 'create-styles';
+import { styleSheet } from '../../../../../styles';
+import { UseStylesExtractStylesType } from 'dynamic-styles';
 import { AgileNumberSize } from '../../../../../styles/theme';
-import { createStyles } from '../../../../../styles';
 import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
 import { css } from '@emotion/react';
 
@@ -28,8 +28,9 @@ const handleSizes = {
   xl: 26,
 };
 
-export const useStyles = createStyles<SwitchStyles>()(
-  ({ theme, params: { size, radius, color } }) => {
+export const useStyles = styleSheet
+  .withParams<SwitchStyles>()
+  .create(({ theme, params: { size, radius, color } }) => {
     const handleSize = getSizeValue(size, handleSizes);
     const borderRadius = getSizeValue(radius, theme.radius);
 
@@ -109,8 +110,7 @@ export const useStyles = createStyles<SwitchStyles>()(
         color: ${theme.colors.layout.hc};
       `,
     };
-  }
-);
+  });
 
 type SwitchStyles = {
   color?: string;
@@ -118,4 +118,4 @@ type SwitchStyles = {
   radius: AgileNumberSize;
 };
 
-export type ExtractedStylesType = ExtractStylesType<typeof useStyles>;
+export type ExtractedStylesType = UseStylesExtractStylesType<typeof useStyles>;
