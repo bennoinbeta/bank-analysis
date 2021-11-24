@@ -1,9 +1,10 @@
 import React, { forwardRef } from 'react';
-import Input, { InputBaseProps } from '../Input';
+
 import { DefaultProps, useAgileTheme } from '../../../../../styles/theme';
-import Icon from '../../../icons';
-import { ExtractedStylesType, inputSizes } from '../Input/Input.styles';
 import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
+import Icon from '../../../icons';
+import Input, { InputBaseProps } from '../Input';
+import { ExtractedStylesType, inputSizes } from '../Input/Input.styles';
 
 const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
   (props: NativeSelectProps, ref) => {
@@ -58,7 +59,8 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
             />
           ),
         }}
-        __staticSelector="NativeSelect">
+        __staticSelector="NativeSelect"
+      >
         {options}
       </Input>
     );

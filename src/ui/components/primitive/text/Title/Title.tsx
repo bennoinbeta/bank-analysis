@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
-import { ExtractedStylesType, useStyles } from './Title.styles';
+
 import { DefaultProps } from '../../../../../styles/theme';
+import { ExtractedStylesType, useStyles } from './Title.styles';
 
 const Title = forwardRef<HTMLHeadingElement, TitleProps>((props, ref) => {
   const {

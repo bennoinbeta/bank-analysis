@@ -1,6 +1,7 @@
-import { AgileTheme } from '../../types';
-import { DeepPartial } from '../../../types';
 import { isValidObject } from '@agile-ts/utils';
+
+import { DeepPartial } from '../../../types';
+import { AgileTheme } from '../../types';
 
 /**
  * Merges the specified `changes` into the `target` object.

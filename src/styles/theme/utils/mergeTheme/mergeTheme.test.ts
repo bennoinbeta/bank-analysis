@@ -1,5 +1,5 @@
-import { mergeTheme } from './index';
 import { DEFAULT_THEME } from '../../default-theme';
+import { mergeTheme } from './index';
 
 describe('@agile/mergeTheme', () => {
   it('shallow merges non-object properties', () => {

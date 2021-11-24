@@ -12,7 +12,7 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    "plugin:react/recommended",
+    'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',
   ],
@@ -20,7 +20,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     allowImportExportEverywhere: true,
-    ecmaVersion: 12, 
+    ecmaVersion: 12,
     sourceType: 'module',
   },
   ignorePatterns: ['.eslintrc.js'],
@@ -30,5 +30,6 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': OFF,
     '@typescript-eslint/ban-types': WARNING,
     '@typescript-eslint/ban-ts-comment': WARNING,
+    '@typescript-eslint/no-empty-interface': WARNING,
   },
 };

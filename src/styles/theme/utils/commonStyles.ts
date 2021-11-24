@@ -1,5 +1,6 @@
-import { AgileNumberSize, AgileTheme } from '../types';
 import { css } from '@emotion/react';
+
+import { AgileNumberSize, AgileTheme } from '../types';
 import { getSizeValue } from './getSizeValue';
 
 export function getFontStyles({

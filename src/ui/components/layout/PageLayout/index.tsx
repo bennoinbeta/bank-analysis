@@ -1,10 +1,12 @@
 import React from 'react';
+
 import styled from '@emotion/styled';
+
+import { MAX_WIDTH } from '../../../../core/entities/ui/ui.controller';
 import DollarBackground from '../DollarBackground';
 import Footer from './components/Footer';
 import Head from './components/Head';
 import Navbar from './components/Navbar';
-import { MAX_WIDTH } from '../../../../core/entities/ui/ui.controller';
 
 const PageLayout: React.FC<Props> = (props) => {
   const {

@@ -1,6 +1,6 @@
+import { ThemeTypes } from './themes';
 import { IS_LOADING, THEME_TYPE, TOAST_EVENT } from './ui.controller';
 import { ToastEventType } from './ui.types';
-import { ThemeTypes } from './themes';
 
 export const toast = (message: string, type: ToastEventType = 'error') => {
   TOAST_EVENT.trigger({ message, type });

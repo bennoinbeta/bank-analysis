@@ -1,7 +1,8 @@
 import React from 'react';
-import { AgileTheme } from '../types';
-import { DEFAULT_THEME } from '../default-theme';
+
 import { AgileThemeContext } from '../AgileThemeProvider';
+import { DEFAULT_THEME } from '../default-theme';
+import { AgileTheme } from '../types';
 
 export function useAgileTheme(): AgileTheme {
   const themeContext = React.useContext(AgileThemeContext);

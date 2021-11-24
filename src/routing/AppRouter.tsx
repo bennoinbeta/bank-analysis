@@ -1,12 +1,12 @@
 import React from 'react';
-import { Router, Switch, Route } from 'react-router-dom';
-import routingHistory from './history';
+import { Route, Router, Switch } from 'react-router-dom';
 
-// Screens
-import LegalScreen from '../ui/screens/LegalScreen';
+import FallbackScreen from '../ui/screens/404';
 import ChartScreen from '../ui/screens/ChartScreen';
 import HomeScreen from '../ui/screens/HomeScreen';
-import FallbackScreen from '../ui/screens/404';
+// Screens
+import LegalScreen from '../ui/screens/LegalScreen';
+import routingHistory from './history';
 
 const AppRouter: React.FC = () => {
   return (

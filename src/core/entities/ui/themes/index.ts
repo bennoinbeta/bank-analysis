@@ -1,6 +1,6 @@
+import { ThemePaths } from '../../../../styles/theme';
 import dark from './theme.dark';
 import light from './theme.light';
-import { ThemePaths } from '../../../../styles/theme';
 
 // Themes
 const themes = {

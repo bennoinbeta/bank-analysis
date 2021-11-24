@@ -1,7 +1,8 @@
 import React from 'react';
-import { useStyles, ExtractedStylesType } from './Switch.styles';
+
 import { AgileNumberSize, DefaultProps } from '../../../../../styles/theme';
 import { useId } from '../../../../hooks/useId';
+import { ExtractedStylesType, useStyles } from './Switch.styles';
 
 const Switch = React.forwardRef<HTMLInputElement, SwitchProps>((props, ref) => {
   const {
@@ -27,7 +28,8 @@ const Switch = React.forwardRef<HTMLInputElement, SwitchProps>((props, ref) => {
     <div
       {...wrapperProps}
       className={cx(classes.root, className)}
-      style={style}>
+      style={style}
+    >
       <input
         {...others}
         id={id}

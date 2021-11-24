@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+
 import { useAgile } from '@agile-ts/react';
-import { bank, ui } from '../../../core';
-import PageLayout from '../../components/layout/PageLayout';
-import DropZone from './components/DropZone';
-import { onDrop } from './controller';
 import styled from '@emotion/styled';
-import Switch from '../../components/primitive/buttons/Switch';
+
+import { bank, ui } from '../../../core';
 import { BANK_DATA } from '../../../core/entities/bank/bank.controller';
 import routingHistory from '../../../routing/history';
+import PageLayout from '../../components/layout/PageLayout';
+import Switch from '../../components/primitive/buttons/Switch';
+import DropZone from './components/DropZone';
+import { onDrop } from './controller';
 
 const HomeScreen: React.FC = () => {
   const [isLoading, isBankDataPersisted] = useAgile(

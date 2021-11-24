@@ -1,8 +1,10 @@
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
+
 import styled from '@emotion/styled';
-import PlusIcon from './components/PlusIcon';
+
 import Text from '../../../../components/primitive/text/Text';
+import PlusIcon from './components/PlusIcon';
 
 const DropZone: React.FC<Props> = (props) => {
   const { onDrop } = props;

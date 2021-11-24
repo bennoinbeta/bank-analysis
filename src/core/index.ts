@@ -1,11 +1,11 @@
-import bank from './entities/bank';
-import csv from './entities/csv';
-import ui from './entities/ui';
-import money from './entities/money';
-import utils from './entities/utils';
-
 import { globalBind, shared } from '@agile-ts/core';
 import reactIntegration from '@agile-ts/react';
+
+import bank from './entities/bank';
+import csv from './entities/csv';
+import money from './entities/money';
+import ui from './entities/ui';
+import utils from './entities/utils';
 
 const core = {
   bank,

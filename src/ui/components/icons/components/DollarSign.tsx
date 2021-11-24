@@ -19,7 +19,8 @@ const DollarSign = React.forwardRef<SVGSVGElement, Props>((props, ref) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       ref={ref}
-      {...others}>
+      {...others}
+    >
       <path
         d="M12 1v22M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"
         stroke={color}

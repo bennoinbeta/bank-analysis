@@ -1,9 +1,11 @@
 import React from 'react';
+
 import styled from '@emotion/styled';
-import Title from '../../../../../components/primitive/text/Title';
+
 import { useAgileTheme } from '../../../../../../styles/theme';
-import Text from '../../../../../components/primitive/text/Text';
 import { hexToRgba } from '../../../../../../styles/theme/utils/hexToRgba';
+import Text from '../../../../../components/primitive/text/Text';
+import Title from '../../../../../components/primitive/text/Title';
 
 const TotalDataItem: React.FC<Props> = (props) => {
   const theme = useAgileTheme();

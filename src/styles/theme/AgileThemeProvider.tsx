@@ -1,6 +1,7 @@
 import React from 'react';
-import { AgileOverwriteTheme, AgileTheme, ThemePaths } from './types';
+
 import { DEFAULT_THEME, DEFAULT_THEME_OBJECT } from './default-theme';
+import { AgileOverwriteTheme, AgileTheme, ThemePaths } from './types';
 import { mergeTheme } from './utils/mergeTheme';
 
 export const AgileThemeContext =
@@ -32,7 +33,8 @@ export const AgileThemeProvider = <T extends ThemeProviderPropsThemeObject>(
       value={{
         themes: mergedThemes,
         activeThemeKey,
-      }}>
+      }}
+    >
       {children}
     </AgileThemeContext.Provider>
   );

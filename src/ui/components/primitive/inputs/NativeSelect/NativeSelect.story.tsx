@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { storiesOf } from '@storybook/react';
-import NativeSelect from './NativeSelect';
+
 import Icon from '../../../icons';
+import NativeSelect from './NativeSelect';
 
 const data = [
   { label: 'React', value: 'react' },

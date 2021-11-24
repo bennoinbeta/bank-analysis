@@ -1,5 +1,4 @@
 // https://www.benmvp.com/blog/forwarding-refs-polymorphic-react-component-typescript/
-
 import React from 'react';
 
 // Merges the 'OverrideProps' into the '_ExtendedProps'

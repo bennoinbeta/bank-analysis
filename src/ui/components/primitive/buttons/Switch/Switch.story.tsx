@@ -1,7 +1,9 @@
+import React from 'react';
+
+import { storiesOf } from '@storybook/react';
+
 import { DEFAULT_SIZES } from '../../../../../styles/theme';
 import Switch, { SwitchProps } from './Switch';
-import React from 'react';
-import { storiesOf } from '@storybook/react';
 
 function SwitchWrapper(props: Omit<SwitchProps, 'value' | 'onChange'>) {
   const [value, onChange] = React.useState(true);

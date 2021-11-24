@@ -1,9 +1,11 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import Text from './Text';
-import styled from '@emotion/styled';
+
 import { css } from '@emotion/react';
-import { createStyles } from '../../../../../styles';
+import styled from '@emotion/styled';
+import { storiesOf } from '@storybook/react';
+
+import { styleSheet } from '../../../../../styles';
+import Text from './Text';
 
 const CustomComponent = ({
   emoji,
@@ -23,7 +25,7 @@ const StyledText = styled(Text)`
   font-weight: bold;
 `;
 
-const useStylesText = createStyles()({
+const useStylesText = styleSheet.withoutParams().create({
   root: css`
     color: #61dafb;
     font-weight: bold;
@@ -47,7 +49,7 @@ storiesOf('core/Text', module)
     </Text>
   ))
   .add('Styled component', () => {
-    const { classes } = useStylesText(undefined);
+    const { classes } = useStylesText();
 
     return (
       <div>
@@ -57,7 +59,8 @@ storiesOf('core/Text', module)
           css={css`
             color: chocolate;
             font-weight: bold;
-          `}>
+          `}
+        >
           Styled with emotion
         </Text>
 
@@ -70,7 +73,8 @@ storiesOf('core/Text', module)
             return {
               root: { color: theme.primitiveColors.red, fontWeight: 'bold' },
             };
-          }}>
+          }}
+        >
           Styled root with styles property
         </Text>
 
@@ -80,7 +84,8 @@ storiesOf('core/Text', module)
               color: ${theme.primitiveColors.green};
               font-weight: bold;
             `,
-          })}>
+          })}
+        >
           Styled root with emotion
         </Text>
 
@@ -102,7 +107,8 @@ storiesOf('core/Text', module)
         marginTop: 20,
       }}
       component={'div'}
-      lineClamp={7}>
+      lineClamp={7}
+    >
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui cum optio
         adipisci dolore itaque nobis unde tempore iusto ullam nisi cupiditate

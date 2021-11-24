@@ -36,7 +36,7 @@ const parseCSVFileContent = (
   fileContentAsText: any,
   file: File
 ): ParsedCSVDataType | null => {
-  // Transform readed csv file into procidable array
+  // Transform read csv file into processable array
   if (typeof fileContentAsText === 'string') {
     const csvData = {
       name: file.name,
@@ -78,7 +78,7 @@ const processCSVFileContent = (fileContentAsText: string, separator = ';') => {
     return rowObject;
   });
 
-  console.log('CSV-Array', csvArray);
+  console.log('Parsed CSV-Array', csvArray);
 
   return csvArray;
 };

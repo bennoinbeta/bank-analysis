@@ -1,10 +1,10 @@
-import { NullType } from '../../../../types/Utils';
 import {
   DatasetFormat,
   DatasetType,
 } from '../../../../core/entities/bank/bank.types';
 import { AgileTheme } from '../../../../styles/theme';
 import { hexToRgba } from '../../../../styles/theme/utils/hexToRgba';
+import { NullType } from '../../../../types/Utils';
 
 export const useChartData = (
   dataset: DatasetType | NullType,

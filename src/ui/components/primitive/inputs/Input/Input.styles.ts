@@ -1,9 +1,11 @@
-import { createStyles } from '../../../../../styles';
-import { ExtractStylesType } from 'create-styles';
-import { AgileNumberSize, AgileTheme } from '../../../../../styles/theme';
-import { css } from '@emotion/react';
-import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
 import React from 'react';
+
+import { UseStylesExtractStylesType } from '@dyst/react';
+import { css } from '@emotion/react';
+
+import { styleSheet } from '../../../../../styles';
+import { AgileNumberSize, AgileTheme } from '../../../../../styles/theme';
+import { getSizeValue } from '../../../../../styles/theme/utils/getSizeValue';
 
 export const inputSizes = {
   xs: 30,
@@ -58,26 +60,28 @@ function getDisabledStyles({
     : null;
 }
 
-export const useStyles = createStyles<InputStyles>()(
-  ({
-    theme,
-    params: {
-      size,
-      multiline,
-      radius,
-      invalid,
-      disabled,
-      rightSection,
-      leftSection,
-    },
-  }) => {
-    return {
-      root: css`
-        position: relative;
-        border-radius: ${getSizeValue(radius, theme.radius)};
-      `,
+export const useStyles = styleSheet
+  .withParams<InputStyles>()
+  .create(
+    ({
+      theme,
+      params: {
+        size,
+        multiline,
+        radius,
+        invalid,
+        disabled,
+        rightSection,
+        leftSection,
+      },
+    }) => {
+      return {
+        root: css`
+          position: relative;
+          border-radius: ${getSizeValue(radius, theme.radius)};
+        `,
 
-      input: css`
+        input: css`
         display: block;
         text-align: left;
         appearance: none;
@@ -142,51 +146,51 @@ export const useStyles = createStyles<InputStyles>()(
         },
       `,
 
-      withLeftSection: css`
-        padding-left: ${leftSection?.width ??
-        getSizeValue(size, inputSizes) / 1.1}px !important;
-      `,
+        withLeftSection: css`
+          padding-left: ${leftSection?.width ??
+          getSizeValue(size, inputSizes) / 1.1}px !important;
+        `,
 
-      withRightSection: css`
-        padding-right: ${rightSection?.width ??
-        getSizeValue(size, inputSizes)}px !important;
-      `,
+        withRightSection: css`
+          padding-right: ${rightSection?.width ??
+          getSizeValue(size, inputSizes)}px !important;
+        `,
 
-      leftSection: css`
-        position: absolute;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        bottom: 0;
+        leftSection: css`
+          position: absolute;
+          z-index: 1;
+          left: 0;
+          top: 0;
+          bottom: 0;
 
-        width: ${leftSection?.width ?? getSizeValue(size, inputSizes)}px;
+          width: ${leftSection?.width ?? getSizeValue(size, inputSizes)}px;
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
-        pointer-events: none;
-        color: ${invalid
-          ? theme.colors.denotive.error
-          : theme.colors.layout.rHc};
-      `,
+          pointer-events: none;
+          color: ${invalid
+            ? theme.colors.denotive.error
+            : theme.colors.layout.rHc};
+        `,
 
-      rightSection: css`
-        position: absolute;
-        z-index: 1;
-        top: 0;
-        bottom: 0;
-        right: 0;
+        rightSection: css`
+          position: absolute;
+          z-index: 1;
+          top: 0;
+          bottom: 0;
+          right: 0;
 
-        width: ${leftSection?.width ?? getSizeValue(size, inputSizes)}px;
+          width: ${leftSection?.width ?? getSizeValue(size, inputSizes)}px;
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      `,
-    };
-  }
-);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        `,
+      };
+    }
+  );
 
 type InputStyles = {
   radius: AgileNumberSize;
@@ -206,4 +210,4 @@ type InputStyles = {
   };
 };
 
-export type ExtractedStylesType = ExtractStylesType<typeof useStyles>;
+export type ExtractedStylesType = UseStylesExtractStylesType<typeof useStyles>;

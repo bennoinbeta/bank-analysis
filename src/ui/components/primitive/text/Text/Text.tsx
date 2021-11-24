@@ -1,14 +1,15 @@
 import React from 'react';
+
 import {
   PolymorphicComponentProps,
   PolymorphicRef,
 } from '../../../../../styles';
-import { ExtractedStylesType, useStyles } from './Text.styles';
 import {
-  DefaultProps,
   AgileGradient,
   AgileNumberSize,
+  DefaultProps,
 } from '../../../../../styles/theme';
+import { ExtractedStylesType, useStyles } from './Text.styles';
 
 const Text: TextComponent = React.forwardRef(
   <C extends React.ElementType = 'p'>(
@@ -60,7 +61,8 @@ const Text: TextComponent = React.forwardRef(
             [classes.withInherit]: inherit,
           },
           className
-        )}>
+        )}
+      >
         {children}
       </Element>
     );

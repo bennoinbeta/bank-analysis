@@ -1,6 +1,8 @@
 import React from 'react';
 import { Bar, Line } from 'react-chartjs-2';
+
 import styled from '@emotion/styled';
+
 import Text from '../../../components/primitive/text/Text';
 
 const Chart: React.FC<Props> = (props) => {

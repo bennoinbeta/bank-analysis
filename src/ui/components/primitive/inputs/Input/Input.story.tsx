@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import Input from './Input';
+
+import { css } from '@emotion/react';
+import { storiesOf } from '@storybook/react';
+
 import { DEFAULT_SIZES } from '../../../../../styles/theme';
 import Icon from '../../../icons';
-import { storiesOf } from '@storybook/react';
-import { css } from '@emotion/react';
+import Input from './Input';
 
 function ValidInvalid() {
   const [valid, setValid] = useState(false);
@@ -20,7 +22,8 @@ function ValidInvalid() {
       <button
         type="button"
         onClick={() => setValid(!valid)}
-        style={{ marginTop: 20 }}>
+        style={{ marginTop: 20 }}
+      >
         toggle
       </button>
     </div>
