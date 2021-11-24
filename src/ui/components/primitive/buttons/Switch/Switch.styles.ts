@@ -1,5 +1,5 @@
+import { UseStylesExtractStylesType } from '@dyst/react';
 import { css } from '@emotion/react';
-import { UseStylesExtractStylesType } from 'dynamic-styles';
 
 import { styleSheet } from '../../../../../styles';
 import { AgileNumberSize } from '../../../../../styles/theme';

@@ -1,7 +1,7 @@
 import React from 'react';
 
+import { UseStylesExtractStylesType } from '@dyst/react';
 import { css } from '@emotion/react';
-import { UseStylesExtractStylesType } from 'dynamic-styles';
 
 import { styleSheet } from '../../../../../styles';
 import { AgileNumberSize, AgileTheme } from '../../../../../styles/theme';

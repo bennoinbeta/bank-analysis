@@ -1,4 +1,4 @@
-import { UseStylesExtractStylesType } from 'dynamic-styles';
+import { UseStylesExtractStylesType } from '@dyst/react';
 
 import { styleSheet } from '../../../../../styles';
 import { HeadingElement } from './Title';

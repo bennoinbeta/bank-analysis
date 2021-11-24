@@ -4,8 +4,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { useAgile, useEvent } from '@agile-ts/react';
+import { NormalizeCSS } from '@dyst/react';
 import { ThemeProvider } from '@emotion/react';
-import { NormalizeCSS } from 'dynamic-styles';
 
 import core, { ui } from './core';
 import AppRouter from './routing/AppRouter';

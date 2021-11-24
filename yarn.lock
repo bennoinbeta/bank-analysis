@@ -1678,6 +1678,13 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.5.tgz#9283c9ce5b289a3c4f61c12757469e59377f81f3"
   integrity sha512-6nFkfkmSeV/rqSaS4oWHgmpnYw194f6hmWF5is6b0J1naJZoiD0NTc9AiUwPHvWsowkjuHErCZT1wa0jg+BLIA==
 
+"@dyst/react@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@dyst/react/-/react-0.0.5.tgz#beca5977eeb66df5cce657e4a7694cf13a51bbc0"
+  integrity sha512-MpIUuXoweplVDnpt1uAPS6wP4bBJI4iBcAdlYnssE97TwVeMpiJ11Z060BgljNnzOYEGlnhm1xBvTwtvQISFxA==
+  dependencies:
+    clsx "^1.1.1"
+
 "@emotion/babel-plugin@^11.3.0":
   version "11.3.0"
   resolved "https://registry.yarnpkg.com/@emotion/babel-plugin/-/babel-plugin-11.3.0.tgz#3a16850ba04d8d9651f07f3fb674b3436a4fb9d7"
@@ -7232,13 +7239,6 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
-
-dynamic-styles@^0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/dynamic-styles/-/dynamic-styles-0.0.9.tgz#3f1f930a5cfe2b6f1728c927b4b42693777050a6"
-  integrity sha512-lJVhNossMfyj7YTYTOs4rR7brOVWPrp20UDuRT70JTiwuRdnLB3D4JSXI+pfer/5VUdB9fU6CLbdRZbtaqnlKQ==
-  dependencies:
-    clsx "^1.1.1"
 
 ee-first@1.1.1:
   version "1.1.1"

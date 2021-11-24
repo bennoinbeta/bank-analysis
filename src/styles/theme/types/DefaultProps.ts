@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ExpandedStylesType, StylesData } from 'dynamic-styles';
+import { ExpandedStylesType, StylesData } from '@dyst/react';
 
 import { MapToX } from '../../types';
 import { AgileTheme } from './AgileTheme';
