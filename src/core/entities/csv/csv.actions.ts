@@ -32,14 +32,14 @@ export const parseCSVFile = (file: File): Promise<ParsedCSVDataType | null> => {
   });
 };
 
-const parseCSVFileContent = (
+export const parseCSVFileContent = (
   fileContentAsText: any,
-  file: File
+  file: File | string
 ): ParsedCSVDataType | null => {
   // Transform read csv file into processable array
   if (typeof fileContentAsText === 'string') {
     const csvData = {
-      name: file.name,
+      name: typeof file === 'string' ? file : file.name,
       data: processCSVFileContent(fileContentAsText),
       parseTimestamp: Date.now(),
     };

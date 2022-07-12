@@ -10,7 +10,7 @@ import PageLayout from '../../components/layout/PageLayout';
 import Switch from '../../components/primitive/buttons/Switch';
 import Text from '../../components/primitive/text/Text';
 import DropZone from './components/DropZone';
-import { onDrop } from './controller';
+import { onDrop, onExample } from './controller';
 
 const HomeScreen: React.FC = () => {
   const [isLoading, isBankDataPersisted] = useAgile(
@@ -39,18 +39,7 @@ const HomeScreen: React.FC = () => {
                 }
                 label={'Persist bank data'}
               />
-              <ExampleButton
-                onClick={() => {
-                  // TODO get file
-
-                  const response = fetch(
-                    'https://raw.githubusercontent.com/bennodev19/bank-analysis/master/static/example-csv-data.csv'
-                  );
-                  console.log({ response });
-
-                  // onDrop()
-                }}
-                size={'xs'}>
+              <ExampleButton onClick={onExample} size={'xs'}>
                 Example
               </ExampleButton>
             </DropZoneFooter>
