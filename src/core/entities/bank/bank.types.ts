@@ -7,7 +7,7 @@ export type BankFileDataType = {
 
 export type BankDataType = {
   date: Date;
-  'receiver/sender': string;
+  'receiver/sender'?: string;
   currency: 'EUR';
   amount: number;
   'debit/credit': 'D' | 'C';

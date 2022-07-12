@@ -84,13 +84,14 @@ export const parseCSVData = (
     )
       continue;
 
+    // Optional
     // Parse 'Receiver/Sender'
-    if (
-      !parse('receiver/sender', (value) => {
-        return { parsedValue: value.toString(), valid: true };
-      })
-    )
-      continue;
+    // if (
+    //   !parse('receiver/sender', (value) => {
+    //     return { parsedValue: value.toString(), valid: true };
+    //   })
+    // )
+    //   continue;
 
     // Parse 'Currency'
     if (
