@@ -19,7 +19,7 @@ export const parseCSVData = (
   csvData: ParsedCSVDataType,
   tolerance = 10
 ): BankFileDataType | null => {
-  const parsedData: BankFileDataType = {
+  const parsedBankFileData: BankFileDataType = {
     name: csvData.name,
     parseTimestamp: csvData.parseTimestamp,
     data: [], // date, currency, amount, debit/credit, receiver/sender
@@ -42,7 +42,11 @@ export const parseCSVData = (
   let invalidRows = 0;
 
   // Process raw CSV data
-  for (let i = 0; i < formattedCSVData.data.length && parsedData.valid; i++) {
+  for (
+    let i = 0;
+    i < formattedCSVData.data.length && parsedBankFileData.valid;
+    i++
+  ) {
     const data = formattedCSVData.data[i];
     const dataKeys = Object.keys(data);
     const newData: BankDataType = {} as any;
@@ -74,7 +78,7 @@ export const parseCSVData = (
       }
 
       // Make whole dataset invalid if more than in the tolerance specified rows are invalid
-      if (invalidRows > tolerance) parsedData.valid = valid;
+      if (invalidRows > tolerance) parsedBankFileData.valid = valid;
       if (!valid) invalidRows++;
 
       return valid;
@@ -152,15 +156,38 @@ export const parseCSVData = (
       continue;
 
     // Add valid data to the parsed dataset
-    parsedData.data.push(newData);
+    parsedBankFileData.data.push(newData);
   }
 
   // Apply parsed data to global store
-  if (parsedData.valid) {
-    BANK_DATA.nextStateValue.push(parsedData);
+  if (parsedBankFileData.valid) {
+    BANK_DATA.nextStateValue.push(parsedBankFileData);
+
+    // Combine datasets to one shared set if more than one dataset was added
+    if (BANK_DATA.nextStateValue.length > 1) {
+      // Extend Combined Data field with new data field
+      if (BANK_DATA.nextStateValue[0].name === 'Combined') {
+        BANK_DATA.nextStateValue[0].data =
+          BANK_DATA.nextStateValue[0].data.concat(parsedBankFileData.data);
+      }
+      // Add Combined Data field
+      else {
+        let combinedData: BankDataType[] = [];
+        for (const item of BANK_DATA.nextStateValue) {
+          combinedData = combinedData.concat(item.data);
+        }
+        BANK_DATA.nextStateValue.unshift({
+          name: 'Combined',
+          parseTimestamp: Date.now(),
+          valid: true,
+          data: combinedData,
+        });
+      }
+    }
+
     BANK_DATA.ingest();
 
-    return parsedData;
+    return parsedBankFileData;
   }
 
   ui.toast('Failed to parse CSV File to processable Bank data!');
