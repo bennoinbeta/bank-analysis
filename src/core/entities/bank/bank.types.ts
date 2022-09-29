@@ -1,5 +1,5 @@
 export type BankFileDataType = {
-  data: BankDataType[];
+  dataset: BankDataType[];
   name: string;
   parseTimestamp: number;
   valid: boolean;
@@ -17,10 +17,16 @@ export type BankDataType = {
 
 export type DatasetType = {
   labels: string[];
+};
+
+export type TagBasedDatasetType = {
+  tagAmounts: { [key: string]: number }[];
+} & DatasetType;
+
+export type TimeBasedDatasetType = {
   endAmounts: number[];
   creditDebitAmounts: { credit: number; debit: number }[];
-  tagAmounts: { [key: string]: number }[];
-};
+} & DatasetType;
 
 export type BankDataPaths<T> = {
   [K in keyof T]: T[K] extends any ? K : never;

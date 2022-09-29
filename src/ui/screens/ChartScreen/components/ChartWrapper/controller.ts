@@ -24,7 +24,7 @@ export const getTotalData = (file: BankFileDataType, fixed = 2) => {
   let totalDebit = 0;
   let totalCredit = 0;
 
-  file.data.forEach((item) => {
+  file.dataset.forEach((item) => {
     if (item['debit/credit'] === 'D') totalDebit += item.amount;
     else if (item['debit/credit'] === 'C') totalCredit += item.amount;
   });

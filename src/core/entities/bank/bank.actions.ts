@@ -4,28 +4,26 @@ import { PARSED_CSV_FILES } from '../csv/csv.controller';
 import { ParsedCSVDataType } from '../csv/csv.types';
 import { getDecimal, unformatMoney } from '../money/money.actions';
 import ui from '../ui';
-import { dateToString, getDatesBetween } from '../utils/utils.actions';
 import { parseGermanDate } from '../utils/utils.actions';
 import { BANK_DATA, IS_PERSISTED } from './bank.controller';
 import {
   BankDataPaths,
   BankDataType,
   BankFileDataType,
-  DatasetType,
   Tag,
-  TimeFormat,
   tagIdentifiers,
 } from './bank.types';
-import { banksFormatter } from './banks';
+import { ChartDataFormatter } from './services/ChartDataFormatter';
+import { banksFormatter } from './services/banksFormatter';
 
 export const parseCSVData = (
   csvData: ParsedCSVDataType,
   tolerance = 10
 ): BankFileDataType | null => {
-  const parsedBankFileData: BankFileDataType = {
+  const parsedBankFileDataset: BankFileDataType = {
     name: csvData.name,
     parseTimestamp: csvData.parseTimestamp,
-    data: [], // date, currency, amount, debit/credit, receiver/sender
+    dataset: [], // date, currency, amount, debit/credit, receiver/sender
     valid: true,
   };
 
@@ -47,7 +45,7 @@ export const parseCSVData = (
   // Process raw CSV data
   for (
     let i = 0;
-    i < formattedCSVData.data.length && parsedBankFileData.valid;
+    i < formattedCSVData.data.length && parsedBankFileDataset.valid;
     i++
   ) {
     const data = formattedCSVData.data[i];
@@ -81,7 +79,7 @@ export const parseCSVData = (
       }
 
       // Make whole dataset invalid if more than in the tolerance specified rows are invalid
-      if (invalidRows > tolerance) parsedBankFileData.valid = valid;
+      if (invalidRows > tolerance) parsedBankFileDataset.valid = valid;
       if (!valid) invalidRows++;
 
       return valid;
@@ -184,165 +182,63 @@ export const parseCSVData = (
     newData.tags = tags;
 
     // Add valid data to the parsed dataset
-    parsedBankFileData.data.push(newData);
+    parsedBankFileDataset.dataset.push(newData);
   }
 
   // Apply parsed data to global store
-  if (parsedBankFileData.valid) {
-    console.log('Final Bank Data', { parsedBankFileData });
+  if (parsedBankFileDataset.valid) {
+    console.log('Final Bank Data', {
+      parsedBankFileData: parsedBankFileDataset,
+    });
 
-    BANK_DATA.nextStateValue.push(parsedBankFileData);
+    BANK_DATA.nextStateValue.push(parsedBankFileDataset);
 
     // Combine datasets to one shared set if more than one dataset was added
     if (BANK_DATA.nextStateValue.length > 1) {
       // Extend Combined Data field with new data field
       if (BANK_DATA.nextStateValue[0].name === 'Combined') {
-        BANK_DATA.nextStateValue[0].data =
-          BANK_DATA.nextStateValue[0].data.concat(parsedBankFileData.data);
+        BANK_DATA.nextStateValue[0].dataset =
+          BANK_DATA.nextStateValue[0].dataset.concat(
+            parsedBankFileDataset.dataset
+          );
       }
       // Add Combined Data field
       else {
         let combinedData: BankDataType[] = [];
         for (const item of BANK_DATA.nextStateValue) {
-          combinedData = combinedData.concat(item.data);
+          combinedData = combinedData.concat(item.dataset);
         }
         BANK_DATA.nextStateValue.unshift({
           name: 'Combined',
           parseTimestamp: Date.now(),
           valid: true,
-          data: combinedData,
+          dataset: combinedData,
         });
       }
     }
 
     BANK_DATA.ingest();
 
-    return parsedBankFileData;
+    return parsedBankFileDataset;
   }
 
   ui.toast('Failed to parse CSV File to processable Bank data!');
   return null;
 };
 
-const isCredit = (item: BankDataType) => {
-  return item['debit/credit'] === 'C';
-};
-
-const isDebit = (item: BankDataType) => {
-  return item['debit/credit'] === 'D';
-};
-
-export const getDataset = (
-  bankData: BankFileDataType,
-  format: TimeFormat = TimeFormat.MONTH
-): { name: string; dataset: DatasetType } | null => {
-  if (bankData != null) {
-    const dataFormatter = new ChartDataFormatter(bankData);
-    return {
-      name: bankData.name,
-      dataset: dataFormatter.formatDataTimeBased(format),
-    };
-  }
-
-  return {
-    name: 'unknown',
-    dataset: {
-      labels: [],
-      endAmounts: [],
-      creditDebitAmounts: [],
-      tagAmounts: [],
-    },
-  };
-};
-
-class ChartDataFormatter {
-  public data: readonly BankDataType[];
-
-  constructor(bankData: BankFileDataType) {
-    const sortedBankData = bankData.data.sort(
-      (a, b) => a.date.getTime() - b.date.getTime()
-    );
-    this.data = sortedBankData; // Object.freeze(sortedBankData); Freezing doesn't work properly because of sorting idk
-  }
-
-  public formatDataTimeBased(type: TimeFormat): DatasetType {
-    let dateFormat = 'DD/MM/YYYY';
-    if (type === TimeFormat.MONTH) dateFormat = 'MM/YYYY';
-    if (type === TimeFormat.YEAR) dateFormat = 'YYYY';
-
-    const dataset: DatasetType = {
-      labels: [],
-      endAmounts: [],
-      creditDebitAmounts: [],
-      tagAmounts: [],
-    };
-
-    // Map data to labels
-    for (let i = 0; i < this.data.length; i++) {
-      const data = copy(this.data[i]);
-      const label = dateToString(data.date, dateFormat);
-      const labelIndex = dataset.labels.indexOf(label);
-      const exists = labelIndex !== -1;
-
-      // Add date label
-      if (!exists) dataset.labels.push(label);
-
-      // Add end amount
-      const dateAmount = data.amount * (isDebit(data) ? -1 : 1);
-      if (!exists) {
-        dataset.endAmounts.push(dateAmount);
-      } else {
-        dataset.endAmounts[labelIndex] =
-          dataset.endAmounts[labelIndex] + dateAmount;
-      }
-
-      // Add credit/debit amount
-      if (!exists) {
-        dataset.creditDebitAmounts.push({
-          credit: isCredit(data) ? data.amount : 0,
-          debit: isDebit(data) ? data.amount : 0,
-        });
-      } else {
-        const creditDebit = isDebit(data) ? 'debit' : 'credit';
-        dataset.creditDebitAmounts[labelIndex][creditDebit] += data.amount;
-      }
-
-      // Add tag amount
-      // TODO support tags
-      if (!exists) {
-        dataset.tagAmounts.push({});
-      } else {
-        // TODO
-      }
-
-      // Fill gap between this and the next data date
-      if (!exists && i + 1 < this.data.length) {
-        getDatesBetween(data.date, this.data[i + 1].date, type).forEach(
-          (date) => {
-            // Add placeholder label
-            dataset.labels.push(dateToString(date, dateFormat));
-
-            // Add placeholder end amount
-            dataset.endAmounts.push(0);
-
-            // Add placeholder cred/debit amount
-            dataset.creditDebitAmounts.push({
-              credit: 0,
-              debit: 0,
-            });
-
-            // Add placeholder tag amount
-            dataset.tagAmounts.push({});
-          }
-        );
-      }
+export const { getChartDataFormatter } = (() => {
+  let chartFormatter: ChartDataFormatter | null = null;
+  const getChartDataFormatter = (): ChartDataFormatter => {
+    if (chartFormatter == null) {
+      chartFormatter = new ChartDataFormatter();
     }
+    return chartFormatter;
+  };
 
-    return dataset;
-  }
-}
+  return { getChartDataFormatter };
+})();
 
-export async function persistBankData() {
+export async function persistBankDataset() {
   if (BANK_DATA.persistent != null) {
     await BANK_DATA.persistent.persistValue();
   } else {
@@ -351,7 +247,7 @@ export async function persistBankData() {
       onSave: (value: BankFileDataType[]) => {
         return copy(value).map((bankFileData) => {
           const newBankFileData = bankFileData;
-          newBankFileData.data = newBankFileData.data.map((data) => {
+          newBankFileData.dataset = newBankFileData.dataset.map((data) => {
             data.date = data.date.getTime() as any;
             return data;
           });
@@ -361,7 +257,7 @@ export async function persistBankData() {
       onMigrate: (value) => {
         return value.map((bankFileData: any) => {
           const newBankFileData = bankFileData as BankFileDataType;
-          newBankFileData.data = newBankFileData.data.map((data) => {
+          newBankFileData.dataset = newBankFileData.dataset.map((data) => {
             data.date = new Date(data.date);
             return data;
           });

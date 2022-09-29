@@ -1,4 +1,4 @@
-import { banksFormatter } from '../bank/banks';
+import { banksFormatter } from '../bank/services/banksFormatter';
 import ui from '../ui';
 import { PARSED_CSV_FILES } from './csv.controller';
 import { ParsedCSVDataType } from './csv.types';

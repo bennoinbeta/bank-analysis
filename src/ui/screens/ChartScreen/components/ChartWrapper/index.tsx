@@ -64,7 +64,8 @@ const ChartWrapper: React.FC<Props> = (props) => {
   // Chart Data
   const selectedFile = data[selectedFileIndex];
   const chartData = useChartData(
-    bank.getDataset(selectedFile, timeFormat)?.dataset,
+    selectedFile,
+    timeFormat,
     datasetFormat,
     theme
   );

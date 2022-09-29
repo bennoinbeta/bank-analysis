@@ -1,4 +1,4 @@
-import { ParsedCSVDataType } from '../csv/csv.types';
+import { ParsedCSVDataType } from '../../csv/csv.types';
 
 export const banksFormatter: BankFormatterType = {
   vrbank_v2: {
