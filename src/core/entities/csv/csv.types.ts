@@ -1,5 +1,5 @@
 export type ParsedCSVDataType = {
   name: string;
   parseTimestamp: number;
-  data: { [key: string]: any }[];
+  data: Record<string, string>[];
 };

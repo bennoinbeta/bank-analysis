@@ -13,6 +13,7 @@ import {
   BankFileDataType,
   DatasetType,
 } from './bank.types';
+import { banksFormatter } from './banks';
 
 export const parseCSVData = (
   csvData: ParsedCSVDataType,
@@ -21,15 +22,28 @@ export const parseCSVData = (
   const parsedData: BankFileDataType = {
     name: csvData.name,
     parseTimestamp: csvData.parseTimestamp,
-    data: [],
+    data: [], // date, currency, amount, debit/credit, receiver/sender
     valid: true,
   };
+
+  // Format CSVData
+  const keys = Object.keys(banksFormatter);
+  let formatType: string | null = null;
+  for (const key of keys) {
+    if (csvData.name.toLowerCase().startsWith(key)) {
+      formatType = key;
+    }
+  }
+  const formattedCSVData =
+    formatType != null
+      ? banksFormatter[formatType].onFormatRawData(csvData)
+      : csvData;
 
   let invalidRows = 0;
 
   // Process raw CSV data
-  for (let i = 0; i < csvData.data.length && parsedData.valid; i++) {
-    const data = csvData.data[i];
+  for (let i = 0; i < formattedCSVData.data.length && parsedData.valid; i++) {
+    const data = formattedCSVData.data[i];
     const dataKeys = Object.keys(data);
     const newData: BankDataType = {} as any;
 
@@ -99,7 +113,7 @@ export const parseCSVData = (
         const validCurrencies = ['EUR', 'USD'];
         const response = { parsedValue: null as any, valid: false };
 
-        // Check wether specified currency is valid
+        // Check whether specified currency is valid
         if (validCurrencies.includes(value)) {
           response.parsedValue = value;
           response.valid = true;
@@ -125,13 +139,10 @@ export const parseCSVData = (
     if (
       !parse('debit/credit', (value) => {
         const response = { parsedValue: null as any, valid: false };
-        const parsedValue = value
-          .replace('H', 'C') // Replace 'Haben' with 'Credit'
-          .replace('S', 'D'); // Replace 'Soll' with 'Debit'
 
-        // Check wether specified 'debit/credit' indicator is valid
-        if (['D', 'C'].includes(parsedValue)) {
-          response.parsedValue = parsedValue;
+        // Check whether specified 'debit/credit' indicator is valid
+        if (['D', 'C'].includes(value)) {
+          response.parsedValue = value;
           response.valid = true;
         }
 
@@ -152,7 +163,7 @@ export const parseCSVData = (
     return parsedData;
   }
 
-  ui.toast('Failed to parse CSV File to proceedable Bank data!');
+  ui.toast('Failed to parse CSV File to processable Bank data!');
   return null;
 };
 

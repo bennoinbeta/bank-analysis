@@ -1,3 +1,4 @@
+import { banksFormatter } from '../bank/banks';
 import ui from '../ui';
 import { PARSED_CSV_FILES } from './csv.controller';
 import { ParsedCSVDataType } from './csv.types';
@@ -38,9 +39,10 @@ export const parseCSVFileContent = (
 ): ParsedCSVDataType | null => {
   // Transform read csv file into processable array
   if (typeof fileContentAsText === 'string') {
+    const fileName = typeof file === 'string' ? file : file.name;
     const csvData = {
-      name: typeof file === 'string' ? file : file.name,
-      data: processCSVFileContent(fileContentAsText),
+      name: fileName,
+      data: processCSVFileContent(fileContentAsText, fileName),
       parseTimestamp: Date.now(),
     };
 
@@ -54,20 +56,34 @@ export const parseCSVFileContent = (
   return null;
 };
 
-const processCSVFileContent = (fileContentAsText: string, separator = ';') => {
-  // Extract first line of CSV file
-  const headers = fileContentAsText
-    .slice(0, fileContentAsText.indexOf('\n'))
-    .split(separator)
-    .map((v) => v.replace('\r', ''));
-
+const processCSVFileContent = (
+  fileContentAsText: string,
+  fileName: string,
+  separator = ';'
+) => {
   // Extract CSV rows
-  const rows = fileContentAsText
-    .slice(fileContentAsText.indexOf('\n') + 1)
-    .split('\n');
+  const rows = fileContentAsText.split('\n');
 
-  const csvArray = rows.map((row) => {
-    const rowObject: { [key: string]: string } = {};
+  // Format Rows
+  const keys = Object.keys(banksFormatter);
+  let formatType: string | null = null;
+  for (const key of keys) {
+    if (fileName.toLowerCase().startsWith(key)) {
+      formatType = key;
+    }
+  }
+  const formattedRows =
+    formatType != null ? banksFormatter[formatType].onFormatRows(rows) : rows;
+
+  // Extract first line of CSV file and parse it to header
+  let headers: string[] = [];
+  if (formattedRows.length > 0) {
+    headers = formattedRows[0].split(separator).map((v) => v.replace('\r', ''));
+    formattedRows.shift(); // remove header (first row) from formattedRows, which are transformed to the data
+  }
+
+  const csvArray = formattedRows.map((row) => {
+    const rowObject: Record<string, string> = {};
     const values = row.split(separator);
 
     // Map row values into an object with the extracted header keys
@@ -78,7 +94,7 @@ const processCSVFileContent = (fileContentAsText: string, separator = ';') => {
     return rowObject;
   });
 
-  console.log('Parsed CSV-Array', csvArray);
+  console.log('Parsed CSV-Array', { csvArray });
 
   return csvArray;
 };
