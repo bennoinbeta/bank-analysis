@@ -13,6 +13,7 @@ import {
   BankFileDataType,
   DatasetType,
   Tag,
+  TimeFormat,
   tagIdentifiers,
 } from './bank.types';
 import { banksFormatter } from './banks';
@@ -233,7 +234,7 @@ const isDebit = (item: BankDataType) => {
 
 export const getDataset = (
   bankData: BankFileDataType,
-  format: 'month' | 'day' | 'year' = 'month'
+  format: TimeFormat = TimeFormat.MONTH
 ): { name: string; dataset: DatasetType } | null => {
   if (bankData != null) {
     const dataFormatter = new ChartDataFormatter(bankData);
@@ -264,10 +265,10 @@ class ChartDataFormatter {
     this.data = sortedBankData; // Object.freeze(sortedBankData); Freezing doesn't work properly because of sorting idk
   }
 
-  public formatDataTimeBased(type: 'day' | 'month' | 'year'): DatasetType {
+  public formatDataTimeBased(type: TimeFormat): DatasetType {
     let dateFormat = 'DD/MM/YYYY';
-    if (type === 'month') dateFormat = 'MM/YYYY';
-    if (type === 'year') dateFormat = 'YYYY';
+    if (type === TimeFormat.MONTH) dateFormat = 'MM/YYYY';
+    if (type === TimeFormat.YEAR) dateFormat = 'YYYY';
 
     const dataset: DatasetType = {
       labels: [],

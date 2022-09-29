@@ -27,8 +27,17 @@ export type BankDataPaths<T> = {
 }[keyof T] &
   string;
 
-export type TimeFormat = 'month' | 'day' | 'year';
-export type DatasetFormat = 'endAmounts' | 'creditDebitAmounts';
+export enum TimeFormat {
+  MONTH = 'month',
+  DAY = 'day',
+  YEAR = 'year',
+}
+
+export enum DatasetFormat {
+  END_AMOUNTS = 'endAmounts',
+  CREDIT_DEBIT_AMOUNTS = 'creditDebitAmounts',
+  CATEGORY = 'category',
+}
 
 export enum Tag {
   CONSUME = 'consume',

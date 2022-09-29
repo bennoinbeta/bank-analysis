@@ -26,10 +26,11 @@ const ChartWrapper: React.FC<Props> = (props) => {
   const theme = useAgileTheme();
 
   // Selected NativeSelect State
-  const [timeFormat, setTimeFormat] = useState<TimeFormat>('month');
+  const [timeFormat, setTimeFormat] = useState<TimeFormat>(TimeFormat.MONTH);
   const [selectedFileIndex, setSelectedFileIndex] = useState(0);
-  const [datasetFormat, setDatasetFormat] =
-    useState<DatasetFormat>('creditDebitAmounts');
+  const [datasetFormat, setDatasetFormat] = useState<DatasetFormat>(
+    DatasetFormat.CREDIT_DEBIT_AMOUNTS
+  );
   const [chartType, setChartType] = useState<ChartTypes>('line');
 
   // NativeSelect Datasets

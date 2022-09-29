@@ -8,11 +8,11 @@ import { NullType } from '../../../../types/Utils';
 
 export const useChartData = (
   dataset: DatasetType | NullType,
-  type: DatasetFormat = 'endAmounts',
+  type: DatasetFormat = DatasetFormat.END_AMOUNTS,
   theme: AgileTheme
 ): any => {
   if (dataset != null) {
-    if (type === 'endAmounts') {
+    if (type === DatasetFormat.END_AMOUNTS) {
       const backgroundColors = dataset.endAmounts.map((val: any) =>
         val > 0
           ? hexToRgba(theme.primitiveColors.blue, 0.2)
@@ -43,7 +43,7 @@ export const useChartData = (
       };
     }
 
-    if (type === 'creditDebitAmounts') {
+    if (type === DatasetFormat.CREDIT_DEBIT_AMOUNTS) {
       const creditDataset = dataset.creditDebitAmounts.map((val) => val.credit);
       const debitDataset = dataset.creditDebitAmounts.map((val) => val.debit);
 
@@ -73,6 +73,10 @@ export const useChartData = (
           },
         },
       };
+    }
+
+    if (type === DatasetFormat.CATEGORY) {
+      // TODO
     }
   }
 
