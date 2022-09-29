@@ -44,13 +44,17 @@ const ChartWrapper: React.FC<Props> = (props) => {
     })
     .reverse();
   const timeFormatSelectData = [
-    { label: 'Day', value: 'day' },
-    { label: 'Month', value: 'month' },
-    { label: 'Year', value: 'year' },
+    { label: 'Day', value: TimeFormat.DAY },
+    { label: 'Month', value: TimeFormat.MONTH },
+    { label: 'Year', value: TimeFormat.YEAR },
   ];
   const datasetFormatSelectData = [
-    { label: 'Credit/Debit Amounts', value: 'creditDebitAmounts' },
-    { label: 'End Amounts', value: 'endAmounts' },
+    {
+      label: 'Credit/Debit Amounts',
+      value: DatasetFormat.CREDIT_DEBIT_AMOUNTS,
+    },
+    { label: 'End Amounts', value: DatasetFormat.END_AMOUNTS },
+    { label: 'Category', value: DatasetFormat.CATEGORY },
   ];
   const chartTypeSelectData = [
     { label: 'Line', value: 'line' },

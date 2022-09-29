@@ -30,6 +30,11 @@ export const useChartData = (
             data: dataset.endAmounts,
             backgroundColor: backgroundColors,
             borderColor: borderColors,
+            segment: {
+              borderColor: (ctx: any) =>
+                up(ctx, 'rgba(54, 162, 235, 1)') ||
+                down(ctx, 'rgba(255, 99, 132, 1)'),
+            },
             borderWidth: 1,
           },
         ],
@@ -81,4 +86,13 @@ export const useChartData = (
   }
 
   return null;
+};
+
+const up = (ctx: any, value: any) => {
+  console.log({ ctx });
+  return ctx.p0.parsed.y < ctx.p1.parsed.y ? value : undefined;
+};
+const down = (ctx: any, value: any) => {
+  console.log({ ctx });
+  return ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
 };
