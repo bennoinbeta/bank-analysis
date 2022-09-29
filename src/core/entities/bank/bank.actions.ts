@@ -12,6 +12,8 @@ import {
   BankDataType,
   BankFileDataType,
   DatasetType,
+  Tag,
+  tagIdentifiers,
 } from './bank.types';
 import { banksFormatter } from './banks';
 
@@ -102,14 +104,21 @@ export const parseCSVData = (
     )
       continue;
 
-    // Optional
     // Parse 'Receiver/Sender'
-    // if (
-    //   !parse('receiver/sender', (value) => {
-    //     return { parsedValue: value.toString(), valid: true };
-    //   })
-    // )
-    //   continue;
+    if (
+      !parse('receiver/sender', (value) => {
+        return { parsedValue: value.toString(), valid: true };
+      })
+    )
+      continue;
+
+    // Parse 'Description'
+    if (
+      !parse('description', (value) => {
+        return { parsedValue: value.toString(), valid: true };
+      })
+    )
+      continue;
 
     // Parse 'Currency'
     if (
@@ -155,12 +164,32 @@ export const parseCSVData = (
     )
       continue;
 
+    // Apply Tags
+    let tags: Tag[] = [];
+    for (const identifier of tagIdentifiers) {
+      for (const i of identifier.identifiers) {
+        if (
+          (newData['receiver/sender'] != null &&
+            newData['receiver/sender']
+              ?.toLowerCase()
+              .includes(i.toLowerCase())) ||
+          (newData['description'] != null &&
+            newData['description']?.toLowerCase().includes(i.toLowerCase()))
+        ) {
+          tags = tags.concat(identifier.tags);
+        }
+      }
+    }
+    newData.tags = tags;
+
     // Add valid data to the parsed dataset
     parsedBankFileData.data.push(newData);
   }
 
   // Apply parsed data to global store
   if (parsedBankFileData.valid) {
+    console.log('Final Bank Data', { parsedBankFileData });
+
     BANK_DATA.nextStateValue.push(parsedBankFileData);
 
     // Combine datasets to one shared set if more than one dataset was added
