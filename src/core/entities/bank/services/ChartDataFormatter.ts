@@ -98,14 +98,6 @@ export class ChartDataFormatter {
           const labelIndex = chartDataset.labels.indexOf(label);
           const exists = labelIndex !== -1;
 
-          if (tag === Tag.TRADE_REPUBLIC) {
-            console.log({
-              'debit/credit': data['debit/credit'],
-              amount: data.amount,
-              data,
-            });
-          }
-
           // Add date label
           if (!exists) chartDataset.labels.push(label);
 
