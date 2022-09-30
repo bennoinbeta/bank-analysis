@@ -1,7 +1,13 @@
 import { copy } from '@agile-ts/utils';
 
 import { dateToString, getDatesBetween } from '../../utils/utils.actions';
-import { BankDataType, TimeBasedDatasetType, TimeFormat } from '../bank.types';
+import {
+  BankDataType,
+  Tag,
+  TagBasedDatasetType,
+  TimeBasedDatasetType,
+  TimeFormat,
+} from '../bank.types';
 
 export class ChartDataFormatter {
   public formatDataTimeBased(
@@ -72,12 +78,55 @@ export class ChartDataFormatter {
       }
     }
 
+    console.log({ chartDataset });
+
     return chartDataset;
   }
 
-  // public formatDataTagBased(dataset: BankDataType[]): TagBasedDatasetType {
-  //   // TODO
-  // }
+  public formatDataTagBased(dataset: BankDataType[]): TagBasedDatasetType {
+    const chartDataset: TagBasedDatasetType = {
+      labels: [],
+      tagAmounts: [],
+    };
+
+    // Map data to labels
+    for (let i = 0; i < dataset.length; i++) {
+      const data = copy(dataset[i]);
+      if (data.tags != null) {
+        for (const tag of data.tags) {
+          const label = tag;
+          const labelIndex = chartDataset.labels.indexOf(label);
+          const exists = labelIndex !== -1;
+
+          if (tag === Tag.TRADE_REPUBLIC) {
+            console.log({
+              'debit/credit': data['debit/credit'],
+              amount: data.amount,
+              data,
+            });
+          }
+
+          // Add date label
+          if (!exists) chartDataset.labels.push(label);
+
+          // Add credit/debit amount
+          if (!exists) {
+            chartDataset.tagAmounts.push({
+              credit: this.isCredit(data) ? data.amount : 0,
+              debit: this.isDebit(data) ? data.amount : 0,
+            });
+          } else {
+            const creditDebit = this.isDebit(data) ? 'debit' : 'credit';
+            chartDataset.tagAmounts[labelIndex][creditDebit] += data.amount;
+          }
+        }
+      }
+    }
+
+    console.log({ chartDataset });
+
+    return chartDataset;
+  }
 
   private isCredit(item: BankDataType) {
     return item['debit/credit'] === 'C';

@@ -20,7 +20,7 @@ export type DatasetType = {
 };
 
 export type TagBasedDatasetType = {
-  tagAmounts: { [key: string]: number }[];
+  tagAmounts: { credit: number; debit: number }[];
 } & DatasetType;
 
 export type TimeBasedDatasetType = {
@@ -46,6 +46,7 @@ export enum DatasetFormat {
 }
 
 export enum Tag {
+  UNCATEGORIZED = 'uncategorized',
   CONSUME = 'consume',
   INVESTMENT = 'investment',
   TRANSPORTATION = 'transportation',
@@ -81,6 +82,11 @@ export enum Tag {
   NETFLIX = 'netflix',
   BAANGGOOD = 'baanggood',
   EBAY_KLEINANZEIGEN = 'ebay-kleinanzeigen',
+  MEDIA_MARKT = 'media-markt',
+  ADIDAS = 'adidas',
+  KOMOOT = 'komoot',
+  UDEMY = 'udemy',
+  BUSINESS = 'business',
 }
 
 export const tagIdentifiers: TagIdentifierType[] = [
@@ -124,7 +130,7 @@ export const tagIdentifiers: TagIdentifierType[] = [
     tags: [Tag.INVESTMENT, Tag.DOMAIN, Tag.GODADDY],
   },
   {
-    identifiers: ['Adyen B.B.', 'ADYEN N.V.', 'Babbel.com'],
+    identifiers: ['Babbel'],
     tags: [Tag.LEARNING, Tag.BABEL],
   },
   { identifiers: ['AUDIBLE'], tags: [Tag.CONSUME, Tag.AMAZON_AUDIBLE] },
@@ -143,6 +149,11 @@ export const tagIdentifiers: TagIdentifierType[] = [
   { identifiers: ['Vivid'], tags: [Tag.TRANSFER] },
   { identifiers: ['Teachable'], tags: [Tag.LEARNING] },
   { identifiers: ['Cali Move'], tags: [Tag.LEARNING, Tag.FITNESS] },
+  { identifiers: ['Media Markt'], tags: [Tag.CONSUME, Tag.MEDIA_MARKT] },
+  { identifiers: ['Adidas'], tags: [Tag.CONSUME, Tag.ADIDAS] },
+  { identifiers: ['Adidas'], tags: [Tag.CONSUME, Tag.KOMOOT] },
+  { identifiers: ['Udemy'], tags: [Tag.LEARNING, Tag.UDEMY] },
+  { identifiers: ['N26 Business Konto'], tags: [Tag.INVESTMENT, Tag.BUSINESS] },
 ];
 
 type TagIdentifierType = { identifiers: string[]; tags: Tag[] };

@@ -99,12 +99,38 @@ export const useChartData = (
   }
 
   if (type === DatasetFormat.CATEGORY) {
-    const chartDataset = dataFormatter.formatDataTimeBased(
-      selectedFile.dataset,
-      timeFormat
-    );
+    const chartDataset = dataFormatter.formatDataTagBased(selectedFile.dataset);
+
     if (chartDataset != null) {
-      // TODO
+      const creditDataset = chartDataset.tagAmounts.map((val) => val.credit);
+      const debitDataset = chartDataset.tagAmounts.map((val) => val.debit);
+
+      return {
+        labels: chartDataset.labels,
+        datasets: [
+          {
+            label: 'Credit',
+            data: creditDataset,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1,
+          },
+          {
+            label: 'Debit',
+            data: debitDataset,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1,
+          },
+        ],
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      };
     }
   }
 

@@ -175,11 +175,20 @@ export const parseCSVData = (
           (newData['description'] != null &&
             newData['description']?.toLowerCase().includes(i.toLowerCase()))
         ) {
-          tags = tags.concat(identifier.tags);
+          // Check whether same tag was already identified in an earlier identifier
+          for (const tag of identifier.tags) {
+            if (!tags.includes(tag)) {
+              tags.push(tag);
+            }
+          }
         }
       }
     }
     newData.tags = tags;
+
+    if (newData.tags.length === 0) {
+      newData.tags.push(Tag.UNCATEGORIZED);
+    }
 
     // Add valid data to the parsed dataset
     parsedBankFileDataset.dataset.push(newData);

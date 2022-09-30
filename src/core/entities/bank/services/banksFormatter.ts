@@ -15,7 +15,9 @@ export const banksFormatter: BankFormatterType = {
 
         formattedDataRow['date'] = data['Buchungstag'];
         formattedDataRow['currency'] = data['Waehrung'];
-        formattedDataRow['amount'] = data['Betrag']?.replace('-', '');
+        formattedDataRow['amount'] = data['Betrag']
+          ?.replace('-', '')
+          .replace('.', '');
         const isNegative = data['Betrag']?.startsWith('-');
         formattedDataRow['debit/credit'] = isNegative ? 'D' : 'C';
         formattedDataRow['receiver/sender'] = data['Name Zahlungsbeteiligter'];
@@ -57,7 +59,9 @@ export const banksFormatter: BankFormatterType = {
 
         formattedDataRow['date'] = data['Buchungstag'];
         formattedDataRow['currency'] = data['W�hrung'];
-        formattedDataRow['amount'] = data['Umsatz'];
+        formattedDataRow['amount'] = data['Umsatz']
+          // To remove the thousander dot (e.g. 3.000,00 -> 3000,00)
+          ?.replace('.', '');
         formattedDataRow['debit/credit'] = data['Soll/Haben']
           .replace('H', 'C') // Replace 'Haben' with 'Credit'
           .replace('S', 'D'); // Replace 'Soll' with 'Debit'
